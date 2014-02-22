@@ -8,7 +8,7 @@
 var request = require('request'); // library to make requests to remote urls
 
 var moment = require("moment"); // date manipulation library
-var astronautModel = require("../models/astronaut.js"); //db model
+//var astronautModel = require("../models/astronaut.js"); //db model
 
 
 /*
@@ -25,6 +25,8 @@ exports.index = function(req, res) {
 	// 3) callback function with (err, results)
 	//    err will include any error that occurred
 	//	  allAstros is our resulting array of astronauts
+	
+	/*
 	astronautModel.find({}, 'name slug source', function(err, allAstros){
 
 		if (err) {
@@ -42,8 +44,15 @@ exports.index = function(req, res) {
 		res.render('index.html', templateData);
 
 	});
+	*/
 
+	var templateData = {
+		astros: "",
+		pageTitle : ""
+	}
+	res.render('index.html', templateData);
 }
+/*
 
 exports.data_all = function(req, res) {
 
@@ -66,9 +75,7 @@ exports.data_all = function(req, res) {
 
 }
 
-/*
-	GET /astronauts/:astro_id
-*/
+
 exports.detail = function(req, res) {
 
 	console.log("detail page requested for " + req.params.astro_id);
@@ -160,9 +167,6 @@ exports.data_detail = function(req, res) {
 
 }
 
-/*
-	GET /create
-*/
 exports.astroForm = function(req, res){
 
 	var templateData = {
@@ -172,9 +176,7 @@ exports.astroForm = function(req, res){
 	res.render('create_form.html', templateData);
 }
 
-/*
-	POST /create
-*/
+
 exports.createAstro = function(req, res) {
 	
 	console.log("received form submission");
@@ -455,5 +457,5 @@ exports.set_session = function(req, res) {
 
 
 
-
+*/
 
