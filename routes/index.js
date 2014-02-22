@@ -8,7 +8,7 @@
 var request = require('request'); // library to make requests to remote urls
 
 var moment = require("moment"); // date manipulation library
-//var astronautModel = require("../models/astronaut.js"); //db model
+var astronautModel = require("../models/astronaut.js"); //db model
 
 
 /*
@@ -26,7 +26,6 @@ exports.index = function(req, res) {
 	//    err will include any error that occurred
 	//	  allAstros is our resulting array of astronauts
 	
-	/*
 	astronautModel.find({}, 'name slug source', function(err, allAstros){
 
 		if (err) {
@@ -44,13 +43,7 @@ exports.index = function(req, res) {
 		res.render('index.html', templateData);
 
 	});
-	*/
-
-	var templateData = {
-		astros: "",
-		pageTitle : ""
-	}
-	res.render('index.html', templateData);
+	
 }
 /*
 
