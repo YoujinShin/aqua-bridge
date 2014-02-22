@@ -6,7 +6,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 
 // the ExpressJS App
