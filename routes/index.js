@@ -45,7 +45,7 @@ exports.index = function(req, res) {
 	});
 	
 }
-/*
+
 
 exports.data_all = function(req, res) {
 
@@ -450,5 +450,5 @@ exports.set_session = function(req, res) {
 
 
 
-*/
+
 
