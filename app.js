@@ -2,12 +2,12 @@
 /**
  * Module dependencies.
  */
+ // aqua-framework.herokuapp.com
 
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
-
 
 // the ExpressJS App
 var app = express();
@@ -74,6 +74,17 @@ var routes = require('./routes/index.js');
 
 app.get('/', routes.index);
 
+app.get('/tech', routes.tech);
+
+app.get('/area', routes.area);
+
+app.get('/team', routes.team);
+
+app.get('/contact', routes.contact);
+
+app.get('/water', routes.water); // data input page
+
+/*
 //new astronaut routes
 app.get('/create',routes.astroForm); //display form
 app.post('/create',routes.createAstro); //form POST submits here
@@ -100,6 +111,7 @@ app.get('/remote_api_demo', routes.remote_api);
 
 
 app.post('/set_session', routes.set_session);
+*/
 
 // create NodeJS HTTP server using 'app'
 http.createServer(app).listen(app.get('port'), function(){

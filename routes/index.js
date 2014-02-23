@@ -6,7 +6,6 @@
  */
 
 var request = require('request'); // library to make requests to remote urls
-
 var moment = require("moment"); // date manipulation library
 var astronautModel = require("../models/astronaut.js"); //db model
 
@@ -14,8 +13,38 @@ var astronautModel = require("../models/astronaut.js"); //db model
 /*
 	GET /
 */
+
 exports.index = function(req, res) {
-	
+	console.log("main page requested");
+	res.render('index.html');
+}
+
+exports.tech = function(req, res) {
+	console.log("tech page requested");
+	res.render('tech.html');
+}
+
+exports.area = function(req, res) {
+	console.log("area page requested");
+	res.render('area.html');
+}
+
+exports.team = function(req, res) {
+	console.log("team page requested");
+	res.render('team.html');
+}
+
+exports.contact = function(req, res) {
+	console.log("contact page requested");
+	res.render('contact.html');
+}
+
+/*
+exports.index = function(req, res) {
+
+	console.log("main page resquested");
+	res.render('index.html');
+
 	console.log("main page requested");
 
 	// query for all astronauts
@@ -31,7 +60,6 @@ exports.index = function(req, res) {
 		if (err) {
 			res.send("Unable to query database for astronauts").status(500);
 		};
-
 		console.log("retrieved " + allAstros.length + " astronauts from database");
 
 		//build and render template
@@ -41,11 +69,8 @@ exports.index = function(req, res) {
 		}
 
 		res.render('index.html', templateData);
-
 	});
-	
 }
-
 
 exports.data_all = function(req, res) {
 
@@ -447,6 +472,7 @@ exports.set_session = function(req, res) {
 	res.redirect('/');
 
 }
+*/
 
 
 
