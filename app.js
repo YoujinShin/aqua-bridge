@@ -82,7 +82,20 @@ app.get('/team', routes.team);
 
 app.get('/contact', routes.contact);
 
-app.get('/water', routes.water); // data input page
+// water quality data  
+app.get('/water', routes.water); // display form
+app.post('/water',routes.createWater); //form POST submits here
+
+// display a single quality data
+app.get('/quality/:quality_id', routes.oneWater);
+
+// sms data
+app.get('/sms', routes.sms); // sms data input page
+
+app.get('/dataviz', routes.dataviz); // data visualization
+
+app.get('/datamapping', routes.datamapping); // data mapping
+
 
 /*
 //new astronaut routes
@@ -109,24 +122,12 @@ app.get('/data/astronauts/:astro_id', routes.data_detail);
 // consume a remote API
 app.get('/remote_api_demo', routes.remote_api);
 
-
 app.post('/set_session', routes.set_session);
 */
 
 // create NodeJS HTTP server using 'app'
 http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+  console.log("Express server =listening on port " + app.get('port'));
 });
-
-
-
-
-
-
-
-
-
-
-
 
 

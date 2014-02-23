@@ -13,13 +13,11 @@ var nameValidation = function(val) {
 	}
 }
 
-
 // ship's log schema
 var shipLogSchema = new Schema({
 	date : Date,
 	content : String
 })
-
 
 // define astronaut schema
 var AstronautSchema = new Schema({
@@ -38,6 +36,5 @@ var AstronautSchema = new Schema({
     shiplogs : [shipLogSchema]
 });
 
-
 // export 'Astronaut' model
-module.exports = mongoose.model('Astronaut',AstronautSchema);
+module.exports = mongoose.model('Astronaut', AstronautSchema);

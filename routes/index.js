@@ -1,4 +1,3 @@
-
 /*
  * routes/index.js
  * 
@@ -7,12 +6,8 @@
 
 var request = require('request'); // library to make requests to remote urls
 var moment = require("moment"); // date manipulation library
-var astronautModel = require("../models/astronaut.js"); //db model
-
-
-/*
-	GET /
-*/
+var qualityModel = require("../models/quality.js"); //db model
+//var astronautModel = require("../models/astronaut.js"); //db model
 
 exports.index = function(req, res) {
 	console.log("main page requested");
@@ -37,6 +32,130 @@ exports.team = function(req, res) {
 exports.contact = function(req, res) {
 	console.log("contact page requested");
 	res.render('contact.html');
+}
+
+// water quality data
+exports.water = function(req, res) {
+	console.log("water quality input page requested");
+	res.render('water_form.html');
+}
+
+exports.createWater = function(req, res) {
+	console.log("received water data form submission");
+	//console.log(req.body);
+
+	// accept form post data
+	var newQuality = new qualityModel({
+		reference : req.body.reference,
+		photo : req.body.photoUrl,
+		qualitydata : {
+			petrifilm : req.body.quality_pet,
+			boilert : req.body.quality_boil
+		},
+		slug : req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
+
+	});
+
+	// you can also add properties with the . (dot) notation
+	if (req.body.installdate) {
+		newQuality.installdate = moment(req.body.installdate).toDate();
+	}
+
+	// walked on moon checkbox
+	if (req.body.quality_col) {
+		newQuality.quality_col = true;
+	}
+	
+	// save the newAstro to the database
+	newQuality.save(function(err){
+		if (err) {
+			console.error("Error on saving new water quality data");
+			console.error(err); // log out to Terminal all errors
+
+			var templateData = {
+				page_title : 'Enlist a new quality',
+				errors : err.errors, 
+				quality : req.body
+			};
+
+			res.render('water_form.html', templateData);
+			// return res.send("There was an error when creating a new astronaut");
+
+		} else {
+			console.log("Created a new quality!");
+			console.log(newQuality);
+			
+			// redirect to the astronaut's page
+			res.redirect('/quality/'+ newQuality.slug)
+		}
+	});
+}
+
+exports.oneWater = function(req, res) {
+
+	console.log("one water data page requested for " + req.params.quality_id);
+
+	//get the requested astronaut by the param on the url :astro_id
+	var quality_id = req.params.quality_id;
+
+	// query the database for astronaut
+	var qualityQuery = qualityModel.findOne({slug:quality_id});
+	qualityQuery.exec(function(err, currentQuality){
+
+		if (err) {
+			return res.status(500).send("There was an error on the quality query");
+		}
+
+		if (currentQuality == null) {
+			return res.status(404).render('404.html');
+		}
+
+		console.log("Found quality");
+		console.log(currentQuality.reference);
+
+		// // formattedBirthdate function for currentAstronaut
+		// currentAstronaut.formattedBirthdate = function() {
+		// 	// formatting a JS date with moment
+		// 	// http://momentjs.com/docs/#/displaying/format/
+  //           return moment(this.birthdate).format("dddd, MMMM Do YYYY");
+  //       };
+		
+		//query for all astronauts, return only name and slug
+		qualityModel.find({}, 'name slug', function(err, allQuality){
+
+			console.log("retrieved all quality : " + allQuality.length);
+
+			//prepare template data for view
+			var templateData = {
+				quality : currentQuality,
+				qualities : allQuality,
+				pageTitle : currentQuality.reference
+			}
+
+			// render and return the template
+			res.render('oneWater.html', templateData);
+
+		}) // end of .find (all) query
+		
+	}); // end of .findOne query
+
+}
+
+
+// sms data
+exports.sms = function(req, res) {
+	console.log("sms data page requested");
+	res.render("sms.html");
+}
+
+exports.dataviz = function(req, res) {
+	console.log("data viz page requested");
+	res.render("dataviz.html");
+}
+
+exports.datamapping = function(req, res) {
+	console.log("data mapping page requested");
+	res.render("datamapping.html");
 }
 
 /*
@@ -84,8 +203,7 @@ exports.data_all = function(req, res) {
 		// prepare data for JSON
 		var jsonData = {
 			status : 'OK',
-			astros : allAstros
-			
+			astros : allAstros	
 		}
 
 		res.json(jsonData);
@@ -138,7 +256,6 @@ exports.detail = function(req, res) {
 			// render and return the template
 			res.render('detail.html', templateData);
 
-
 		}) // end of .find (all) query
 		
 	}); // end of .findOne query
@@ -163,7 +280,6 @@ exports.data_detail = function(req, res) {
 		if (currentAstronaut == null) {
 			return res.status(404).render('404.html');
 		}
-
 
 		// formattedBirthdate function for currentAstronaut
 		currentAstronaut.formattedBirthdate = function() {
@@ -473,8 +589,4 @@ exports.set_session = function(req, res) {
 
 }
 */
-
-
-
-
 

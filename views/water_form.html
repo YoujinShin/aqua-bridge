@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="span8">
+		<h3>Water quality</h3>
+
+		<form method="POST" action="/water">
+
+			<label for="reference">
+				{{#errors.reference}}
+				<span class="help-block alert alert-error">{{type}}</span>
+				{{/errors.reference}}
+
+				Reference <input type="text" name="reference" class="required" id="reference" value="{{quality.reference}}" required>	
+			</label>
+
+			<label for="installdate">
+				{{#errors.installdate}}
+				<span class="help-block alert alert-error">{{type}}</span>
+				{{/errors.installdate}}
+
+				Install date <input type="date" name="installdate" id="installdate" value="{{quality.installdate}}"> 
+			</label>		
+
+			<label for="photoUrl">
+				{{#errors.photo}}
+				<span class="help-block alert alert-error">{{type}}</span>
+				{{/errors.photo}}
+
+				Photo URL <input type="text" name="photoUrl" id="photoUrl" value="{{quality.photoUrl}}"> 
+			</label>
+
+			<label for="quality_pet">
+				Petrifilm <input type="text" name="quality_pet" id="quality_pet" value="{{quality.quality_pet}}"> 
+			</label>
+			
+			<label for="quality_boil">
+				Boilert <input type="text" name="quality_boil" id="quality_boil" value="{{quality.quality_boil}}"> 
+			</label>
+
+			<label for="quality_col">
+				Coilert <input type="checkbox" name="quality_col" id="quality_col" {{#quality.quality_col}}checked{{/quality.quality_col}}> 
+			</label>
+
+			<input type="submit" value="Add Data">
+
+		</form>
+	</div>
+</div>
+
+
