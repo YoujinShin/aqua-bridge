@@ -1,8 +1,9 @@
 
 /**
  * Module dependencies.
+ * aqua-framework.herokuapp.com
  */
- // aqua-framework.herokuapp.com
+
 
 var express = require('express');
 var http = require('http');
@@ -55,7 +56,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
 /* 
 SKIPPING FOR FUTURE CLASSES
 SESSIONS w/ MongoDB (store sessions across multiple dynos)
@@ -68,8 +68,8 @@ COOKIEHASH in your .env file (also share with heroku)
 //   })
 // );
 
-// ROUTES
 
+// ROUTES
 var routes = require('./routes/index.js');
 
 app.get('/', routes.index);
@@ -90,7 +90,10 @@ app.post('/water',routes.createWater); //form POST submits here
 app.get('/quality/:quality_id', routes.oneWater);
 
 // sms data
-app.get('/sms', routes.sms); // sms data input page
+app.post('/sms', routes.sms);
+
+//app.get('/sms', routes.sms); // sms data input page
+//app.post('/sms', routes.getSms);
 
 app.get('/dataviz', routes.dataviz); // data visualization
 

@@ -9,6 +9,10 @@ var moment = require("moment"); // date manipulation library
 var qualityModel = require("../models/quality.js"); //db model
 //var astronautModel = require("../models/astronaut.js"); //db model
 
+var Twilio = require('twilio-js');
+Twilio.AccountSid = 'AC057a2d8192eae97fdafe9dbc6c688dc6';
+Twilio.AuthToken  = '086057d5fc72ca6b195f967fce2ba375';
+
 exports.index = function(req, res) {
 	console.log("main page requested");
 	res.render('index.html');
@@ -115,8 +119,8 @@ exports.oneWater = function(req, res) {
 
 		// // formattedBirthdate function for currentAstronaut
 		// currentAstronaut.formattedBirthdate = function() {
-		// 	// formatting a JS date with moment
-		// 	// http://momentjs.com/docs/#/displaying/format/
+		//	// formatting a JS date with moment
+		//	// http://momentjs.com/docs/#/displaying/format/
   //           return moment(this.birthdate).format("dddd, MMMM Do YYYY");
   //       };
 		
@@ -138,13 +142,39 @@ exports.oneWater = function(req, res) {
 		}) // end of .find (all) query
 		
 	}); // end of .findOne query
-
 }
-
 
 // sms data
 exports.sms = function(req, res) {
-	console.log("sms data page requested");
+	console.log("sms page requested");
+
+	var message = req.body.Body;
+	var to = req.body.To;
+
+	console.log(message + " : " + to);
+
+	// var body, to, from;
+	// // This goes through the Twilio Database and pulls out all texts sent to twilio
+	// Twilio.SMS.all(function(err, res) {
+	// 	if(err) {
+	// 		console.log(err);
+	// 	}
+
+	// 	body = res.smsMessages[0].body;
+	// 	to = res.smsMessages[0].to;
+	// 	from = res.smsMessages[0].from;
+
+	// 	console.log('body : ' + res.smsMessages[0].body);
+	// 	console.log('to : ' + res.smsMessages[0].to);
+	// 	console.log('from : ' + res.smsMessages[0].from);
+
+	// }, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
+
+	// var templateData = {
+	// 	temp_body : body,
+	// 	temp_to : to
+	// }
+	// console.log(templateData);
 	res.render("sms.html");
 }
 
