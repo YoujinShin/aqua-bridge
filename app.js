@@ -91,10 +91,9 @@ app.get('/quality/:quality_id', routes.oneWater);
 
 // sms data
 app.get('/sms', routes.sms);
-app.post('/sms', routes.getSms);
 
-//app.get('/sms', routes.sms); // sms data input page
-//app.post('/sms', routes.getSms);
+app.post('/incoming', routes.incoming);
+
 
 app.get('/dataviz', routes.dataviz); // data visualization
 

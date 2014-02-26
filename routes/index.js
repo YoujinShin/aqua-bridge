@@ -147,45 +147,37 @@ exports.oneWater = function(req, res) {
 // sms data
 exports.sms = function(req, res) {
 	console.log("sms page requested");
+
+	// This goes through the Twilio Database and pulls out all texts sent to twilio
+	Twilio.SMS.all(function(err, res) {
+
+		// console.log('body : ' + res.smsMessages[0].body);
+		// console.log('to : ' + res.smsMessages[0].to);
+		// console.log('from : ' + res.smsMessages[0].from);
+		console.log(res.smsMessages);
+
+	}, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
 	res.render("sms.html");
 }
 
-exports.getSms = function(req, res) {
-	console.log("sms page requested");
+exports.incoming = function(req, res) {
+	console.log("incoming sms");
 
 	var message = req.body.Body;
-	var to = req.body.To;
+ 	var to = req.body.To;
+  
+	var smsTextData = {
+		from: req.body.To,
+		body: req.body.Body
+	};
+  
+	// var mySms = new SMS(smsTextData);
+ // 	mySms.save();
+ 	console.log(smsTextData);
 
-	var templateData = {
-		temp_body : message,
-		temp_to : to
-	}
-
-	console.log(message + " : " + to);
-
-	// var body, to, from;
-	// // This goes through the Twilio Database and pulls out all texts sent to twilio
-	// Twilio.SMS.all(function(err, res) {
-	// 	if(err) {
-	// 		console.log(err);
-	// 	}
-
-	// 	body = res.smsMessages[0].body;
-	// 	to = res.smsMessages[0].to;
-	// 	from = res.smsMessages[0].from;
-
-	// 	console.log('body : ' + res.smsMessages[0].body);
-	// 	console.log('to : ' + res.smsMessages[0].to);
-	// 	console.log('from : ' + res.smsMessages[0].from);
-
-	// }, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
-
-	// var templateData = {
-	// 	temp_body : body,
-	// 	temp_to : to
-	// }
-	// console.log(templateData);
-	res.render("sms.html", templateData);
+	Twilio.SMS.create({to: to, from: "+16464309130", body: message}, function(err,res) {
+		console.log('SMS Sent!');
+	});
 }
 
 exports.dataviz = function(req, res) {
