@@ -163,22 +163,22 @@ exports.sms = function(req, res) {
 exports.incoming = function(req, res) {
 	console.log("incoming sms");
 
-	var message = req.body.Body;
- 	var to = req.body.To;
- 	var from = req.body.From;
+	var get_message = req.body.Body;
+ 	var get_to = req.body.To;
+ 	var get_from = req.body.From;
   
-	var smsTextData = {
-		to: req.body.To,
-		body: req.body.Body
-	};
+	// var smsTextData = {
+	// 	to: req.body.To,
+	// 	body: req.body.Body
+	// };
   
 	// var mySms = new SMS(smsTextData);
  // 	mySms.save();
- 	console.log('message: ' + message);
- 	console.log('to: ' + to);
- 	console.log('from: ' + from);
+ 	console.log('message: ' + get_message);
+ 	console.log('to: ' + get_to);
+ 	console.log('from: ' + get_from);
 
-	Twilio.SMS.create({to: to, from: from, body: 'Thanks', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
+	Twilio.SMS.create({to: get_from, from: get_to, body: 'Thanks', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
