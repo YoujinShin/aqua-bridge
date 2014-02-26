@@ -178,7 +178,7 @@ exports.incoming = function(req, res) {
  	console.log('to: ' + get_to);
  	console.log('from: ' + get_from);
 
-	Twilio.SMS.create({to: get_from, from: get_to, body: 'Thanks', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
+	Twilio.SMS.create({to: get_from, from: get_to, body: 'Thanks -youjin-', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
