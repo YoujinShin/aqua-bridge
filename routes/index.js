@@ -151,6 +151,11 @@ exports.sms = function(req, res) {
 	var message = req.body.Body;
 	var to = req.body.To;
 
+	var templateData = {
+		temp_body : message,
+		temp_to : to
+	}
+
 	console.log(message + " : " + to);
 
 	// var body, to, from;
@@ -175,7 +180,7 @@ exports.sms = function(req, res) {
 	// 	temp_to : to
 	// }
 	// console.log(templateData);
-	res.render("sms.html");
+	res.render("sms.html", templateData);
 }
 
 exports.dataviz = function(req, res) {
