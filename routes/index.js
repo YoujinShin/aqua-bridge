@@ -167,15 +167,16 @@ exports.incoming = function(req, res) {
  	var to = req.body.To;
   
 	var smsTextData = {
-		from: req.body.To,
+		to: req.body.To,
 		body: req.body.Body
 	};
   
 	// var mySms = new SMS(smsTextData);
  // 	mySms.save();
- 	console.log(smsTextData);
+ 	console.log(message);
+ 	console.log(to);
 
-	Twilio.SMS.create({to: to, from: "+13479605166", body: message}, function(err,res) {
+	Twilio.SMS.create({to: to, from: '+13479605166', body: 'Thanks', accountSid: Twilio.AccountSid, connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
