@@ -147,6 +147,11 @@ exports.oneWater = function(req, res) {
 // sms data
 exports.sms = function(req, res) {
 	console.log("sms page requested");
+	res.render("sms.html");
+}
+
+exports.getSms = function(req, res) {
+	console.log("sms page requested");
 
 	var message = req.body.Body;
 	var to = req.body.To;
