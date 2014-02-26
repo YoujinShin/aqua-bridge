@@ -90,7 +90,7 @@ app.post('/water',routes.createWater); //form POST submits here
 app.get('/quality/:quality_id', routes.oneWater);
 
 // sms data
-app.post('/sms', routes.sms);
+app.get('/sms', routes.sms);
 
 //app.get('/sms', routes.sms); // sms data input page
 //app.post('/sms', routes.getSms);
