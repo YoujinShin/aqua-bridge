@@ -4,7 +4,6 @@
  * aqua-framework.herokuapp.com
  */
 
-
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -91,8 +90,7 @@ app.get('/quality/:quality_id', routes.oneWater);
 
 // sms data
 app.get('/sms', routes.sms);
-
-app.post('/incoming', routes.incoming);
+app.post('/incoming', routes.incoming); // get sms from Twilio
 
 
 app.get('/dataviz', routes.dataviz); // data visualization

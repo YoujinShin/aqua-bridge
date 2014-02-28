@@ -7,6 +7,7 @@
 var request = require('request'); // library to make requests to remote urls
 var moment = require("moment"); // date manipulation library
 var qualityModel = require("../models/quality.js"); //db model
+var smsModel = require("../models/sms.js");
 //var astronautModel = require("../models/astronaut.js"); //db model
 
 var Twilio = require('twilio-js');
@@ -54,10 +55,9 @@ exports.createWater = function(req, res) {
 		photo : req.body.photoUrl,
 		qualitydata : {
 			petrifilm : req.body.quality_pet,
-			boilert : req.body.quality_boil
+			boilert : '0'
 		},
 		slug : req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
-
 	});
 
 	// you can also add properties with the . (dot) notation
@@ -116,13 +116,6 @@ exports.oneWater = function(req, res) {
 
 		console.log("Found quality");
 		console.log(currentQuality.reference);
-
-		// // formattedBirthdate function for currentAstronaut
-		// currentAstronaut.formattedBirthdate = function() {
-		//	// formatting a JS date with moment
-		//	// http://momentjs.com/docs/#/displaying/format/
-  //           return moment(this.birthdate).format("dddd, MMMM Do YYYY");
-  //       };
 		
 		//query for all astronauts, return only name and slug
 		qualityModel.find({}, 'name slug', function(err, allQuality){
@@ -136,9 +129,7 @@ exports.oneWater = function(req, res) {
 				pageTitle : currentQuality.reference
 			}
 
-			// render and return the template
 			res.render('oneWater.html', templateData);
-
 		}) // end of .find (all) query
 		
 	}); // end of .findOne query
@@ -163,22 +154,33 @@ exports.sms = function(req, res) {
 exports.incoming = function(req, res) {
 	console.log("incoming sms");
 
-	var get_message = req.body.Body;
- 	var get_to = req.body.To;
- 	var get_from = req.body.From;
+	// var message = req.body.Body;
+ // 	var sender = req.body.From;
   
 	// var smsTextData = {
-	// 	to: req.body.To,
-	// 	body: req.body.Body
+	// 	sender: req.body.To,
+	// 	message: req.body.Body
 	// };
-  
-	// var mySms = new SMS(smsTextData);
- // 	mySms.save();
- 	console.log('message: ' + get_message);
- 	console.log('to: ' + get_to);
- 	console.log('from: ' + get_from);
 
-	Twilio.SMS.create({to: get_from, from: get_to, body: 'Thanks -youjin-', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
+	var mySms = new smsModel({
+		sender: req.body.To,
+		message: req.body.Body
+	});
+
+	mySms.save(function(err){ // save the mySms to the database
+		if (err) {
+			console.error("Error on saving new sms data");
+			console.error(err); // log out to Terminal all errors
+
+			res.render('sms.html', mySms);
+		} else {
+			console.log("Created a new sms data!");
+			console.log(mySms);
+		}
+	});
+
+    // Sms back to the sender
+	Twilio.SMS.create({to: sender, from: '+13479605166', body: message + ': Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
