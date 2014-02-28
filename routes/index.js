@@ -92,7 +92,7 @@ exports.createWater = function(req, res) {
 			console.log(newQuality);
 			
 			// redirect to the astronaut's page
-			res.redirect('/quality/'+ newQuality.slug)
+			res.redirect('/quality/'+ newQuality.slug);
 		}
 	});
 }
