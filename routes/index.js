@@ -47,7 +47,9 @@ exports.water = function(req, res) {
 
 exports.createWater = function(req, res) {
 	console.log("received water data form submission");
-	//console.log(req.body);
+	console.log(req.body);
+
+	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[-]HH[:]mm[:]ss[/]');
 
 	// accept form post data
 	var newQuality = new qualityModel({
@@ -55,9 +57,9 @@ exports.createWater = function(req, res) {
 		photo : req.body.photoUrl,
 		qualitydata : {
 			petrifilm : req.body.quality_pet,
-			boilert : '0'
+			//boilert : '0'
 		},
-		slug : req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
+		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	});
 
 	// you can also add properties with the . (dot) notation
@@ -69,7 +71,7 @@ exports.createWater = function(req, res) {
 	if (req.body.quality_col) {
 		newQuality.quality_col = true;
 	}
-	
+
 	// save the newAstro to the database
 	newQuality.save(function(err){
 		if (err) {
@@ -82,7 +84,7 @@ exports.createWater = function(req, res) {
 				quality : req.body
 			};
 
-			res.render('water_form.html', templateData);
+			//res.render('water_form.html', templateData);
 			// return res.send("There was an error when creating a new astronaut");
 
 		} else {
@@ -90,7 +92,7 @@ exports.createWater = function(req, res) {
 			console.log(newQuality);
 			
 			// redirect to the astronaut's page
-			res.redirect('/quality/'+ newQuality.slug)
+			r//es.redirect('/quality/'+ newQuality.slug)
 		}
 	});
 }
@@ -135,16 +137,53 @@ exports.oneWater = function(req, res) {
 	}); // end of .findOne query
 }
 
+exports.allWater = function(req, res) {
+
+	console.log("all quality data retrieved");
+	qualityQuery = qualityModel.find({}); // query for all astronauts
+	//smsQuery.sort('-birthdate');
+	
+	// display only 3 fields from astronaut data
+	qualityQuery.select('reference installdate colilert petrifilm lastupdated');
+	
+	qualityQuery.exec(function(err, allQuality){
+		// prepare data for JSON
+		var jsonData = {
+			status : 'OK',
+			quality : allQuality
+		}
+
+		res.json(jsonData);
+	});
+}
+
+exports.allsms = function(req, res) {
+
+	console.log("all sms data retrieved");
+	smsQuery = smsModel.find({}); // query for all astronauts
+	//smsQuery.sort('-birthdate');
+	
+	// display only 3 fields from astronaut data
+	smsQuery.select('sender message lastupdated');
+	
+	smsQuery.exec(function(err, allsms){
+		// prepare data for JSON
+		var jsonData = {
+			status : 'OK',
+			sms : allsms
+		}
+
+		res.json(jsonData);
+	});
+}
+
 // sms data
 exports.sms = function(req, res) {
 	console.log("sms page requested");
 
-	// This goes through the Twilio Database and pulls out all texts sent to twilio
-	Twilio.SMS.all(function(err, res) {
+	Twilio.SMS.all(function(err, res) { // all texts from Twilio database
 
 		// console.log('body : ' + res.smsMessages[0].body);
-		// console.log('to : ' + res.smsMessages[0].to);
-		// console.log('from : ' + res.smsMessages[0].from);
 		console.log(res.smsMessages);
 
 	}, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
@@ -174,7 +213,6 @@ exports.incoming = function(req, res) {
 		} else {
 			console.log("Created a new sms data!");
 			console.log(mySms);
-			res.render('sms.html', mySms);
 		}
 	});
 
@@ -202,7 +240,6 @@ exports.allsms = function(req, res) {
 
 		res.json(jsonData);
 	});
-
 }
 
 exports.dataviz = function(req, res) {
