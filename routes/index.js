@@ -162,15 +162,13 @@ exports.incoming = function(req, res) {
 	// 	message: req.body.Body
 	// };
    
-   var date = moment(this.date), formatted = date.format('YY[/]MM[/]DD[/]HHmmss[/]');
-  // formatted results in the format '2012/10/'
-
-   var tempDate = new Date();
+	var date = moment(this.date), formatted = date.format('YY[/]MM[/]DD[/]HHmmss[/]');
+	// formatted results in the format '2012/10/'
 
 	var mySms = new smsModel({
 		message: req.body.Body,
 		sender: req.body.From,
-		slug : tempDate + t_sender.replace(/[^\w\-]+/g, '') // Remove all non-word chars (fotmatted)
+		slug : formatted + t_sender.replace(/[^\w\-]+/g, '') // Remove all non-word chars (fotmatted)
 	});
 
 	mySms.save(function(err){ // save the mySms to the database
