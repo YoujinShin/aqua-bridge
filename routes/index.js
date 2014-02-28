@@ -161,10 +161,14 @@ exports.incoming = function(req, res) {
 	// 	sender: req.body.To,
 	// 	message: req.body.Body
 	// };
+   
+   var date = moment(this.date), formatted = date.format('YYYY[/]MM[/]');
+  // formatted results in the format '2012/10/'
 
 	var mySms = new smsModel({
 		message: req.body.Body,
-		sender: req.body.From
+		sender: req.body.From,
+		slug : formatted + req.body.sender
 	});
 
 	mySms.save(function(err){ // save the mySms to the database
