@@ -162,7 +162,7 @@ exports.incoming = function(req, res) {
 	// 	message: req.body.Body
 	// };
    
-   var date = moment(this.date), formatted = date.format('YYYY[/]MM[/]');
+   var date = moment(this.date), formatted = date.format('YY[/]MM[/]DD[/]HHmmss[/]');
   // formatted results in the format '2012/10/'
 
    var tempDate = new Date();
