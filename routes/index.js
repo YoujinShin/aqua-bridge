@@ -157,11 +157,6 @@ exports.incoming = function(req, res) {
 	var t_message = req.body.Body;
  	var t_sender = req.body.From;
   
-	// var smsTextData = {
-	// 	sender: req.body.To,
-	// 	message: req.body.Body
-	// };
-   
 	var date = moment(this.date), formatted = date.format('YY[/]MM[/]DD[/]HHmmss[/]');
 	// formatted results in the format '2012/10/'
 
@@ -187,6 +182,26 @@ exports.incoming = function(req, res) {
 	Twilio.SMS.create({to: t_sender, from: '+13479605166', body: t_message + ': Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
+}
+
+exports.allsms = function(req, res) {
+
+	smsQuery = smsModel.find({}); // query for all astronauts
+	//smsQuery.sort('-birthdate');
+	
+	// display only 3 fields from astronaut data
+	smsQuery.select('sender message');
+	
+	smsQuery.exec(function(err, allsms){
+		// prepare data for JSON
+		var jsonData = {
+			status : 'OK',
+			sms : allsms
+		}
+
+		res.json(jsonData);
+	});
+
 }
 
 exports.dataviz = function(req, res) {
@@ -249,7 +264,6 @@ exports.data_all = function(req, res) {
 
 		res.json(jsonData);
 	});
-
 }
 
 
