@@ -186,6 +186,7 @@ exports.incoming = function(req, res) {
 
 exports.allsms = function(req, res) {
 
+	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all astronauts
 	//smsQuery.sort('-birthdate');
 	
