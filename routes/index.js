@@ -83,7 +83,6 @@ exports.createWater = function(req, res) {
 				errors : err.errors, 
 				quality : req.body
 			};
-
 			res.render('water_form.html', templateData);
 			// return res.send("There was an error when creating a new astronaut");
 

@@ -84,6 +84,7 @@ app.get('/contact', routes.contact);
 // water quality data  
 app.get('/water', routes.water); // display form
 app.post('/createWater', routes.createWater); //form POST submits here
+app.get('/allWater', routes.allWater);
 
 // display a single quality data
 app.get('/quality/:quality_id', routes.oneWater);
