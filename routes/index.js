@@ -168,7 +168,7 @@ exports.incoming = function(req, res) {
 	var mySms = new smsModel({
 		message: req.body.Body,
 		sender: req.body.From,
-		slug : formatted + req.body.sender
+		slug : formatted + t_sender.replace(/[^\w\-]+/g, '') // Remove all non-word chars
 	});
 
 	mySms.save(function(err){ // save the mySms to the database
