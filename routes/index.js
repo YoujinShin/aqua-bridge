@@ -84,7 +84,7 @@ exports.createWater = function(req, res) {
 				quality : req.body
 			};
 
-			//res.render('water_form.html', templateData);
+			res.render('water_form.html', templateData);
 			// return res.send("There was an error when creating a new astronaut");
 
 		} else {
@@ -92,7 +92,7 @@ exports.createWater = function(req, res) {
 			console.log(newQuality);
 			
 			// redirect to the astronaut's page
-			r//es.redirect('/quality/'+ newQuality.slug)
+			res.redirect('/quality/'+ newQuality.slug)
 		}
 	});
 }
