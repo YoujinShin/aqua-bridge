@@ -191,7 +191,7 @@ exports.allsms = function(req, res) {
 	//smsQuery.sort('-birthdate');
 	
 	// display only 3 fields from astronaut data
-	smsQuery.select('sender message');
+	smsQuery.select('sender message lastupdated');
 	
 	smsQuery.exec(function(err, allsms){
 		// prepare data for JSON
