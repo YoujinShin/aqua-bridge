@@ -154,8 +154,8 @@ exports.sms = function(req, res) {
 exports.incoming = function(req, res) {
 	console.log("incoming sms");
 
-	// var message = req.body.Body;
- // 	var sender = req.body.From;
+	var t_message = req.body.Body;
+ 	var t_sender = req.body.From;
   
 	// var smsTextData = {
 	// 	sender: req.body.To,
@@ -163,24 +163,24 @@ exports.incoming = function(req, res) {
 	// };
 
 	var mySms = new smsModel({
-		sender: req.body.To,
-		message: req.body.Body
+		message: req.body.Body,
+		sender: req.body.From
 	});
 
 	mySms.save(function(err){ // save the mySms to the database
 		if (err) {
 			console.error("Error on saving new sms data");
 			console.error(err); // log out to Terminal all errors
-
-			res.render('sms.html', mySms);
+			
 		} else {
 			console.log("Created a new sms data!");
 			console.log(mySms);
+			res.render('sms.html', mySms);
 		}
 	});
 
     // Sms back to the sender
-	Twilio.SMS.create({to: sender, from: '+13479605166', body: message + ': Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
+	Twilio.SMS.create({to: t_sender, from: '+13479605166', body: t_message + ': Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
