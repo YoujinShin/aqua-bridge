@@ -49,16 +49,13 @@ exports.createWater = function(req, res) {
 	console.log("received water data form submission");
 	console.log(req.body);
 
-	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[-]HH[:]mm[:]ss[/]');
+	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
 
 	// accept form post data
 	var newQuality = new qualityModel({
 		reference : req.body.reference,
-		photo : req.body.photoUrl,
-		qualitydata : {
-			petrifilm : req.body.quality_pet,
-			//boilert : '0'
-		},
+		//photo : req.body.photoUrl,
+		petrifilm : req.body.petrifilm,
 		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	});
 
@@ -67,9 +64,11 @@ exports.createWater = function(req, res) {
 		newQuality.installdate = moment(req.body.installdate).toDate();
 	}
 
-	// walked on moon checkbox
-	if (req.body.quality_col) {
-		newQuality.quality_col = true;
+	// colilert checkbox
+	if (req.body.colilert) {
+		newQuality.colilert = true;
+	} else {
+		newQuality.colilert = false;
 	}
 
 	// save the newAstro to the database
@@ -91,6 +90,7 @@ exports.createWater = function(req, res) {
 			console.log(newQuality);
 			
 			// redirect to the astronaut's page
+			//res.redirect('/allwater');
 			res.redirect('/quality/'+ newQuality.slug);
 		}
 	});
@@ -100,11 +100,10 @@ exports.oneWater = function(req, res) {
 
 	console.log("one water data page requested for " + req.params.quality_id);
 
-	//get the requested astronaut by the param on the url :astro_id
-	var quality_id = req.params.quality_id;
+	var quality_id = req.params.quality_id; //get the requested astronaut by the param on the url :quality_id
 
-	// query the database for astronaut
-	var qualityQuery = qualityModel.findOne({slug:quality_id});
+	var qualityQuery = qualityModel.findOne({slug:quality_id}); // query the database for astronaut
+	
 	qualityQuery.exec(function(err, currentQuality){
 
 		if (err) {
@@ -119,14 +118,14 @@ exports.oneWater = function(req, res) {
 		console.log(currentQuality.reference);
 		
 		//query for all astronauts, return only name and slug
-		qualityModel.find({}, 'name slug', function(err, allQuality){
-
+		//qualityModel.find({}, 'name slug', function(err, allQuality){
+		qualityModel.find({}, function(err, allQuality){
 			console.log("retrieved all quality : " + allQuality.length);
 
 			//prepare template data for view
 			var templateData = {
 				quality : currentQuality,
-				qualities : allQuality,
+				//qualities : allQuality,
 				pageTitle : currentQuality.reference
 			}
 
@@ -139,11 +138,11 @@ exports.oneWater = function(req, res) {
 exports.allWater = function(req, res) {
 
 	console.log("all quality data retrieved");
-	qualityQuery = qualityModel.find({}); // query for all astronauts
+	qualityQuery = qualityModel.find({}); // query for all quality
 	//smsQuery.sort('-birthdate');
 	
 	// display only 3 fields from astronaut data
-	qualityQuery.select('reference installdate colilert petrifilm lastupdated');
+	//qualityQuery.select('reference installdate colilert petrifilm lastupdated');
 	
 	qualityQuery.exec(function(err, allQuality){
 		// prepare data for JSON
@@ -156,13 +155,13 @@ exports.allWater = function(req, res) {
 	});
 }
 
+// JSON SMS DATA
 exports.allsms = function(req, res) {
 
 	console.log("all sms data retrieved");
-	smsQuery = smsModel.find({}); // query for all astronauts
-	//smsQuery.sort('-birthdate');
+	smsQuery = smsModel.find({}); // query for all sms
 	
-	// display only 3 fields from astronaut data
+	// display only 3 fields from sms data
 	smsQuery.select('sender message lastupdated');
 	
 	smsQuery.exec(function(err, allsms){
@@ -171,22 +170,36 @@ exports.allsms = function(req, res) {
 			status : 'OK',
 			sms : allsms
 		}
-
+		
 		res.json(jsonData);
 	});
 }
 
-// sms data
+// SMS ON THE WEB
 exports.sms = function(req, res) {
 	console.log("sms page requested");
 
-	Twilio.SMS.all(function(err, res) { // all texts from Twilio database
+	smsQuery = smsModel.find({}); // query for all sms
 
-		// console.log('body : ' + res.smsMessages[0].body);
-		console.log(res.smsMessages);
+	smsQuery.exec(function(err, allsms){
+		console.log("retrieved all sms : " + allsms.length);
 
-	}, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
-	res.render("sms.html");
+		// prepare data for JSON
+		var templateData = {
+			status : 'OK',
+			sms : allsms
+		}
+
+		//console.log(templateData);
+		res.render('sms.html', templateData);
+	});
+
+	// all texts from Twilio database
+	// Twilio.SMS.all(function(err, res) { 
+	// 	// console.log('body : ' + res.smsMessages[0].body);
+	// 	console.log(res.smsMessages);
+	// }, {accountSid: Twilio.AccountSid, to: '+13479605166'}); //+16464309130
+	//res.render("sms.html");
 }
 
 exports.incoming = function(req, res) {
@@ -195,8 +208,8 @@ exports.incoming = function(req, res) {
 	var t_message = req.body.Body;
  	var t_sender = req.body.From;
   
-	var date = moment(this.date), formatted = date.format('YY[/]MM[/]DD[/]HHmmss[/]');
-	// formatted results in the format '2012/10/'
+	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
+	// formatted results in the format '14-02-01_06:11:20_sms'
 
 	var mySms = new smsModel({
 		message: req.body.Body,

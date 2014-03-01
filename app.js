@@ -84,7 +84,7 @@ app.get('/contact', routes.contact);
 // water quality data  
 app.get('/water', routes.water); // display form
 app.post('/createWater', routes.createWater); //form POST submits here
-app.get('/allWater', routes.allWater);
+app.get('/allWater', routes.allWater); // json - retreive all quality data from database
 
 // display a single quality data
 app.get('/quality/:quality_id', routes.oneWater);
@@ -92,7 +92,7 @@ app.get('/quality/:quality_id', routes.oneWater);
 // sms data
 app.get('/sms', routes.sms);
 app.post('/incoming', routes.incoming); // get sms from Twilio
-app.get('/allsms', routes.allsms); // retreive all sms from database
+app.get('/allsms', routes.allsms); // json - retreive all sms from database
 
 // visualize data
 app.get('/dataviz', routes.dataviz); // data visualization
