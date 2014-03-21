@@ -256,6 +256,21 @@ exports.allsms = function(req, res) {
 
 exports.dataviz = function(req, res) {
 	console.log("data viz page requested");
+
+	qualityQuery = qualityModel.find({}); // query for all quality
+	
+	// display only 3 fields from astronaut data 
+	// qualityQuery.select('reference installdate colilert petrifilm lastupdated');
+	
+	qualityQuery.exec(function(err, allQuality) { // prepare data for JSON
+		
+		var jsonData = {
+			status : 'OK',
+			quality : allQuality
+		}
+		res.json(jsonData);
+	});
+
 	res.render("dataviz.html");
 }
 
