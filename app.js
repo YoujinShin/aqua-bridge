@@ -9,6 +9,10 @@ var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
 
+// cartoDB
+var CartoDB = require('cartodb');
+var secret = require('./secret.js');
+
 // the ExpressJS App
 var app = express();
 
