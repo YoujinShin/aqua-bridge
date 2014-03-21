@@ -139,7 +139,6 @@ exports.allWater = function(req, res) {
 
 	console.log("all quality data retrieved");
 	qualityQuery = qualityModel.find({}); // query for all quality
-	//smsQuery.sort('-birthdate');
 	
 	// display only 3 fields from astronaut data
 	//qualityQuery.select('reference installdate colilert petrifilm lastupdated');
