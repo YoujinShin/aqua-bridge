@@ -22,18 +22,31 @@
 </script> -->
  
 <script>
-(function() {
+  
 
-  // var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
-  var smsAPI = '/allsms';
+  var getData = function () {
+    var url = '/allsms';
+    $.getJSON( url, function(data) {
 
-  $.getJSON( smsAPI, {
-    // tags: "coffee",
-    // tagmode: "any",
-    // format: "json"
+      console.log(data);
     })
-    .done(function( data ) {
-    	console.log(data);
-    });
-})();
+  };
+
+
+  getData();
+
+// var getdata = function() {
+//   var smsAPI = '/allsms';
+
+//   $.getJSON( smsAPI, {
+//     })
+//     .done(function( data ) {
+//     	// console.log(data);
+//     	return data;
+//     });
+// }
+
+// var myjson = getdata();
+// console.log(myjson);
+
 </script>
