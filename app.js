@@ -102,6 +102,9 @@ app.get('/allsms', routes.allsms); // json - retreive all sms from database
 app.get('/dataviz', routes.dataviz); // data visualization
 app.get('/datamapping', routes.datamapping); // data mapping
 
+// get JSON data
+app.get('/getjson', routes.getjson);
+
 
 /*
 //new astronaut routes

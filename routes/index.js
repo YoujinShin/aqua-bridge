@@ -1,6 +1,5 @@
 /*
  * routes/index.js
- * 
  * Routes contains the functions (callbacks) associated with request urls.
  */
 
@@ -101,7 +100,6 @@ exports.oneWater = function(req, res) {
 	console.log("one water data page requested for " + req.params.quality_id);
 
 	var quality_id = req.params.quality_id; //get the requested astronaut by the param on the url :quality_id
-
 	var qualityQuery = qualityModel.findOne({slug:quality_id}); // query the database for astronaut
 	
 	qualityQuery.exec(function(err, currentQuality){
@@ -277,6 +275,12 @@ exports.datamapping = function(req, res) {
 	console.log("data mapping page requested");
 	res.render("datamapping.html");
 }
+
+exports.getjson = function(req, res) {
+	console.log("getjson page requested");
+	res.render("getjson.html");
+}
+
 
 /*
 exports.index = function(req, res) {

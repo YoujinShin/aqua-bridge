@@ -1,0 +1,39 @@
+<script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- <div id="images"></div>
+ 
+<script>
+(function() {
+  var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+  $.getJSON( flickerAPI, {
+    tags: "coffee",
+    tagmode: "any",
+    format: "json"
+  })
+    .done(function( data ) {
+      $.each( data.items, function( i, item ) {
+        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+        if ( i === 3 ) {
+          return false;
+        }
+      });
+    });
+})();
+</script> -->
+ 
+<script>
+(function() {
+
+  // var flickerAPI = "http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+  var smsAPI = '/allsms';
+
+  $.getJSON( smsAPI, {
+    // tags: "coffee",
+    // tagmode: "any",
+    // format: "json"
+    })
+    .done(function( data ) {
+    	console.log(data);
+    });
+})();
+</script>
