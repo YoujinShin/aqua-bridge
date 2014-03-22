@@ -1,6 +1,10 @@
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<!-- http://stackoverflow.com/questions/7042340/node-js-error-cant-set-headers-after-they-are-sent -->
 
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 <style>
 	/*body { font: 16px 'Open Sans Condensed'; }*/
@@ -49,8 +53,7 @@
 
 <h1>Data Visualization</h1>
 	
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
 
 <script>
 
@@ -118,25 +121,25 @@
           .style("text-anchor", "end")
           .text("Petrifilm");
 
-      // svg.selectAll(".bar")
-      //     .data(data)
-      //   .enter().append("rect")
-      //     .attr("class", "bar")
-      //     .attr("x", function(d) { return x(d.installdate); })
-      //     // .attr("x", function(d) { return x(d.letter); })
-      //     .attr("width", x.rangeBand())
-      //     .attr("y", function(d) { return y(d.petrifilm); })
-      //     // .attr("y", function(d) { return y(d.frequency); })
-      //     .attr("height", function(d) { return height - y(d.petrifilm); })
-      //     // .attr("height", function(d) { return height - y(d.frequency); })
-      //     .on('mouseover', tip.show)
-      //     .on('mouseout', tip.hide)
+    //   // svg.selectAll(".bar")
+    //   //     .data(data)
+    //   //   .enter().append("rect")
+    //   //     .attr("class", "bar")
+    //   //     .attr("x", function(d) { return x(d.installdate); })
+    //   //     // .attr("x", function(d) { return x(d.letter); })
+    //   //     .attr("width", x.rangeBand())
+    //   //     .attr("y", function(d) { return y(d.petrifilm); })
+    //   //     // .attr("y", function(d) { return y(d.frequency); })
+    //   //     .attr("height", function(d) { return height - y(d.petrifilm); })
+    //   //     // .attr("height", function(d) { return height - y(d.frequency); })
+    //   //     .on('mouseover', tip.show)
+    //   //     .on('mouseout', tip.hide)
     });
 
-    // function type(d) {
-    //   d.petrifilm = +d.petrifilm;
-    //   return d;
-    // }
+    // // function type(d) {
+    // //   d.petrifilm = +d.petrifilm;
+    // //   return d;
+    // // }
   };
 
   getData();

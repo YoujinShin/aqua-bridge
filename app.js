@@ -103,6 +103,7 @@ app.get('/dataviz', routes.dataviz); // data visualization
 app.get('/datamapping', routes.datamapping); // data mapping
 
 // get JSON data
+
 app.get('/getjson', routes.getjson);
 
 
