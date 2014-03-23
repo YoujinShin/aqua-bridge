@@ -6,34 +6,89 @@
         <title>{{pageTitle}}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+        <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="/css/bootstrap.css">
+        <link href="/css/carousel.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="/css/bootstrap.css"> -->
         <style>
+
             body {
-                padding-top: 60px;
-                padding-bottom: 40px;
+/*                padding-top: 40px;
+                padding-bottom: 10px;*/
+            }
+            .navbar {
+                position: fixed;
+                position: absolute;
+                margin-bottom: 0px;
             }
 
-            {{#sessionUserColor}}
+
+/*            {{#sessionUserColor}}
             .navbar .navbar-inner { 
                 background-color: {{sessionUserColor}};
                 background-image: none;
                 background-repeat: no-repeat;
                 filter: none;
             };
-            {{/sessionUserColor}}
+            {{/sessionUserColor}}*/
             
         </style>
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="/css/main.css">
-
+        <!-- <link rel="stylesheet" href="/css/main.css"> -->
         <script src="/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
 
-        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-wrapper">
+          <div class="container">
+
+            <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+              <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">AQUA-BRIDGE</a>
+                </div>
+
+                <div class="navbar-collapse collapse">
+                  <!-- <ul class="nav navbar-nav"> -->
+                  <ul class="nav navbar-nav navbar-right">
+
+                    <!-- <li class="active"><a href="/">Home</a></li> -->
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tech">How it works</a></li>
+                    <li><a href="/area">Where it works</a></li>
+                    <li><a href="#worldmap">World water map</a></li>
+                    <li><a href="/team">About us</a></li>
+                    <!-- <li><a href="/contact">Contact us</a></li> -->
+
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="/water">Water Quality</a></li>
+                        <li><a href="/sms">SMS</a></li>
+
+                        <li class="divider"></li>
+                        <li class="dropdown-header">data</li>
+                        <li><a href="/dataviz">Data Viz</a></li>
+                        <li><a href="/datamapping">Data Mapping</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+
+        <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
+        <!-- <div class="navbar navbar-inverse navbar-static-top" role="navigation">
           <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="/">AQUA-BRIDGE</a>
@@ -43,10 +98,6 @@
                     <li><a href="/area">Where it serves</a></li>
                     <li><a href="/team">Team</a></li>
                     <li><a href="/contact">Contact</a></li>
-
-                    <!-- temporary -->
-                    <!-- <li><a href="/water">DATA</a></li> -->
-                    <!-- <li><a href="/sms">SMS</a></li> -->
 
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA<b class="caret"></b></a>
@@ -60,28 +111,29 @@
                     </li>
 
                 </ul>
-                <!-- <form method="POST" action="/set_session" class="navbar-form pull-right">
-                  <input class="span2" name="name" type="text" value="{{#sessionUserName}}{{ sessionUserName }}{{/sessionUserName}}" placeholder="Name">
-                  <input class="span2" name="fav_color" type="color" value="{{sessionUserColor}}">
-                  <button type="submit" class="btn">Set Session</button>
-                </form> -->
             </div>
           </div>
-        </div>
+        </div> -->
+        
 
-        <div class="container">
 
-            {{{yield}}}
 
-        </div> <!-- /container -->
+
+        {{{yield}}}
+
+<!--         <div class="container">
+           
+        </div>  -->
+
+        
+
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 
         <script src="/js/vendor/bootstrap.min.js"></script>
-
         <script src="/js/main.js"></script>
-
         <script src="/js/jquery.validate.min.js"></script>
 
         <script>

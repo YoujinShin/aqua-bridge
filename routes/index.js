@@ -118,6 +118,7 @@ exports.oneWater = function(req, res) {
 		//query for all astronauts, return only name and slug
 		//qualityModel.find({}, 'name slug', function(err, allQuality){
 		qualityModel.find({}, function(err, allQuality){
+			
 			console.log("retrieved all quality : " + allQuality.length);
 
 			//prepare template data for view
@@ -126,28 +127,22 @@ exports.oneWater = function(req, res) {
 				//qualities : allQuality,
 				pageTitle : currentQuality.reference
 			}
-
 			res.render('oneWater.html', templateData);
-		}) // end of .find (all) query
-		
-	}); // end of .findOne query
+		}) 	
+	}); 
 }
 
 exports.allWater = function(req, res) {
 
 	console.log("all quality data retrieved");
 	qualityQuery = qualityModel.find({}); // query for all quality
-	
-	// display only 3 fields from astronaut data
-	//qualityQuery.select('reference installdate colilert petrifilm lastupdated');
-	
+
 	qualityQuery.exec(function(err, allQuality){
 		// prepare data for JSON
 		var jsonData = {
 			status : 'OK',
 			quality : allQuality
 		}
-
 		res.json(jsonData);
 	});
 }
@@ -157,8 +152,6 @@ exports.allsms = function(req, res) {
 
 	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all sms
-	
-	// display only 3 fields from sms data
 	smsQuery.select('sender message lastupdated');
 	
 	smsQuery.exec(function(err, allsms){
@@ -167,15 +160,14 @@ exports.allsms = function(req, res) {
 			status : 'OK',
 			sms : allsms
 		}
-		
 		res.json(jsonData);
 	});
 }
 
 // SMS ON THE WEB
 exports.sms = function(req, res) {
-	console.log("sms page requested");
 
+	console.log("sms page requested");
 	smsQuery = smsModel.find({}); // query for all sms
 
 	smsQuery.exec(function(err, allsms){
@@ -186,8 +178,6 @@ exports.sms = function(req, res) {
 			status : 'OK',
 			sms : allsms
 		}
-
-		//console.log(templateData);
 		res.render('sms.html', templateData);
 	});
 
@@ -235,9 +225,6 @@ exports.allsms = function(req, res) {
 
 	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all astronauts
-	//smsQuery.sort('-birthdate');
-	
-	// display only 3 fields from astronaut data
 	smsQuery.select('sender message lastupdated');
 	
 	smsQuery.exec(function(err, allsms){
@@ -246,28 +233,12 @@ exports.allsms = function(req, res) {
 			status : 'OK',
 			sms : allsms
 		}
-
 		res.json(jsonData);
 	});
 }
 
 exports.dataviz = function(req, res) {
 	console.log("data viz page requested");
-
-	// qualityQuery = qualityModel.find({}); // query for all quality
-	
-	// // display only 3 fields from astronaut data 
-	// // qualityQuery.select('reference installdate colilert petrifilm lastupdated');
-	
-	// qualityQuery.exec(function(err, allQuality) { // prepare data for JSON
-		
-	// 	var jsonData = {
-	// 		status : 'OK',
-	// 		quality : allQuality
-	// 	}
-	// 	res.json(jsonData);
-	// });
-
 	res.render("dataviz.html");
 }
 
