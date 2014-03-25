@@ -54,20 +54,16 @@ exports.createWater = function(req, res) {
 	var newQuality = new qualityModel({
 		reference : req.body.reference,
 		//photo : req.body.photoUrl,
-		petrifilm : req.body.petrifilm,
+		// petrifilm : req.body.petrifilm,
+		petrifilm_blue : req.body.petrifilm_blue,
+		petrifilm_red : req.body.petrifilm_red,
+		colilert : req.body.colilert,
 		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	});
 
 	// you can also add properties with the . (dot) notation
 	if (req.body.installdate) {
 		newQuality.installdate = moment(req.body.installdate).toDate();
-	}
-
-	// colilert checkbox
-	if (req.body.colilert) {
-		newQuality.colilert = true;
-	} else {
-		newQuality.colilert = false;
 	}
 
 	// save the newAstro to the database
@@ -96,7 +92,6 @@ exports.createWater = function(req, res) {
 }
 
 exports.oneWater = function(req, res) {
-
 	console.log("one water data page requested for " + req.params.quality_id);
 
 	var quality_id = req.params.quality_id; //get the requested astronaut by the param on the url :quality_id
@@ -132,8 +127,7 @@ exports.oneWater = function(req, res) {
 	}); 
 }
 
-exports.allWater = function(req, res) {
-
+exports.allwater = function(req, res) {
 	console.log("all quality data retrieved");
 	qualityQuery = qualityModel.find({}); // query for all quality
 
