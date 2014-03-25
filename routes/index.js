@@ -98,36 +98,38 @@ exports.oneWater = function(req, res) {
 	var qualityQuery = qualityModel.findOne({slug:quality_id}); // query the database for astronaut
 	
 	qualityQuery.exec(function(err, currentQuality){
-
 		if (err) {
 			return res.status(500).send("There was an error on the quality query");
 		}
-
 		if (currentQuality == null) {
 			return res.status(404).render('404.html');
 		}
-
 		console.log("Found quality");
 		console.log(currentQuality.reference);
+
+		var templateData = {
+			quality : currentQuality,
+			//qualities : allQuality,
+			pageTitle : currentQuality.reference
+		}
+		res.render('oneWater.html', templateData);
 		
 		//query for all astronauts, return only name and slug
 		//qualityModel.find({}, 'name slug', function(err, allQuality){
-		qualityModel.find({}, function(err, allQuality){
-			
-			console.log("retrieved all quality : " + allQuality.length);
 
-			//prepare template data for view
-			var templateData = {
-				quality : currentQuality,
-				//qualities : allQuality,
-				pageTitle : currentQuality.reference
-			}
-			res.render('oneWater.html', templateData);
-		}) 	
+		// qualityModel.find({}, function(err, allQuality){
+			
+		// 	console.log("retrieved all quality : " + allQuality.length);
+		// 	var templateData = {
+		// 		quality : currentQuality,
+		// 		pageTitle : currentQuality.reference
+		// 	}
+		// 	res.render('oneWater.html', templateData);
+		// }) 	
 	}); 
 }
 
-exports.allwater = function(req, res) {
+exports.allwater = function(req, res) { 
 	console.log("all quality data retrieved");
 	qualityQuery = qualityModel.find({}); // query for all quality
 
@@ -140,6 +142,51 @@ exports.allwater = function(req, res) {
 		res.json(jsonData);
 	});
 }
+
+exports.adminwater = function(req, res) {
+	console.log("admin water form requested");
+	qualityQuery = qualityModel.find({}); // query for all quality
+
+	qualityQuery.exec(function(err, allQuality){
+		console.log("retrieved all sms : " + allQuality.length);
+
+		var templateData = {
+			status : 'OK',
+			quality : allQuality
+		}
+		res.render('adminwater.html', templateData);
+	});
+}
+
+exports.deletewater = function(req,res) {
+	console.log("delete one water requested");
+	var quality_id = req.params.quality_id;
+
+	if (req.query.confirm == 'yes')  {  // ?confirm=yes	
+		qualityModel.remove({slug:quality_id}, function(err){
+			if (err){ 
+				console.error(err);
+				res.send("Error when trying to remove quality: "+ quality_id);
+			}
+			res.send("Removed quality. <a href='/'>Back to home</a>.");
+		});
+	} else { //query astronaut and display confirm page
+		qualityModel.findOne({slug:quality_id}, function(err, currentQuality){
+
+			if (err) {
+				console.error("ERROR");
+				console.error(err);
+				res.send("There was an error querying for "+ quality_id).status(500);
+			}
+			if (quality != null) {
+				var templateData = {
+					quality : currentQuality
+				};	
+				// res.render('delete_water.html', templateData);
+			}
+		})
+	}
+};
 
 // JSON SMS DATA
 exports.allsms = function(req, res) {
@@ -160,7 +207,6 @@ exports.allsms = function(req, res) {
 
 // SMS ON THE WEB
 exports.sms = function(req, res) {
-
 	console.log("sms page requested");
 	smsQuery = smsModel.find({}); // query for all sms
 
@@ -216,7 +262,6 @@ exports.incoming = function(req, res) {
 }
 
 exports.allsms = function(req, res) {
-
 	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all astronauts
 	smsQuery.select('sender message lastupdated');

@@ -88,6 +88,8 @@ app.get('/contact', routes.contact);
 app.get('/water', routes.water); // display form
 app.post('/createWater', routes.createWater); //form POST submits here
 app.get('/allwater', routes.allwater); // json - retreive all quality data from database
+app.get('/adminwater', routes.adminwater);
+app.get('/deletewater', routes.deletewater);
 
 // display a single quality data
 app.get('/quality/:quality_id', routes.oneWater);
