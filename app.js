@@ -75,29 +75,32 @@ COOKIEHASH in your .env file (also share with heroku)
 var routes = require('./routes/index.js');
 
 app.get('/', routes.index);
-
 app.get('/tech', routes.tech);
-
 app.get('/area', routes.area);
-
 app.get('/team', routes.team);
-
 app.get('/contact', routes.contact);
 
 // water quality data  
 app.get('/water', routes.water); // display form
 app.post('/createWater', routes.createWater); //form POST submits here
 app.get('/allwater', routes.allwater); // json - retreive all quality data from database
-app.get('/adminwater', routes.adminwater);
-app.get('/deletewater', routes.deletewater);
 
 // display a single quality data
 app.get('/quality/:quality_id', routes.oneWater);
+
+
+// delete a single quality data
+app.get('/adminwater', routes.adminwater);
+app.get('/quality/:quality_id/delete', routes.deletewater);
+// app.get('/delete_allwater', routes.deleteallwater);
 
 // sms data
 app.get('/sms', routes.sms);
 app.post('/incoming', routes.incoming); // get sms from Twilio
 app.get('/allsms', routes.allsms); // json - retreive all sms from database
+
+// delete sms data
+// app.get('/delete_allsms', routes.deleteallsms); 
 
 // visualize data
 app.get('/dataviz', routes.dataviz); // data visualization
@@ -106,7 +109,6 @@ app.get('/datamapping', routes.datamapping); // data mapping
 // get JSON data
 
 app.get('/getjson', routes.getjson);
-
 
 /*
 //new astronaut routes

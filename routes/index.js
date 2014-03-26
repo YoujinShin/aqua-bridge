@@ -47,7 +47,6 @@ exports.water = function(req, res) {
 exports.createWater = function(req, res) {
 	console.log("received water data form submission");
 	console.log(req.body);
-
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
 
 	// accept form post data
@@ -93,7 +92,6 @@ exports.createWater = function(req, res) {
 
 exports.oneWater = function(req, res) {
 	console.log("one water data page requested for " + req.params.quality_id);
-
 	var quality_id = req.params.quality_id; //get the requested astronaut by the param on the url :quality_id
 	var qualityQuery = qualityModel.findOne({slug:quality_id}); // query the database for astronaut
 	
@@ -109,23 +107,9 @@ exports.oneWater = function(req, res) {
 
 		var templateData = {
 			quality : currentQuality,
-			//qualities : allQuality,
 			pageTitle : currentQuality.reference
 		}
 		res.render('oneWater.html', templateData);
-		
-		//query for all astronauts, return only name and slug
-		//qualityModel.find({}, 'name slug', function(err, allQuality){
-
-		// qualityModel.find({}, function(err, allQuality){
-			
-		// 	console.log("retrieved all quality : " + allQuality.length);
-		// 	var templateData = {
-		// 		quality : currentQuality,
-		// 		pageTitle : currentQuality.reference
-		// 	}
-		// 	res.render('oneWater.html', templateData);
-		// }) 	
 	}); 
 }
 
@@ -148,7 +132,7 @@ exports.adminwater = function(req, res) {
 	qualityQuery = qualityModel.find({}); // query for all quality
 
 	qualityQuery.exec(function(err, allQuality){
-		console.log("retrieved all sms : " + allQuality.length);
+		console.log("retrieved all water : " + allQuality.length);
 
 		var templateData = {
 			status : 'OK',
@@ -158,39 +142,31 @@ exports.adminwater = function(req, res) {
 	});
 }
 
+exports.deleteallwater = function(req, res) {
+	console.log("delete all water requested");
+	qualityModel.remove(function(err) {
+		if (err){ 
+			console.error(err);
+			res.send("all water data is deleted");
+		}
+	});
+}
+
 exports.deletewater = function(req,res) {
-	console.log("delete one water requested");
+	console.log("delete one water requested for "+ req.params.quality_id);
 	var quality_id = req.params.quality_id;
 
-	if (req.query.confirm == 'yes')  {  // ?confirm=yes	
-		qualityModel.remove({slug:quality_id}, function(err){
-			if (err){ 
-				console.error(err);
-				res.send("Error when trying to remove quality: "+ quality_id);
-			}
-			res.send("Removed quality. <a href='/'>Back to home</a>.");
-		});
-	} else { //query astronaut and display confirm page
-		qualityModel.findOne({slug:quality_id}, function(err, currentQuality){
-
-			if (err) {
-				console.error("ERROR");
-				console.error(err);
-				res.send("There was an error querying for "+ quality_id).status(500);
-			}
-			if (quality != null) {
-				var templateData = {
-					quality : currentQuality
-				};	
-				// res.render('delete_water.html', templateData);
-			}
-		})
-	}
+	qualityModel.remove({slug:quality_id}, function(err){
+		if (err){ 
+			console.error(err);
+			res.send("Error when trying to remove quality: "+ quality_id);
+		}
+		res.send("Removed quality. <a href='/'>Back to home</a>.");
+	});
 };
 
 // JSON SMS DATA
 exports.allsms = function(req, res) {
-
 	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all sms
 	smsQuery.select('sender message lastupdated');
@@ -234,7 +210,6 @@ exports.incoming = function(req, res) {
 
 	var t_message = req.body.Body;
  	var t_sender = req.body.From;
-  
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
 	// formatted results in the format '14-02-01_06:11:20_sms'
 
@@ -247,8 +222,7 @@ exports.incoming = function(req, res) {
 	mySms.save(function(err){ // save the mySms to the database
 		if (err) {
 			console.error("Error on saving new sms data");
-			console.error(err); // log out to Terminal all errors
-			
+			console.error(err); // log out to Terminal all errors	
 		} else {
 			console.log("Created a new sms data!");
 			console.log(mySms);
@@ -273,6 +247,16 @@ exports.allsms = function(req, res) {
 			sms : allsms
 		}
 		res.json(jsonData);
+	});
+}
+
+exports.deleteallsms = function(req, res) {
+	console.log("delete all sms requested");
+	smsModel.remove(function(err) {
+		if (err){ 
+			console.error(err);
+			res.send("all sms data is deleted");
+		}
 	});
 }
 
