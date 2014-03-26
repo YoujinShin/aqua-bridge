@@ -275,6 +275,11 @@ exports.getjson = function(req, res) {
 	res.render("getjson.html");
 }
 
+exports.worldmap = function(req, res) {
+	console.log("world water quality map requested");
+	res.render("worldmap.html");
+}
+
 
 /*
 exports.index = function(req, res) {

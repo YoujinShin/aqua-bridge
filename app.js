@@ -9,7 +9,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 // cartoDB
-// var CartoDB = require('cartodb');
+var CartoDB = require('cartodb');
 var secret = require('./secret.js');
 
 // the ExpressJS App
@@ -73,6 +73,8 @@ COOKIEHASH in your .env file (also share with heroku)
 
 // ROUTES
 var routes = require('./routes/index.js');
+// cartoDB
+var client = new CartoDB({user: secret.USER,api_key: secret.API_KEY});
 
 app.get('/', routes.index);
 app.get('/tech', routes.tech);
@@ -106,8 +108,10 @@ app.get('/allsms', routes.allsms); // json - retreive all sms from database
 app.get('/dataviz', routes.dataviz); // data visualization
 app.get('/datamapping', routes.datamapping); // data mapping
 
-// get JSON data
+// visualize world water quality map
+app.get('/worldmap', routes.worldmap);
 
+// get JSON data
 app.get('/getjson', routes.getjson);
 
 /*

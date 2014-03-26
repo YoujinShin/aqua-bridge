@@ -1,0 +1,47 @@
+<html> -->
+<!-- <head> -->
+
+
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+
+  <style>
+    html, body {width:100%; height:100%; padding-top:1%; padding-bottom:0; margin: 0;}
+    #cartodb-map { width: 100%; height:100%; background: black;}
+    .cartodb-popup-content-wrapper { width: 250px !important; max-width: 250px !important;}
+    h1 { color: white; position: absolute; z-index: 20; left: 60px; font-size: 20px; top: 60px; }
+  </style>
+
+  <script>
+    var map;
+    function init(){
+      map = new L.Map('cartodb-map', { 
+        center: [9.594076, -0.881363],
+        zoom: 9,
+        zoomControl: false
+      });
+
+      L.tileLayer('https://dnv9my2eseobd.cloudfront.net/v3/cartodb.map-4xtxp73f/{z}/{x}/{y}.png', {
+        attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
+      }).addTo(map);
+      
+      new L.Control.Zoom({ position : 'topright'}).addTo(map);
+      var layerUrl = 'http://youjin.cartodb.com/api/v2/viz/1d5ce654-a95d-11e3-9707-0e10bcd91c2b/viz.json';
+
+      cartodb.createLayer(map, layerUrl)
+        .addTo(map)
+        .on('done', function(layer) {
+          // layer.getSubLayer(0).set(subLayerOptions);
+        }).on('error', function() {
+          //log the error
+        });
+        // $(".slider").css("display","none");
+    }  
+
+  </script>
+<!-- </head> -->
+<!-- <h1>WORLD WATER QUALITY MAP</h1> -->
+<body onload="init()">
+  <div id='cartodb-map'></div>
+</body>
+<!-- </html>
