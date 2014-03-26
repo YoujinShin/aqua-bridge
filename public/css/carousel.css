@@ -2,12 +2,16 @@
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 body {
-  padding-top:50px;
+  /*padding-top:50px;*/
+  padding-top:3%;
   padding-bottom: 40px;
   color: #5a5a5a;
   font-family: 'Open Sans', sans-serif;
 }
 h2 { font-size: 20px;}
+.caret {
+  display:none;
+}
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -31,6 +35,13 @@ h2 { font-size: 20px;}
   padding-left: 15px;
   background-color: rgba(255,255,255,1);
   border-color: rgba(170, 170, 170, 0.8);
+}
+.navbar .brand {
+    top: 0px;
+    /*max-height: 40px;
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0;*/
 }
 
 /* CUSTOMIZE THE CAROUSEL

@@ -19,6 +19,7 @@
             h1 { 
                 position: relative;
                 text-align: center;
+                /*top: 10%;*/
                 /*top: 45px;*/
                 font-size: 28px;
             }
@@ -56,22 +57,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                  <!-- <a class="navbar-brand" href="/" style="font-family: 'Open Sans Condensed', sans-serif; font-size: 20px; color: grey;">AQUA-BRIDGE</a> -->
-                  <!-- <a class="navbar-brand" href="/" >AQUA-BRIDGE</a> -->
-                 <a class="navbar-brand" href="/"><img src="/img/logo2.png" width="140px"/></a>
+
+                    <!-- <a class="navbar-brand" href="/"><img src="/img/logo3.png" width="120px"/></a> -->
+                    <a class="navbar-brand" href="/"><img src="/img/logo2.png" width="140px"/></a>
+
                 </div>
 
                 <div class="navbar-collapse collapse">
                   <!-- <ul class="nav navbar-nav"> -->
                   <ul class="nav navbar-nav navbar-right">
 
-                    <!-- <li class="active"><a href="/">Home</a></li> -->
-                    <!-- <li><a href="/">Home</a></li> -->
-                    <li><a href="/tech">ABOUT US</a></li>
-                    <li><a href="/area">CURRENT PROJECTS</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ABOUT US <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">HISTORY</a></li>
+                        <li><a href="/team">LEADERSHIP</a></li>
+                        <li><a href="/contact">CONTACT US</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">CURRENT PROJECTS <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">TANZANIA</a></li>
+                        <li><a href="#">GHANA</a></li>
+                        <li><a href="#">NYGIRIA</a></li>
+                      </ul>
+                    </li>
+
+                    <!-- <li><a href="/area">CURRENT PROJECTS</a></li> -->
                     <li><a href="#worldmap">WORLD WATER MAP</a></li>
-                    <li><a href="/team">CONTACT US</a></li>
-                    <!-- <li><a href="/contact">Contact us</a></li> -->
 
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA <b class="caret"></b></a>
