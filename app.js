@@ -74,7 +74,7 @@ COOKIEHASH in your .env file (also share with heroku)
 // ROUTES
 var routes = require('./routes/index.js');
 // cartoDB
-var client = new CartoDB({user: secret.USER,api_key: secret.API_KEY});
+// var client = new CartoDB({user: secret.USER,api_key: secret.API_KEY});
 
 app.get('/', routes.index);
 app.get('/tech', routes.tech);
