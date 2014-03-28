@@ -36,8 +36,13 @@ h2 { font-size: 20px;}
   padding-right: 15px;
   padding-left: 15px;
   border-radius: 0px;
+  /*background-color: rgba(20,20,20,1);*/
+  /*background-color: rgba(244,244,244,1);*/
+  /*background-color: rgba(255,255,255,1);*/
   background-color: rgba(111,206,238, 1);
   border-color: rgba(170, 170, 170, 0);
+  border-color: rgba(170, 170, 170, 0);
+  /*border-color: rgba(170, 170, 170, 0.8);*/
 }
 .navbar .brand {
     top: 0px;
@@ -114,8 +119,8 @@ h2 { font-size: 20px;}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
-/* for smart phone 768px */
-@media (min-width: 768px) and (max-width: 992px) { 
+
+@media (min-width: 768px) {
 
   /* Remove the edge padding needed for mobile */
   .marketing {
@@ -125,20 +130,20 @@ h2 { font-size: 20px;}
 
   /* Navbar positioning foo */
   .navbar-wrapper {
-    /*margin-top: 20px;*/
+    margin-top: 20px;
   }
   .navbar-wrapper .container {
-    /*padding-right: 15px;
-    padding-left:  15px;*/
-  }
-  .navbar-wrapper .navbar {
     padding-right: 15px;
     padding-left:  15px;
+  }
+  .navbar-wrapper .navbar {
+    padding-right: 0;
+    padding-left:  0;
   }
 
   /* The navbar becomes detached from the top, so we round the corners */
   .navbar-wrapper .navbar {
-    border-radius: 0px;
+    border-radius: 4px;
   }
 
   /* Bump up size of carousel content */
@@ -155,9 +160,5 @@ h2 { font-size: 20px;}
 @media (min-width: 992px) {
   .featurette-heading {
     margin-top: 120px;
-  }
-  .navbar-wrapper .navbar {
-    padding-right: 15px;
-    padding-left:  15px;
   }
 }
