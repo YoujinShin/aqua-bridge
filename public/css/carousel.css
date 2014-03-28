@@ -125,7 +125,7 @@ h2 { font-size: 20px;}
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
-@media (min-width: 400px) and (max-width: 768px) { 
+@media (min-width: 200px) and (max-width: 768px) { 
   /* Declare heights because of positioning of img element */
   .carousel {
     height: 320px;
