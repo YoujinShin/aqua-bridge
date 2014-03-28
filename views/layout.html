@@ -23,10 +23,17 @@
             }
             li:hover
             {
-                background-color:#6FCEEE;
-                color: black;
+                /*background-color:#6FCEEE;*/
+                color: black; background-color: rgba(190,190,190,1);
             }
-            
+            .navbar-brand {
+                padding: 0px;
+            }
+            a.temp:link {text-decoration:none;}    /* unvisited link */
+            a.temp:visited {text-decoration:none; color: white;} /* visited link */
+            a.temp:active {text-decoration:underline;}  /* selected link */
+            a.temp:link {text-decoration:none; color:white !important; opacity:1.0;}
+            a.temp:hover {color:#FF0000 !important;} 
         </style>
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
         <!-- <link rel="stylesheet" href="/css/main.css"> -->
@@ -48,7 +55,7 @@
                   </button>
 
                     <!-- <a class="navbar-brand" href="/"><img src="/img/logo3.png" width="120px"/></a> -->
-                    <a class="navbar-brand" href="/"><img src="/img/logo2.png" width="140px"/></a>
+                    <a class="navbar-brand" href="/"><img src="/img/logo_clip2.png" width="150px"/></a>
 
                 </div>
 
@@ -57,7 +64,7 @@
                   <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">ABOUT US <b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;">ABOUT US <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a href="#">HISTORY</a></li>
                         <li><a href="/team">LEADERSHIP</a></li>
@@ -66,7 +73,7 @@
                     </li>
 
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">CURRENT PROJECTS <b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;">CURRENT PROJECTS <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a href="#">TANZANIA</a></li>
                         <li><a href="#">GHANA</a></li>
@@ -75,10 +82,10 @@
                     </li>
 
                     <!-- <li><a href="/area">CURRENT PROJECTS</a></li> -->
-                    <li><a href="/worldmap">WORLD WATER MAP</a></li>
+                    <li><a href="/worldmap" style="color:white;">WORLD WATER MAP</a></li>
 
                     <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">DATA <b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;">DATA <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                         <li><a href="/water">WATER QUALITY</a></li>
                         
@@ -98,7 +105,6 @@
           </div>
         </div>
         
-
         <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
         <!-- <div class="navbar navbar-inverse navbar-static-top" role="navigation">
           <div class="navbar-inner">
@@ -128,12 +134,9 @@
         </div> -->
 
 
-
         {{{yield}}}
 
-<!--         <div class="container">
-           
-        </div>  -->
+<!--         <div class="container"> </div>  -->
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

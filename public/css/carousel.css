@@ -35,8 +35,14 @@ h2 { font-size: 20px;}
 .navbar-wrapper .navbar {
   padding-right: 15px;
   padding-left: 15px;
-  background-color: rgba(255,255,255,1);
-  border-color: rgba(170, 170, 170, 0.8);
+  border-radius: 0px;
+  /*background-color: rgba(20,20,20,1);*/
+  /*background-color: rgba(244,244,244,1);*/
+  /*background-color: rgba(255,255,255,1);*/
+  background-color: rgba(111,206,238, 1);
+  border-color: rgba(170, 170, 170, 0);
+  border-color: rgba(170, 170, 170, 0);
+  /*border-color: rgba(170, 170, 170, 0.8);*/
 }
 .navbar .brand {
     top: 0px;
@@ -102,14 +108,12 @@ h2 { font-size: 20px;}
 .featurette-divider {
   margin: 80px 0; /* Space out the Bootstrap <hr> more */
 }
-
 /* Thin out the marketing headings */
 .featurette-heading {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -1px;
 }
-
 
 
 /* RESPONSIVE CSS
@@ -147,7 +151,6 @@ h2 { font-size: 20px;}
     font-size: 21px;
     line-height: 1.4;
   }
-
   .featurette-heading {
     font-size: 50px;
   }
