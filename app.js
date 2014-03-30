@@ -87,6 +87,9 @@ app.get('/contact', routes.contact);
 app.get('/area', routes.area);
 
 app.get('/project_summary', routes.project_summary);
+app.get('/tanzania', routes.tanzania);
+app.get('/ghana', routes.ghana);
+app.get('/nigeria', routes.nigeria);
 
 app.get('/news', routes.news);
 

@@ -48,11 +48,25 @@ exports.contact = function(req, res) {
 	res.render('contact.html');
 }
 
+// CURRENT PROJECTS
 exports.project_summary = function(req, res) {
 	console.log("project summary page requested");
 	res.render('project_summary.html');
 }
+exports.tanzania = function(req, res) {
+	console.log("tanzania page requested");
+	res.render('tanzania.html');
+}
+exports.ghana = function(req, res) {
+	console.log("ghana page requested");
+	res.render('ghana.html');
+}
+exports.nigeria = function(req, res) {
+	console.log("nigeria page requested");
+	res.render('nigeria.html');
+}
 
+// RECENT NEWS
 exports.news = function(req, res) {
 	console.log("recent news page requested");
 	res.render('news.html');
