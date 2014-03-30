@@ -18,6 +18,16 @@ exports.index = function(req, res) {
 	res.render('index.html');
 }
 
+exports.aboutus = function(req, res) {
+	console.log("about us page requested");
+	res.render('aboutus.html');
+}
+
+exports.history_aqua = function(req, res) {
+	console.log("history page requested");
+	res.render('history.html');
+}
+
 exports.tech = function(req, res) {
 	console.log("tech page requested");
 	res.render('tech.html');
@@ -37,6 +47,17 @@ exports.contact = function(req, res) {
 	console.log("contact page requested");
 	res.render('contact.html');
 }
+
+exports.project_summary = function(req, res) {
+	console.log("project summary page requested");
+	res.render('project_summary.html');
+}
+
+exports.news = function(req, res) {
+	console.log("recent news page requested");
+	res.render('news.html');
+}
+
 
 // water quality data
 exports.water = function(req, res) {

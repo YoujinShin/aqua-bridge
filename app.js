@@ -77,10 +77,18 @@ var routes = require('./routes/index.js');
 // var client = new CartoDB({user: secret.USER,api_key: secret.API_KEY});
 
 app.get('/', routes.index);
+
+app.get('/aboutus', routes.aboutus);
+app.get('/history_aqua', routes.history_aqua);
 app.get('/tech', routes.tech);
-app.get('/area', routes.area);
 app.get('/team', routes.team);
 app.get('/contact', routes.contact);
+
+app.get('/area', routes.area);
+
+app.get('/project_summary', routes.project_summary);
+
+app.get('/news', routes.news);
 
 // water quality data  
 app.get('/water', routes.water); // display form
