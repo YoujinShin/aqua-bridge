@@ -19,8 +19,6 @@ footer {
 }
 .dropdown-menu {
   background-color: white;
-/*  z-index: 20;
-  display: none;*/
 }
 
 /* CUSTOMIZE THE NAVBAR
@@ -51,10 +49,6 @@ footer {
 }
 .navbar .brand {
     top: 0px;
-    /*max-height: 40px;
-    overflow: visible;
-    padding-top: 0;
-    padding-bottom: 0;*/
 }
 .navbar-brand > img { width:140px;}
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -179,6 +173,10 @@ footer {
   }
   .featurette-heading {
     font-size: 50px;
+  }
+
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+      display: block;   
   }
 }
 
