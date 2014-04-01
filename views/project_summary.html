@@ -77,19 +77,26 @@ function initialize() {
   // var icon_src = document.getElementById("icon").getAttribute('src');
 
   // info window
-  var content_nyu = '<div id="content">'+
-        '<a href="/nyu"><h1 id="firstHeading" class="firstHeading">New York University</h1>'+
-        '<div id="bodyContent">'+'<p>'+ 'March 22 2014'+'</p></div>'+
-      '</div>';
+  // var content_nyu = '<div id="content">'+
+  //       '<a href="/nyu"><h1 id="firstHeading" class="firstHeading">New York University</h1>'+
+  //       '<div id="bodyContent">'+'<p>'+ 'March 22 2014'+'</p></div>'+
+  //     '</div>';
 
-  var content_ada = '<div id="content">'+
-    '<a href="/ada"><h1 id="firstHeading" class="firstHeading">Adaptive Design Association</h1>'+
-    '<div id="bodyContent">'+'<p>March 22 2014</p></div>'+
-  '</div>';
+  var content_tanzania = '<div id="content"><a href="/tanzania">Tanzania</a></div>';
+  var content_ghana = '<div id="content"><a href="/ghana">Ghana</a></div>';
+  var content_nigeria = '<div id="content"><a href="/nigeria">Nigeria</a></div>';
 
-  // var infowindow_nyu = new google.maps.InfoWindow({
-  //     content: content_nyu 
-  // });
+  var infowindow_tanzania = new google.maps.InfoWindow({
+      content: content_tanzania 
+  });
+
+  var infowindow_ghana= new google.maps.InfoWindow({
+      content: content_ghana 
+  });
+
+  var infowindow_nigeria = new google.maps.InfoWindow({
+      content: content_nigeria 
+  });
 
   // var infowindow_ada = new google.maps.InfoWindow({
   //     content: content_ada
@@ -114,15 +121,15 @@ function initialize() {
   });
 
    google.maps.event.addListener(marker_tanzania, 'click', function() {
-    infowindow_nyu.open(map,marker_tanzania);
+    infowindow_tanzania.open(map,marker_tanzania);
    });
 
    google.maps.event.addListener(marker_ghana, 'click', function() {
-    infowindow_ada.open(map,marker_ghana);
+    infowindow_ghana.open(map,marker_ghana);
    });
 
    google.maps.event.addListener(marker_nigeria, 'click', function() {
-    infowindow_ada.open(map,marker_nigeria);
+    infowindow_nigeria.open(map,marker_nigeria);
    });
 
   var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
