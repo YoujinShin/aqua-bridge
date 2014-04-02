@@ -1,6 +1,4 @@
 
-		<h1>OUR PROJECT SITES FOR MONITORING FILTER PERFORMANCE</h1>
-
 
 
 <!-- <!DOCTYPE html> -->
@@ -12,14 +10,18 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <style>
       html, body, #map-canvas {
-        height: 500px;
+        height: 450px;
         width: 100%;
         margin: 0px;
         padding: 20px;
         top: 100px;
       }
+      p {font-size: 18px; text-align: center; position: relative; top: 68px; color: rgba(168,168,168,1);}
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+<h1>AQUA-BRIDGE MONITORS FILTER PERFORMANCE</h1>
+<p>We has been collaborated with the water filtration projects with our monitoring system</p>
 
 
 <script>
@@ -29,7 +31,6 @@ function initialize() {
   var tanzania = new google.maps.LatLng(-6.856555, 39.239570);
   var ghana = new google.maps.LatLng(9.419731, -0.823737);
   var nigeria = new google.maps.LatLng(6.504699, 3.377925);
-  
 
   // customized map
   var MY_MAPTYPE_ID = 'custom_style';
@@ -82,9 +83,9 @@ function initialize() {
   //       '<div id="bodyContent">'+'<p>'+ 'March 22 2014'+'</p></div>'+
   //     '</div>';
 
-  var content_tanzania = '<div id="content"><a href="/tanzania">Tanzania</a></div>';
-  var content_ghana = '<div id="content"><a href="/ghana">Ghana</a></div>';
-  var content_nigeria = '<div id="content"><a href="/nigeria">Nigeria</a></div>';
+  var content_tanzania = '<div id="content"><p><a href="/tanzania">Tanzania</a></p></div>';
+  var content_ghana = '<div id="content"><p><a href="/ghana">Ghana</a></p></div>';
+  var content_nigeria = '<div id="content"><p><a href="/nigeria">Nigeria</a></p></div>';
 
   var infowindow_tanzania = new google.maps.InfoWindow({
       content: content_tanzania 
@@ -137,7 +138,6 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
     </script>
   <!-- </head> -->
 
