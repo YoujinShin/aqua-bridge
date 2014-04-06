@@ -92,6 +92,8 @@ exports.createWater = function(req, res) {
 		petrifilm_blue : req.body.petrifilm_blue,
 		petrifilm_red : req.body.petrifilm_red,
 		colilert : req.body.colilert,
+		lat : req.body.lat,
+		lon : req.body.lon,
 		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	});
 
