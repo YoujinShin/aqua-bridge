@@ -272,21 +272,6 @@ exports.incoming = function(req, res) {
 	});
 }
 
-exports.allsms = function(req, res) {
-	console.log("all sms data retrieved");
-	smsQuery = smsModel.find({}); // query for all astronauts
-	smsQuery.select('sender message lastupdated');
-	
-	smsQuery.exec(function(err, allsms){
-		// prepare data for JSON
-		var jsonData = {
-			status : 'OK',
-			sms : allsms
-		}
-		res.json(jsonData);
-	});
-}
-
 exports.deleteallsms = function(req, res) {
 	console.log("delete all sms requested");
 	smsModel.remove(function(err) {
@@ -304,7 +289,42 @@ exports.dataviz = function(req, res) {
 
 exports.datamapping = function(req, res) {
 	console.log("data mapping page requested");
-	res.render("datamapping.html");
+	qualityQuery = qualityModel.find({}); // query for all sms
+
+	qualityQuery.exec(function(err, allQuality){
+		console.log("retrieved all water : " + allQuality.length);
+
+		var templateData = {
+			status : 'OK',
+			quality : allQuality
+		}
+		res.render('datamapping.html', templateData);
+	});
+
+	// smsQuery = smsModel.find({}); // query for all sms
+
+	// smsQuery.exec(function(err, allsms){
+	// 	console.log("retrieved all sms : " + allsms.length);
+
+	// 	// prepare data for JSON
+	// 	var templateData = {
+	// 		status : 'OK',
+	// 		sms : allsms
+	// 	}
+	// 	res.render('sms.html', templateData);
+	// });
+	
+	
+	// qualityQuery = qualityModel.find({}); // query for all quality
+
+	// qualityQuery.exec(function(err, allQuality){
+	// 	// prepare data for JSON
+	// 	var jsonData = {
+	// 		status : 'OK',
+	// 		quality : allQuality
+	// 	}
+	// 	res.json(jsonData);
+	// });
 }
 
 exports.getjson = function(req, res) {
