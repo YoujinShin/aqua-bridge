@@ -10,6 +10,8 @@ var QualitySchema = new Schema({
 		// petrifilm: String,
 		petrifilm_blue: String,
 		petrifilm_red: String,
+		lat: String,
+		lon: String,
     lastupdated : { type: Date, default: Date.now },
 });
 

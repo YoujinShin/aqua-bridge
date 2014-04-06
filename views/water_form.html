@@ -1,13 +1,17 @@
 <style>
 	form {
 		position: relative;
-		top: 120px;
-		padding: 20px;
+		top: 80px;
+		padding: 25px;
 	}
 </style>
 
 
-<h1>WATER QUALITY TESTING RESULTS</h1>
+<h1>WATER QUALITY RESULT</h1>
+
+<!-- <img onclick="getLocation()" src="location.png" 
+style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
+
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
 	<!-- <form method="POST" action="/createWater" class="form-horizontal"> -->
 
@@ -17,9 +21,26 @@
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
 	</div>
+	
+	<!-- <img onclick="getLocation()" src="location.png" 
+	style="position: absolute; left: 0px; top: 0px; width: 22px;"/> -->
 
 	<div class="form-group">
-		<label for="installdate" class="col-sm-4 control-label"> TESTING DATE </label>	
+		<label for="lat" class="col-sm-4 control-label"> LATITUDE </label>
+		<div class="col-sm-4">
+			<input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}">	
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="lon" class="col-sm-4 control-label"> LONGITUDE </label>
+		<div class="col-sm-4">
+			<input type="text" name="lon" class="form-control" id="lon" value="{{quality.lon}}">	
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="installdate" class="col-sm-4 control-label"> TEST DATE </label>	
 		<div class="col-sm-4">
 			<input type="date" name="installdate" class="form-control"  id="installdate" value="{{quality.installdate}}">
 		</div>
@@ -82,13 +103,63 @@
 	</div>
 	
 	<hr>
+<!-- 	<img onclick="getLocation()" src="location.png" 
+	style="position: relative; left: 50%; top: 10px; width: 22px;"/> -->
 
 	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-4">
-			<input class="btn btn-default" type="submit" value="ADD RESULT">
+		<div class="col-sm-offset-4 col-sm-1">
+			<input class="btn btn-default" type="submit" value="ADD">
+		</div>
+		<div class="col-sm-1">
+			<img onclick="getLocation()" src="location.png" 
+	style="position:relative; left:6px; top:6px; width:22px;"/>
+			<!-- <button onclick="getLocation()" type="button" class="btn btn-success">GPS</button> -->
 		</div>
 	</div>
-
 </form>
+<!-- <button onclick="getLocation()" type="button" class="btn btn-success">GPS</button> -->
+<!-- <button onclick="getLocation()" style="position: relative; left: 140px; top: 26px">GPS</button> -->
 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    var x=document.getElementById("demo");
+    function getLocation()
+    {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        } else {x.innerHTML="Geolocation is not supported by this browser.";}
+    }
+    
+    function showPosition(position) {
+        var latlon=position.coords.latitude+","+position.coords.longitude;
+        var tlat = position.coords.latitude;
+        var tlng = position.coords.longitude;
+            $("#lat").val (tlat);
+            $("#lon").val (tlng);
+    
+        var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon
+        +"&markers=icon:http://tinyurl.com/2ftvtt6|"+latlon+
+        "&zoom=14&size=320x180&sensor=false";
+        document.getElementById("mapholder").innerHTML="<img src='"+img_url+"'>";
+    }
+      
+    function showError(error) {
+        switch(error.code) 
+        {
+            case error.PERMISSION_DENIED:
+              x.innerHTML="User denied the request for Geolocation."
+              break;
+            case error.POSITION_UNAVAILABLE:
+              x.innerHTML="Location information is unavailable."
+              break;
+            case error.TIMEOUT:
+              x.innerHTML="The request to get user location timed out."
+              break;
+            case error.UNKNOWN_ERROR:
+              x.innerHTML="An unknown error occurred."
+              break;
+        }
+    }
+</script>
 
