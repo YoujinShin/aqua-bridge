@@ -25,23 +25,31 @@
 	
 	<script type="text/javascript">
 	      
-	  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	  var osmAttrib='Map data OpenStreetMap contributors';
-	  var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 19, attribution: osmAttrib});
-	  
-	  var map = L.map('map', {
-	    center: [10, 0], // lat, lon
-	    zoom: 2,
-	    zoomControl: false
-	  });
-	  map.addLayer(osm);
+	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	var osmAttrib='Map data OpenStreetMap contributors';
+	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 19, attribution: osmAttrib});
 
-	  {{#quality}}
-		 L.marker([ {{lat}} , {{lon}} ]).addTo(map);
-	  {{/quality}}
-	  // L.marker([-6.85438, 39.2353]).addTo(map);
+	var map = L.map('map', {
+	center: [18, 0], // lat, lon
+	zoom: 2,
+	zoomControl: false
+	});
+	map.addLayer(osm);
 
-	  new L.Control.Zoom({ position : 'topright'}).addTo(map);
+	{{#quality}}
+		L.marker([ {{lat}} , {{lon}} ]).addTo(map);
+		
+		// L.circle([{{lat}} , {{lon}}], 300000, {
+		// 	color: 'red',
+		// 	fillColor: '#f03',
+		// 	fillOpacity: 0.5
+		// }).addTo(map);
+
+	{{/quality}}
+
+
+	new L.Control.Zoom({ position : 'topright'}).addTo(map);
 	  
     </script>
+
 </body> 

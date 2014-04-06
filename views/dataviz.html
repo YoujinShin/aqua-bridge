@@ -95,7 +95,8 @@
 
       // x.domain(data.map(function(d) { return d.colilert; }));
       // x.domain(data.map(function(d) { return d.installdate; }));
-      x.domain(data.map(function(d) { return d.slug; }));
+      // x.domain(data.map(function(d) { return d.slug; }));
+      x.domain(data.map(function(d) { return d.reference; }));
       y.domain([0, d3.max(data, function(d) { return d.petrifilm_blue; })]);
 
       svg.append("g")
@@ -121,9 +122,9 @@
           .attr("class", "bar")
           // .attr("x", function(d) { return x(d.colilert); })
           // .attr("x", function(d) { return x(d.installdate); })
-          .attr("x", function(d) { return x(d.slug); })
+          .attr("x", function(d) { return x(d.reference); })
           // .attr("width", x.rangeBand())
-          .attr("width", 30)
+          .attr("width", 60)
           .attr("y", function(d) { return y(d.petrifilm_blue); })
           .attr("height", function(d) { return height - y(d.petrifilm_blue); })
           .on('mouseover', tip.show)
