@@ -15,7 +15,7 @@
     margin: 0; padding: 20px;
   }
   .leaflet-top .leaflet-control {
-  	margin-top: 80px;
+  	margin-top: 30px;
   }
 </style>
 
@@ -30,11 +30,13 @@
 	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 19, attribution: osmAttrib});
 
 	var map = L.map('map', {
-	center: [18, 0], // lat, lon
+	center: [26, 0], // lat, lon
 	zoom: 2,
 	zoomControl: false
 	});
 	map.addLayer(osm);
+
+	new L.Control.Zoom({ position : 'topright'}).addTo(map);
 
 	{{#quality}}
 		L.marker([ {{lat}} , {{lon}} ]).addTo(map);
@@ -48,7 +50,7 @@
 	{{/quality}}
 
 
-	new L.Control.Zoom({ position : 'topright'}).addTo(map);
+	
 	  
     </script>
 
