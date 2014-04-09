@@ -8,10 +8,12 @@ var QualitySchema = new Schema({
 		installdate : Date,
 		colilert: String,
 		// petrifilm: String,
-		petrifilm_blue: String,
-		petrifilm_red: String,
-		lat: String,
-		lon: String,
+		petrifilm_blue: Number,
+		petrifilm_red: Number,
+		geometry : {
+			type : { type: String },
+			coordinates : []
+		},
     lastupdated : { type: Date, default: Date.now },
 });
 

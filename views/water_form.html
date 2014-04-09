@@ -8,7 +8,6 @@
 
 
 <h1>WATER QUALITY RESULT</h1>
-
 <!-- <img onclick="getLocation()" src="location.png" 
 style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
 
@@ -28,7 +27,7 @@ style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
 	<div class="form-group">
 		<label for="lat" class="col-sm-4 control-label"> LATITUDE </label>
 		<div class="col-sm-4">
-			<input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}">	
+			<input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}">		
 		</div>
 	</div>
 
@@ -135,6 +134,7 @@ style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
         var latlon=position.coords.latitude+","+position.coords.longitude;
         var tlat = position.coords.latitude;
         var tlng = position.coords.longitude;
+        	// $("#lat").val (latlon);
             $("#lat").val (tlat);
             $("#lon").val (tlng);
     

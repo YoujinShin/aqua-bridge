@@ -89,13 +89,17 @@ exports.createWater = function(req, res) {
 		reference : req.body.reference,
 		//photo : req.body.photoUrl,
 		// petrifilm : req.body.petrifilm,
-		petrifilm_blue : req.body.petrifilm_blue,
-		petrifilm_red : req.body.petrifilm_red,
+		petrifilm_blue : parseFloat(req.body.petrifilm_blue),
+		petrifilm_red : parseFloat(req.body.petrifilm_red),
 		colilert : req.body.colilert,
-		lat : req.body.lat,
-		lon : req.body.lon,
+		geometry : {
+			type : "Point",
+			coordinates : [parseFloat(req.body.lon), parseFloat(req.body.lat)]
+		},
 		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
 	});
+
+	console.log(newQuality);
 
 	// you can also add properties with the . (dot) notation
 	if (req.body.installdate) {
