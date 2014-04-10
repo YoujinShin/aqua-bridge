@@ -86,24 +86,25 @@ exports.createWater = function(req, res) {
 
 	// accept form post data
 	var newQuality = new qualityModel({
-		reference : req.body.reference,
-		//photo : req.body.photoUrl,
-		// petrifilm : req.body.petrifilm,
-		petrifilm_blue : parseFloat(req.body.petrifilm_blue),
-		petrifilm_red : parseFloat(req.body.petrifilm_red),
-		colilert : req.body.colilert,
+		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_'),
+		type : "Feature",
+		properties : {
+			reference : req.body.reference,
+			colilert : req.body.colilert,
+			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
+			petrifilm_red : parseFloat(req.body.petrifilm_red)
+		},
 		geometry : {
 			type : "Point",
 			coordinates : [parseFloat(req.body.lon), parseFloat(req.body.lat)]
-		},
-		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_')
+		}
 	});
 
 	console.log(newQuality);
 
 	// you can also add properties with the . (dot) notation
 	if (req.body.installdate) {
-		newQuality.installdate = moment(req.body.installdate).toDate();
+		newQuality.properties.installdate = moment(req.body.installdate).toDate();
 	}
 
 	// save the newAstro to the database
@@ -125,7 +126,7 @@ exports.createWater = function(req, res) {
 			console.log(newQuality);
 			
 			// redirect to the astronaut's page
-			//res.redirect('/allwater');
+			// res.redirect('/allwater');
 			res.redirect('/quality/'+ newQuality.slug);
 		}
 	});
@@ -135,6 +136,7 @@ exports.oneWater = function(req, res) {
 	console.log("one water data page requested for " + req.params.quality_id);
 	var quality_id = req.params.quality_id; //get the requested astronaut by the param on the url :quality_id
 	var qualityQuery = qualityModel.findOne({slug:quality_id}); // query the database for astronaut
+	// console.log(qualityQuery);
 	
 	qualityQuery.exec(function(err, currentQuality){
 		if (err) {

@@ -57,8 +57,8 @@
     $.getJSON(url, function(temp_data) {
       // var hi_data = d3.entries(temp_data.quality);
       // console.log(temp_data.quality);
-      data = temp_data.quality;
-      console.log(data);
+      var data = temp_data.quality;
+      // console.log(data);
 
       var margin = {top: 250, right: 20, bottom: 30, left: 120},
           width = 1350 - margin.left - margin.right,
@@ -82,7 +82,7 @@
         .attr('class', 'd3-tip')
         .offset([-10, 0])
         .html(function(d) {
-          return "<strong>Petrifilm blue:</strong> <span style='color:red'>" + d.petrifilm_blue + "</span>";
+          return "<strong>Petrifilm blue:</strong> <span style='color:red'>" + d.properties.petrifilm_blue + "</span>";
         })
 
       var svg = d3.select("body").append("svg")
@@ -96,8 +96,8 @@
       // x.domain(data.map(function(d) { return d.colilert; }));
       // x.domain(data.map(function(d) { return d.installdate; }));
       // x.domain(data.map(function(d) { return d.slug; }));
-      x.domain(data.map(function(d) { return d.reference; }));
-      y.domain([0, d3.max(data, function(d) { return d.petrifilm_blue; })]);
+      x.domain(data.map(function(d) { return d.properties.reference; }));
+      y.domain([0, d3.max(data, function(d) { return d.properties.petrifilm_blue; })]);
 
       svg.append("g")
           .attr("class", "x axis")
@@ -120,88 +120,13 @@
           .data(data)
         .enter().append("rect")
           .attr("class", "bar")
-          // .attr("x", function(d) { return x(d.colilert); })
-          // .attr("x", function(d) { return x(d.installdate); })
-          .attr("x", function(d) { return x(d.reference); })
+          .attr("x", function(d) { return x(d.properties.reference); })
           // .attr("width", x.rangeBand())
           .attr("width", 60)
-          .attr("y", function(d) { return y(d.petrifilm_blue); })
-          .attr("height", function(d) { return height - y(d.petrifilm_blue); })
+          .attr("y", function(d) { return y(d.properties.petrifilm_blue); })
+          .attr("height", function(d) { return height - y(d.properties.petrifilm_blue); })
           .on('mouseover', tip.show)
           .on('mouseout', tip.hide);
-
-
-      //////////////////////////////////////////////
-      // d3.json("data.json", function(error, data) {
-      //   //console.log("hi");
-      //   console.log(data);
-
-      //   var margin = {top: 80, right: 20, bottom: 30, left: 80},
-      //       width = 960 - margin.left - margin.right,
-      //       height = 500 - margin.top - margin.bottom;
-
-      //   // var formatPercent = d3.format(".0%");
-      //   var x = d3.scale.ordinal()
-      //       .rangeRoundBands([0, width], .7);
-
-      //   var y = d3.scale.linear()
-      //       .range([height, 0]);
-
-      //   var xAxis = d3.svg.axis()
-      //       .scale(x)
-      //       .orient("bottom");
-
-      //   var yAxis = d3.svg.axis()
-      //       .scale(y)
-      //       .orient("left");
-      //       // .tickFormat(formatPercent);
-
-      //   var tip = d3.tip()
-      //     .attr('class', 'd3-tip')
-      //     .offset([-10, 0])
-      //     .html(function(d) {
-      //       return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
-      //     })
-
-      //   var svg = d3.select("body").append("svg")
-      //       .attr("width", width + margin.left + margin.right)
-      //       .attr("height", height + margin.top + margin.bottom)
-      //     .append("g")
-      //       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      //   svg.call(tip);
-
-      //   x.domain(data.map(function(d) { return d.letter; }));
-      //   y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-      //   svg.append("g")
-      //       .attr("class", "x axis")
-      //       .attr("transform", "translate(0," + height + ")")
-      //       .call(xAxis);
-
-      //   svg.append("g")
-      //       .attr("class", "y axis")
-      //       .call(yAxis)
-      //     .append("text")
-      //       .attr("transform", "rotate(-90)")
-      //       .attr("y", 6)
-      //       .attr("dy", ".71em")
-      //       .style("text-anchor", "end")
-      //       .text("Frequency");
-
-      //   svg.selectAll(".bar")
-      //       .data(data)
-      //     .enter().append("rect")
-      //       .attr("class", "bar")
-      //       .attr("x", function(d) { return x(d.letter); })
-      //       .attr("width", x.rangeBand())
-      //       .attr("y", function(d) { return y(d.frequency); })
-      //       .attr("height", function(d) { return height - y(d.frequency); })
-      //       .on('mouseover', tip.show)
-      //       .on('mouseout', tip.hide);
-      // });
-      //////////////////////////////////////////////
-
 
     }); // getjson
   };

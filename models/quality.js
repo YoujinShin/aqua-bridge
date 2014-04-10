@@ -1,21 +1,23 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// define astronaut schema
 var QualitySchema = new Schema({
-    slug : { type: String, lowercase: true, required: true, unique: true },
+	slug : { type: String, lowercase: true, required: true, unique: true },
+	type : { type: String },
+	properties : {
 		reference : { type: String, required: true},
 		installdate : Date,
 		colilert: String,
-		// petrifilm: String,
 		petrifilm_blue: Number,
 		petrifilm_red: Number,
-		geometry : {
-			type : { type: String },
-			coordinates : []
-		},
-    lastupdated : { type: Date, default: Date.now },
+		lastupdated : { type: Date, default: Date.now }
+	},
+	geometry : {
+		type : { type: String },
+		coordinates : [Number]
+	}
 });
 
-// export 'Astronaut' model
+// QualitySchema.index({ geometry: '2dsphere' });
 module.exports = mongoose.model('Quality', QualitySchema);
+
