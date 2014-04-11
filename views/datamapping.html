@@ -35,23 +35,18 @@
 			var data = temp_data.quality;
 
 			L.geoJson(data, {
-
 				pointToLayer: function (feature, latlng) {
 					// return L.marker(latlng);
-
 					return L.circleMarker(latlng, {
-						// radius: 8,
-						// fillColor: "#ff7800",
 						color: "#fff",
 						weight: 1,
 						opacity: 1,
 						fillOpacity: 0.9
 					});
 				},
-
 				style: function(feature){
 					var so = {radius: 6};
-					// so.fillColor = "#ff7800";
+
 					if(feature.properties["colilert"] == "fluorescence") {
 						so.fillColor = "#ff7800";
 					} else if(feature.properties["colilert"] == "yellow") {
@@ -59,11 +54,8 @@
 					} else if(feature.properties["colilert"] == "transparent") {
 						so.fillColor = "#3399ff";
 					}
-					
-
 					return so;
 				}
-
 			}).addTo(map);
 		});
 	}

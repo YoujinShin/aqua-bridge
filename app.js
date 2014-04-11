@@ -105,7 +105,7 @@ app.get('/quality/:quality_id', routes.oneWater);
 // delete a single quality data
 app.get('/adminwater', routes.adminwater);
 app.get('/quality/:quality_id/delete', routes.deletewater);
-app.get('/delete_allwater', routes.deleteallwater);
+// app.get('/delete_allwater', routes.deleteallwater);
 
 // sms data
 app.get('/sms', routes.sms);
