@@ -3,47 +3,46 @@
 		position: relative;
 		top: 80px;
 		padding: 25px;
+		font-size: 14px;
 	}
 </style>
 
+<!-- <script src="js/bootstrap-formhelpers.js"></script>
+<link href="css/bootstrap-formhelpers.css" rel="stylesheet"> -->
 
 <h1>WATER QUALITY RESULT</h1>
-<!-- <img onclick="getLocation()" src="location.png" 
-style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
 
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
-	<!-- <form method="POST" action="/createWater" class="form-horizontal"> -->
 
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label"> REFERENCE </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Reference </label>
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
 	</div>
-	
-	<!-- <img onclick="getLocation()" src="location.png" 
-	style="position: absolute; left: 0px; top: 0px; width: 22px;"/> -->
 
 	<div class="form-group">
-		<label for="lat" class="col-sm-4 control-label"> LATITUDE </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
+		<div class="col-sm-1">
+			<button onclick="getLocation()" type="button" class="btn " style="font-size: 10px; background-color: #E0E0E0;">
+					<img src="location.png" style="width: 12px;"/>
+			</button>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="lat" class="col-sm-4 control-label"> Latitude </label>
 		<div class="col-sm-4">
 			<input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}">		
 		</div>
 	</div>
 
 	<div class="form-group">
-		<label for="lon" class="col-sm-4 control-label"> LONGITUDE </label>
+		<label for="lon" class="col-sm-4 control-label"> Longitude </label>
 		<div class="col-sm-4">
 			<input type="text" name="lon" class="form-control" id="lon" value="{{quality.lon}}">	
 		</div>
 	</div>
-
-	<div class="form-group">
-		<label for="installdate" class="col-sm-4 control-label"> TEST DATE </label>	
-		<div class="col-sm-4">
-			<input type="date" name="installdate" class="form-control"  id="installdate" value="{{quality.installdate}}">
-		</div>
-	</div>	
 
 <!-- 			<label for="photoUrl">
 		{{#errors.photo}}
@@ -53,71 +52,50 @@ style="position: relative; left: 70%; top: 25px; width: 22px;"/> -->
 	</label> -->
 
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label"> PETRIFILM </label>
+		<label for="petrifilm" class="col-sm-4 control-label" style="font-family: sans-serif;"> Petrifilm test </label>
+	</div>
 
-		<div class="col-sm-1">
-			<button type="button" class="btn btn-info" style="width:100%;"></button>
-		</div>
-		<div class="col-sm-1">
-			<input type="text" name="petrifilm_blue" class="form-control" id="petrifilm_blue" value="{{quality.petrifilm_blue}}">
-		</div>
-		<div class="col-sm-1">
-			<button type="button" class="btn btn-danger" style="width:100%;"></button>
-		</div>
-		<div class="col-sm-1">
-			<input type="text" name="petrifilm_red" class="form-control"  id="petrifilm_red" value="{{quality.petrifilm_red}}"> 
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label"> blue dots</label>
+		<div class="col-sm-4">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" value="{{quality.petrifilm_blue}}">
 		</div>
 	</div>
 
-<!-- 	<div class="form-group">	
-		<div class="col-sm-offset-4 col-sm-1">
-			<button type="button" class="btn btn-danger" style="width:10px; position:relative; left:80px;"></button>
-		</div>
-		<div class="col-sm-3">
-			<input type="text" name="petrifilm" class="form-control"  id="petrifilm" value="{{quality.petrifilm}}"> 
-		</div>
-	</div> -->
-	
-<!-- 			<label for="quality_boil">
-		Boilert <input type="text" name="quality_boil" id="quality_boil" value="{{quality.quality_boil}}"> 
-	</label> -->
-	
-	<!-- <div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label"> COLILERT </label>
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label"> red dots</label>
 		<div class="col-sm-4">
-			<input type="checkbox" name="colilert" class="form-control"  id="colilert" {{#quality.colilert}}checked{{/quality.colilert}}> 
+			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" value="{{quality.petrifilm_red}}"> 
 		</div>
-	</div> -->
+	</div>
 
 	<div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label"> COLILERT </label>
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> Colilert test </label>
 		<div class="col-sm-4">
 			<select class="form-control" name="colilert">
 			  <option id="colilert" value="fluorescence">fluorescence</option>
 			  <option id="colilert" value="yellow">yellow</option>
 			  <option id="colilert" value="transparent">transparent</option>
 			</select>
-			<!-- <input type="text" name="colilert" class="form-control"  id="colilert" value="{{quality.colilert}}">  -->
 		</div>
 	</div>
-	
-	<hr>
-<!-- 	<img onclick="getLocation()" src="location.png" 
-	style="position: relative; left: 50%; top: 10px; width: 22px;"/> -->
 
 	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-1">
-			<input class="btn btn-default" type="submit" value="ADD">
+		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test date</label>	
+		<div class="col-sm-4">
+			<input type="date" name="installdate" class="form-control"  id="installdate" value="{{quality.installdate}}">
 		</div>
-		<div class="col-sm-1">
-			<img onclick="getLocation()" src="location.png" 
-	style="position:relative; left:6px; top:6px; width:22px;"/>
-			<!-- <button onclick="getLocation()" type="button" class="btn btn-success">GPS</button> -->
+	</div>	
+	
+	<hr>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">  
+			<input class="btn btn-warning btn-lg btn-block" type="submit" value="Add a new data">
 		</div>
 	</div>
 </form>
-<!-- <button onclick="getLocation()" type="button" class="btn btn-success">GPS</button> -->
-<!-- <button onclick="getLocation()" style="position: relative; left: 140px; top: 26px">GPS</button> -->
+
+
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
