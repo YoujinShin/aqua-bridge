@@ -2,16 +2,12 @@
 	form {
 		position: relative;
 		top: 60px;
-		padding: 35px;
+		padding: 25px;
 		padding-bottom: 40px;
 		font-size: 14px;
-		/*background-color: white;*/
 	}
-	/*body { background-color: grey;}*/
 </style>
 
-<!-- <script src="js/bootstrap-formhelpers.js"></script>
-<link href="css/bootstrap-formhelpers.css" rel="stylesheet"> -->
 
 <!-- <h1>WATER QUALITY RESULT</h1> -->
 
@@ -33,8 +29,6 @@
 		</div>
 	</div>
 
-	
-
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
 		<div class="col-sm-1">
@@ -46,28 +40,16 @@
 
 	<div class="form-group">
 		<!-- <label for="lat" class="col-sm-4 control-label"> Latitude </label> -->
-		<div class="col-sm-offset-4 col-sm-4">
+		<div class="col-sm-offset-4 col-sm-2">
 			<!-- <input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}"> -->
 			<input type="text" name="lat" class="form-control" id="lat" value="latitude" onfocus="if (this.value=='latitude') this.value='';">	
 
 		</div>
-<!-- 		<div class="col-sm-2">
-			<input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';">
-		</div> -->
-	</div>
-
-	<div class="form-group">
-		<div class="col-sm-offset-4  col-sm-4">
+		<div class="col-sm-2">
 			<input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';">
 		</div>
 	</div>
 
-<!-- 			<label for="photoUrl">
-		{{#errors.photo}}
-		<span class="help-block alert alert-error">{{type}}</span>
-		{{/errors.photo}}
-		Photo URL <input type="text" name="photoUrl" id="photoUrl" value="{{quality.photoUrl}}"> 
-	</label> -->
 
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label" style="font-family: sans-serif;"> Petrifilm test </label>
@@ -76,14 +58,14 @@
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label"> blue dots</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" value="{{quality.petrifilm_blue}}">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label"> red dots</label>
 		<div class="col-sm-4">
-			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" value="{{quality.petrifilm_red}}"> 
+			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red"> 
 		</div>
 	</div>
 
@@ -99,36 +81,13 @@
 		</div>
 	</div>
 
-<!-- 	<div class="form-group">
-		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test date</label>	
-		<div class="col-sm-4"> -->
-			<!-- <div class="bfh-datepicker" data-format="y-m-d" id="installdate" name="installdate">
-				<input type="text" id="installdate" name="installdate">
-			</div> -->
-<!-- 
-			<div class="well">
-			  <div id="installdate" class="input-append">
-			    <input data-format="yyyy-MM-dd" type="text"></input>
-			    <span class="add-on">
-			      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-			      </i>
-			    </span>
-			  </div>
-			</div>
- -->
-			<!-- <input type="date" name="installdate" class="form-control" id="installdate" value="{{quality.installdate}}"> -->
-<!-- 		</div>
-	</div>	 -->
-
-	
-	<hr>
+	<br>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">  
 			<input class="btn btn-warning btn-lg btn-block" type="submit" value="Add a new data">
 		</div>
 	</div>
 </form>
-
 
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
