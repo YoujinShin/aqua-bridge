@@ -81,6 +81,7 @@ exports.water = function(req, res) {
 
 exports.createWater = function(req, res) {
 	console.log("received water data form submission");
+	// console.log(req.body.installdate);
 	console.log(req.body);
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
 
@@ -92,7 +93,8 @@ exports.createWater = function(req, res) {
 			reference : req.body.reference,
 			colilert : req.body.colilert,
 			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
-			petrifilm_red : parseFloat(req.body.petrifilm_red)
+			petrifilm_red : parseFloat(req.body.petrifilm_red),
+			installdate : req.body.installdate
 		},
 		geometry : {
 			type : "Point",
@@ -103,9 +105,9 @@ exports.createWater = function(req, res) {
 	console.log(newQuality);
 
 	// you can also add properties with the . (dot) notation
-	if (req.body.installdate) {
-		newQuality.properties.installdate = moment(req.body.installdate).toDate();
-	}
+	// if (req.body.installdate) {
+	// 	newQuality.properties.installdate = moment(req.body.installdate).toDate();
+	// }
 
 	// save the newAstro to the database
 	newQuality.save(function(err){

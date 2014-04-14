@@ -1,18 +1,30 @@
 <style>
 	form {
 		position: relative;
-		top: 80px;
-		padding: 25px;
+		top: 60px;
+		padding: 35px;
+		padding-bottom: 40px;
 		font-size: 14px;
+		/*background-color: white;*/
 	}
+	/*body { background-color: grey;}*/
 </style>
 
 <!-- <script src="js/bootstrap-formhelpers.js"></script>
 <link href="css/bootstrap-formhelpers.css" rel="stylesheet"> -->
 
-<h1>WATER QUALITY RESULT</h1>
+<!-- <h1>WATER QUALITY RESULT</h1> -->
 
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
+
+	<div class="form-group" style="z-index: 50;">
+		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
+		<div class="col-sm-4">
+			<!-- <div class="date_picker"> -->
+	        <input type="text" name="installdate" id="installdate" class="form-control date_select" />
+	        <!-- </div> -->
+	    </div>
+    </div>
 
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Reference </label>
@@ -20,6 +32,8 @@
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
 	</div>
+
+	
 
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
@@ -31,16 +45,20 @@
 	</div>
 
 	<div class="form-group">
-		<label for="lat" class="col-sm-4 control-label"> Latitude </label>
-		<div class="col-sm-4">
-			<input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}">		
+		<!-- <label for="lat" class="col-sm-4 control-label"> Latitude </label> -->
+		<div class="col-sm-offset-4 col-sm-4">
+			<!-- <input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}"> -->
+			<input type="text" name="lat" class="form-control" id="lat" value="latitude" onfocus="if (this.value=='latitude') this.value='';">	
+
 		</div>
+<!-- 		<div class="col-sm-2">
+			<input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';">
+		</div> -->
 	</div>
 
 	<div class="form-group">
-		<label for="lon" class="col-sm-4 control-label"> Longitude </label>
-		<div class="col-sm-4">
-			<input type="text" name="lon" class="form-control" id="lon" value="{{quality.lon}}">	
+		<div class="col-sm-offset-4  col-sm-4">
+			<input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';">
 		</div>
 	</div>
 
@@ -73,6 +91,7 @@
 		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> Colilert test </label>
 		<div class="col-sm-4">
 			<select class="form-control" name="colilert">
+			  <option id="colilert" value="none">none</option>
 			  <option id="colilert" value="fluorescence">fluorescence</option>
 			  <option id="colilert" value="yellow">yellow</option>
 			  <option id="colilert" value="transparent">transparent</option>
@@ -80,12 +99,27 @@
 		</div>
 	</div>
 
-	<div class="form-group">
+<!-- 	<div class="form-group">
 		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test date</label>	
-		<div class="col-sm-4">
-			<input type="date" name="installdate" class="form-control"  id="installdate" value="{{quality.installdate}}">
-		</div>
-	</div>	
+		<div class="col-sm-4"> -->
+			<!-- <div class="bfh-datepicker" data-format="y-m-d" id="installdate" name="installdate">
+				<input type="text" id="installdate" name="installdate">
+			</div> -->
+<!-- 
+			<div class="well">
+			  <div id="installdate" class="input-append">
+			    <input data-format="yyyy-MM-dd" type="text"></input>
+			    <span class="add-on">
+			      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+			      </i>
+			    </span>
+			  </div>
+			</div>
+ -->
+			<!-- <input type="date" name="installdate" class="form-control" id="installdate" value="{{quality.installdate}}"> -->
+<!-- 		</div>
+	</div>	 -->
+
 	
 	<hr>
 	<div class="form-group">
@@ -139,5 +173,9 @@
               break;
         }
     }
+
+    $(function() {
+        $('.date_select').datepicker();
+    });    
 </script>
 
