@@ -8,13 +8,11 @@
 	}
 </style>
 
-
 <!-- <h1>WATER QUALITY RESULT</h1> -->
-
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
 
 	<div class="form-group" style="z-index: 50;">
-		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
+		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test date </label>
 		<div class="col-sm-4">
 			<!-- <div class="date_picker"> -->
 	        <input type="text" name="installdate" id="installdate" class="form-control date_select" />
@@ -23,7 +21,7 @@
     </div>
 
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Reference </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Reference  </label>
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
@@ -31,7 +29,7 @@
 
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
-		<div class="col-sm-1">
+		<div class="col-sm-4">
 			<button onclick="getLocation()" type="button" class="btn " style="font-size: 10px; background-color: #E0E0E0;">
 					<img src="location.png" style="width: 12px;"/>
 			</button>
@@ -50,9 +48,13 @@
 		</div>
 	</div>
 
+	<br>
 
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label" style="font-family: sans-serif;"> Petrifilm test </label>
+		<label for="petrifilm" class="col-sm-4 control-label" style="font-family: sans-serif;"> Petrifilm  </label>
+<!-- 		<label for="petrifilmTested" class="col-sm-2 control-label"  style="text-align: left;">
+			test is conducted ? <input type="checkbox" name="petrifilmTested" id="petrifilmTested" {{#quality.petrifilmTested}}checked{{/quality.petrifilmTested}}> 
+		</label>  -->
 	</div>
 
 	<div class="form-group">
@@ -69,8 +71,17 @@
 		</div>
 	</div>
 
+	<br>
+
 	<div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> Colilert test </label>
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> Colilert  </label>
+<!-- 		<label for="colilertTested" class="col-sm-2 control-label"  style="text-align: left;">
+			test is conducted ? <input type="checkbox" name="colilertTested" id="colilertTested" {{#quality.colilertTested}}checked{{/quality.colilertTested}}> 
+		</label> -->
+	</div>
+
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label">color</label>
 		<div class="col-sm-4">
 			<select class="form-control" name="colilert">
 			  <option id="colilert" value="none">none</option>

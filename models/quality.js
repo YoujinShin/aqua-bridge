@@ -7,7 +7,9 @@ var QualitySchema = new Schema({
 	properties : {
 		reference : { type: String, required: true},
 		installdate : Date,
+		// colilertTested : Boolean,
 		colilert: String,
+		// petrifilmTested : Boolean,
 		petrifilm_blue: Number,
 		petrifilm_red: Number,
 		lastupdated : { type: Date, default: Date.now }

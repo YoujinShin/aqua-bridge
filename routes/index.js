@@ -72,7 +72,6 @@ exports.news = function(req, res) {
 	res.render('news.html');
 }
 
-
 // water quality data
 exports.water = function(req, res) {
 	console.log("water quality input page requested");
@@ -81,11 +80,9 @@ exports.water = function(req, res) {
 
 exports.createWater = function(req, res) {
 	console.log("received water data form submission");
-	// console.log(req.body.installdate);
 	console.log(req.body);
 	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
 
-	// accept form post data
 	var newQuality = new qualityModel({
 		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_'),
 		type : "Feature",
@@ -102,14 +99,19 @@ exports.createWater = function(req, res) {
 		}
 	});
 
-	console.log(newQuality);
-
-	// you can also add properties with the . (dot) notation
-	// if (req.body.installdate) {
-	// 	newQuality.properties.installdate = moment(req.body.installdate).toDate();
+	// if (req.body.petrifilmTested) {
+	// 	newQuality.properties.petrifilmTested = true;
+	// } else {
+	// 	newQuality.properties.petrifilmTested = false;
 	// }
 
-	// save the newAstro to the database
+	// if (req.body.colilertTested) {
+	// 	newQuality.properties.colilertTested = true;
+	// } else {
+	// 	newQuality.properties.colilertTested = false;
+	// }
+
+	// save the new quality to the database
 	newQuality.save(function(err){
 		if (err) {
 			console.error("Error on saving new water quality data");
