@@ -1,8 +1,3 @@
-<!-- <h1>Data Mapping</h1> -->
-<!-- {{#quality}}
-		 <h1>{{lat}}</h1>	  
-{{/quality}} -->
-
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
@@ -34,9 +29,21 @@
 		$.getJSON('/allwater', function(temp_data) {
 			var data = temp_data.quality;
 
+			function onEachFeature(feature, layer) {
+				var popupContent = "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
+						+ "<p>petrifilm (red):  "+feature.properties.petrifilm_red+"</p>"
+						+ "<p>colilert (color): "+feature.properties.colilert+"</p>";
+
+				// if (feature.properties && feature.properties.popupContent) {
+				// 	popupContent += feature.properties.popupContent;
+				// }
+				layer.bindPopup(popupContent);
+			}
+
 			L.geoJson(data, {
+				onEachFeature: onEachFeature,
+
 				pointToLayer: function (feature, latlng) {
-					// return L.marker(latlng);
 					return L.circleMarker(latlng, {
 						color: "#fff",
 						weight: 1,
@@ -46,21 +53,29 @@
 				},
 				style: function(feature){
 					var so = {radius: 6};
+					var pet_b = feature.properties["petrifilm_blue"];
+					var pet_r = feature.properties["petrifilm_red"];
+					var col = feature.properties["colilert"];
 
-					if(feature.properties["colilert"] == "fluorescence") {
+					if (pet_b > 0 || col == "fluorescence") {
 						so.fillColor = "#ff7800";
-					} else if(feature.properties["colilert"] == "yellow") {
+					} else if (pet_r > 0 || col == "yellow") {
 						so.fillColor = "#ffff33";
-					} else if(feature.properties["colilert"] == "transparent") {
+					} else {
 						so.fillColor = "#3399ff";
 					}
+					// if(feature.properties["colilert"] == "fluorescence") {
+					// 	so.fillColor = "#ff7800";
+					// } else if(feature.properties["colilert"] == "yellow") {
+					// 	so.fillColor = "#ffff33";
+					// } else if(feature.properties["colilert"] == "transparent") {
+					// 	so.fillColor = "#3399ff";
+					// }
 					return so;
 				}
 			}).addTo(map);
 		});
 	}
-
-	// var styleId = 22677;
 	      
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // basic open street map
 	// var osmUrl='http://{s}.tile.cloudmade.com/d4fc77ea4a63471cab2423e66626cbb6/22677/256/{z}/{x}/{y}.png'; // black & white
@@ -76,9 +91,6 @@
 	map.addLayer(osm);
 
 	new L.Control.Zoom({ position : 'topright'}).addTo(map);
-
-	
 	  
     </script>
-
 </body> 
