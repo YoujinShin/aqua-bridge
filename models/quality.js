@@ -6,7 +6,8 @@ var QualitySchema = new Schema({
 	type : { type: String },
 	properties : {
 		reference : { type: String, required: true},
-		installdate : Date,
+		testdate : Date,
+		sourcetype: String,
 		// colilertTested : Boolean,
 		colilert: String,
 		// petrifilmTested : Boolean,

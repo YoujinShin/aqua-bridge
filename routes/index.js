@@ -88,28 +88,17 @@ exports.createWater = function(req, res) {
 		type : "Feature",
 		properties : {
 			reference : req.body.reference,
+			sourcetype : req.body.sourcetype,
 			colilert : req.body.colilert,
 			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
 			petrifilm_red : parseFloat(req.body.petrifilm_red),
-			installdate : req.body.installdate
+			testdate : req.body.testdate
 		},
 		geometry : {
 			type : "Point",
 			coordinates : [parseFloat(req.body.lon), parseFloat(req.body.lat)]
 		}
 	});
-
-	// if (req.body.petrifilmTested) {
-	// 	newQuality.properties.petrifilmTested = true;
-	// } else {
-	// 	newQuality.properties.petrifilmTested = false;
-	// }
-
-	// if (req.body.colilertTested) {
-	// 	newQuality.properties.colilertTested = true;
-	// } else {
-	// 	newQuality.properties.colilertTested = false;
-	// }
 
 	// save the new quality to the database
 	newQuality.save(function(err){
@@ -128,9 +117,6 @@ exports.createWater = function(req, res) {
 		} else {
 			console.log("Created a new quality!");
 			console.log(newQuality);
-			
-			// redirect to the astronaut's page
-			// res.redirect('/allwater');
 			res.redirect('/quality/'+ newQuality.slug);
 		}
 	});

@@ -1,7 +1,7 @@
 <style>
 	form {
 		position: relative;
-		top: 60px;
+		top: 40px;
 		padding: 25px;
 		padding-bottom: 40px;
 		font-size: 14px;
@@ -11,21 +11,21 @@
 <!-- <h1>WATER QUALITY RESULT</h1> -->
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
 
-	<div class="form-group" style="z-index: 50;">
-		<label for="installdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test date </label>
-		<div class="col-sm-4">
-			<!-- <div class="date_picker"> -->
-	        <input type="text" name="installdate" id="installdate" class="form-control date_select" />
-	        <!-- </div> -->
-	    </div>
-    </div>
-
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Reference  </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name  </label>
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
 	</div>
+
+
+	<div class="form-group" style="z-index: 50;">
+		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
+		<div class="col-sm-4">
+	        <input type="text" name="testdate" id="testdate" class="form-control date_select" />
+	    </div>
+    </div>
+
 
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
@@ -35,53 +35,60 @@
 			</button>
 		</div>
 	</div>
-
 	<div class="form-group">
-		<!-- <label for="lat" class="col-sm-4 control-label"> Latitude </label> -->
 		<div class="col-sm-offset-4 col-sm-2">
-			<!-- <input type="text" name="lat" class="form-control" id="lat" value="{{quality.lat}}"> -->
 			<input type="text" name="lat" class="form-control" id="lat" value="latitude" onfocus="if (this.value=='latitude') this.value='';">	
-
 		</div>
 		<div class="col-sm-2">
 			<input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';">
 		</div>
 	</div>
 
+
 	<br>
-
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label" style="font-family: sans-serif;"> Petrifilm  </label>
-<!-- 		<label for="petrifilmTested" class="col-sm-2 control-label"  style="text-align: left;">
-			test is conducted ? <input type="checkbox" name="petrifilmTested" id="petrifilmTested" {{#quality.petrifilmTested}}checked{{/quality.petrifilmTested}}> 
-		</label>  -->
-	</div>
-
-	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label"> blue dots</label>
+		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
+<!-- 	</div>
+	<div class="form-group"> -->
 		<div class="col-sm-4">
-			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
+			<select class="form-control" name="sourcetype">
+			  <option id="sourcetype" value="standpipe">Standpipe</option>
+			  <option id="sourcetype" value="well">Well</option>
+			  <option id="sourcetype" value="rainwater">Rainwater</option>
+			  <option id="sourcetype" value="river">River</option>
+			  <option id="sourcetype" value="spring">Spring</option>
+			  <option id="sourcetype" value="dam">Dam</option>
+			</select>
 		</div>
 	</div>
 
+	<br><br>
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label"> red dots</label>
-		<div class="col-sm-4">
+		<div class="col-sm-4 control-label">
+			<img src="/img/petrifilm.png" style="width: 88px;"/>
+		</div>
+		<br>
+		<label for="petrifilm" class="col-sm-1"> blue dots</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
+		</div><br><br>
+
+		<label for="petrifilm" class="col-sm-1"> red dots</label>
+		<div class="col-sm-3">
 			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red"> 
 		</div>
 	</div>
 
+
 	<br>
-
 	<div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> Colilert  </label>
-<!-- 		<label for="colilertTested" class="col-sm-2 control-label"  style="text-align: left;">
-			test is conducted ? <input type="checkbox" name="colilertTested" id="colilertTested" {{#quality.colilertTested}}checked{{/quality.colilertTested}}> 
-		</label> -->
-	</div>
-
-	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label">color</label>
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> 
+			<img src="/img/colilert.jpg" style="width: 90px;"/> 
+		</label>
+	<!-- </div>
+	<div class="form-group"> -->
+		<!-- <label for="petrifilm" class="control-label">color</label> -->
+		<br><br>
 		<div class="col-sm-4">
 			<select class="form-control" name="colilert">
 			  <option id="colilert" value="none">none</option>
@@ -116,7 +123,6 @@
         var latlon=position.coords.latitude+","+position.coords.longitude;
         var tlat = position.coords.latitude;
         var tlng = position.coords.longitude;
-        	// $("#lat").val (latlon);
             $("#lat").val (tlat);
             $("#lon").val (tlng);
     
