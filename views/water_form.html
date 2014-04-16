@@ -45,11 +45,8 @@
 	</div>
 
 
-	<br>
 	<div class="form-group">
 		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
-<!-- 	</div>
-	<div class="form-group"> -->
 		<div class="col-sm-4">
 			<select class="form-control" name="sourcetype">
 			  <option id="sourcetype" value="standpipe">Standpipe</option>
@@ -61,35 +58,42 @@
 			</select>
 		</div>
 	</div>
+	<hr>
 
-	<br><br>
 	<div class="form-group">
-		<div class="col-sm-4 control-label">
-			<img src="/img/petrifilm.png" style="width: 88px;"/>
+		<label class="col-sm-4 control-label" style="font-family: sans-serif;"> 
+			Petrifilm
+		</label>
+		<div class="col-sm-4">
+<!-- 			<button type="button" class="btn " style="font-size: 10px; background-color: #E0E0E0;">
+					<img src="/img/petrifilm.png" style="width: 40px;"/>
+			</button> -->
+			<img src="/img/petrifilm.png" style="width: 38px;"/>
 		</div>
-		<br>
-		<label for="petrifilm" class="col-sm-1"> blue dots</label>
-		<div class="col-sm-3">
+	</div>
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label"> blue dots</label>
+		<div class="col-sm-4">
 			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
-		</div><br><br>
-
-		<label for="petrifilm" class="col-sm-1"> red dots</label>
-		<div class="col-sm-3">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label"> red dots</label>
+		<div class="col-sm-4">
 			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red"> 
 		</div>
 	</div>
 
-
-	<br>
 	<div class="form-group">
 		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> 
-			<img src="/img/colilert.jpg" style="width: 90px;"/> 
+			Colilert
 		</label>
-	<!-- </div>
-	<div class="form-group"> -->
-		<!-- <label for="petrifilm" class="control-label">color</label> -->
-		<br><br>
 		<div class="col-sm-4">
+			<img src="/img/colilert.jpg" style="width: 40px;"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
 			<select class="form-control" name="colilert">
 			  <option id="colilert" value="none">none</option>
 			  <option id="colilert" value="fluorescence">fluorescence</option>
