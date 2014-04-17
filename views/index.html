@@ -1,10 +1,37 @@
 <style>
   h1 { 
-      position: relative;
-      text-align: center;
-      font-size: 28px;
-      top: 0px;
-      left: 0px;
+      position: absolute;
+      font-size: 30px;
+      color: black;
+      padding: 15px;
+      padding-left: 26px;
+      padding-right: 26px;
+      background-color: rgba(255,255,255,1);
+      top: -220px;
+      letter-spacing:4px;
+      text-align: left;
+      left: -100px;
+  }
+  .captiondesign {
+      font-size: 16px;
+      color: black;
+      padding: 14px;
+      padding-left: 30px;
+      padding-right: 30px;
+      background-color: rgba(255,255,255,1);
+      letter-spacing:3px;
+      text-align: left;
+      position: absolute;
+      top: -120px;
+      left: -100px;
+  }
+  @media (max-width: 992px) { 
+    h1 {
+      font-size: 20px; padding: 10px; left: -60px; top: -150px;
+    }
+    .captiondesign {
+      font-size: 12px; padding: 6px; left: -60px; top: -60px;
+    }
   }
   /*footer { background-color: rgba(100, 100, 100, 0.6);}*/
 </style>
@@ -21,40 +48,32 @@
 
   <div class="carousel-inner">
     <div class="item active">
-      <!-- <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide"> -->
       <img src="/img/IMG_3719.JPG" alt="First slide">
       <div class="container">
         <div class="carousel-caption" >
-          <!-- <h1>Example headline.</h1> -->
-          <!-- <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p> -->
-          <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p> -->
+          <h1 style="color:rgba(30, 30, 30, 1);"> A CROWD-SOURCED WORLD WATER QUALITY MAP </h1>
+          <h4 class="captiondesign"> Join <a href="/worldmap">HERE</a> to test your water quality </h4>
         </div>
       </div>
     </div>
 
     <div class="item">
-      <!-- <img data-src="holder.js/900x500/auto/#666:#6a6a6a/text:Second slide" alt="Second slide"> -->
-      <img src="/img/IMG_3560.JPG" alt="Second slide">
-      <div class="container">
-        <div class="carousel-caption">
-          <!-- <h1>Another example headline.</h1> -->
-          <!-- <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
-          <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p> -->
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <!-- <img data-src="holder.js/900x500/auto/#555:#5a5a5a/text:Third slide" alt="Third slide"> -->
-      <img src="/img/IMG_3601.JPG" art="Third slide">
+      <img src="/img/IMG_3601.JPG" art="Second slide">
       <div class="container">
         <div class="carousel-caption" >
-          <!-- <h2 style="position:absolute; left:-100px; top:-300px; color:white; background-color:rgba(0,0,0,0.3); padding:20px;">AQUA-BRIDGE CAN MONITOR FILTER PERFORMANCE</h2> -->
-          <!-- <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> -->
-          <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p> -->
+          <h1 style="color:rgba(30, 30, 30, 1);"> MONITOR FILTER PERFORMANCE </h1>
+          <h4 class="captiondesign"> Click <a href="/tanzania">HERE</a> to see what's going on in Tanzania </h4>
         </div>
       </div>
     </div>
+
+<!--     <div class="item">
+      <img src="/img/IMG_3560.JPG" alt="Third slide">
+      <div class="container">
+        <div class="carousel-caption">
+        </div>
+      </div>
+    </div> -->
 
   </div>
 
@@ -67,49 +86,38 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-<h1 style="color:rgba(30, 30, 30, 1); text-align:center; font-size:30px;">
+<!-- <h1 style="color:rgba(30, 30, 30, 1); text-align:center; font-size:30px;">
   AQUA-BRIDGE HELPS YOU TO FIND IF YOUR 
   <span style="color:#6FCEEE">DRINKING WATER</span>
   IS SAFE
-</h1> <br><br><br>
+</h1> --> <br><br><br>
 
 
 <div class="container marketing">
-
-  <!-- Three columns of text below the carousel -->
   <div class="row">
     <div class="col-lg-4">
-      <!-- <img class="img-circle" data-src="holder.js/250x250" alt="Generic placeholder image"> -->
-      <img class="img-circle" src="/img/filtration2.png" width="230px" alt="Generic placeholder image">
+      <img class="img-circle" src="/img/filtration2.png" width="220px" alt="Generic placeholder image">
       <h2>FILTRATION TECHNOLOGY</h2>
       <p>BioSand Filter (BSF) and Ceramic Pot Filter (CPF) are the two main filtration technologies which AQUA-BRIDGE’s collaborators produce and distribute. BSF and CPF are known to be one of the most effective methods for delivering clean water.</p>
-      <!-- <p><a class="btn btn-default" href="/tech" role="button">View details &raquo;</a></p> -->
     </div><!-- /.col-lg-4 -->
     <div class="col-lg-4">
-      <!-- <img class="img-circle" data-src="holder.js/250x250" alt="Generic placeholder image"> -->
-      <img class="img-circle" src="/img/testing2.png" width="230px" alt="Generic placeholder image">
+      <img class="img-circle" src="/img/testing2.png" width="220px" alt="Generic placeholder image">
       <h2>WATER QUALITY TESTING</h2>
       <p>AQUA-BRIDGE uses the EC-Kit which is a simple, inexpensive field water quality test kit. EC-Kit is developed by Susan Murcott lab at MIT and consists of Colilert™ and 3M Petrifilm™ tests. </p>
-      <!-- <p><a class="btn btn-default" href="/tech" role="button">View details &raquo;</a></p> -->
     </div><!-- /.col-lg-4 -->
     <div class="col-lg-4">
-      <!-- <img class="img-circle" data-src="holder.js/250x250" alt="Generic placeholder image"> -->
-      <img class="img-circle" src="/img/ict2.png" width="230px" alt="Generic placeholder image">
+      <img class="img-circle" src="/img/ict2.png" width="220px" alt="Generic placeholder image">
       <h2>SMART DATA MANAGEMENT</h2>
       <p>Our innovative web-based ICT platform enables to effectively integrate, manage and analyze the gathered data to quantify impact and make data-driven decisions.</p>
-      <!-- <p><a class="btn btn-default" href="/tech" role="button">View details &raquo;</a></p> -->
     </div><!-- /.col-lg-4 -->
   </div><!-- /.row -->
 
 
   <!-- START THE FEATURETTES -->
-
-  <hr class="featurette-divider">
-
+<!--   <hr class="featurette-divider">
   <div class="row featurette">
     <div class="col-md-7">
       <h2 class="featurette-heading">Monitoring filter performance 
-        <!-- <span class="text-muted">crowd sourcing work</span> -->
       </h2>
       <p class="lead">AQUA-BRIDGE collaborates with local filter producers and distributors to better serve communities suffering from drinking water crisis. AQUA-BRIDGE enables filter producers to effectively test and track their filters’ performances. AQUA-BRIDGE has project sites in Tanzania, Ghana and Nigeria.</p>
     </div>
@@ -117,27 +125,22 @@
       <img class="featurette-image img-responsive" src="/img/filter.png" alt="Generic placeholder image" width="500px" height="500px">
     </div>
   </div>
-
   
-
   <hr class="featurette-divider">
-
   <div class="row featurette">
     <div class="col-md-5">
       <img class="featurette-image img-responsive" src="/img/map.png" alt="Generic placeholder image" width="500px" height="500px">
     </div>
     <div class="col-md-7">
       <h2 class="featurette-heading">World water quality map 
-        <!-- <span class="text-muted">our service</span> -->
+        <span class="text-muted">our service</span>
       </h2>
       <p class="lead">Water crisis is not only limited to developing countries, and there is no easy or accessible way to test water quality at the household level in developed countries. Anyone can apply for simple water quality test kit and test their household’s water quality. The test result can be uploaded on our website.</p>
     </div>
-  </div>
-
+  </div> -->
 
 
  <!--  <hr class="featurette-divider">
-
   <div class="row featurette">
     <div class="col-md-7">
       <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>

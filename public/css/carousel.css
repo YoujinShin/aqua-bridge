@@ -7,8 +7,9 @@ body {
   padding-bottom: 40px;
   padding-left: 0px !important;
   padding-right: 0px !important;
-  color: #5a5a5a;
+  /*color: #5a5a5a;*/
   /*color: #242424;*/
+  /*font-family: 'Open Sans', sans-serif*/
   font-family: 'Open Sans', sans-serif;
 }
 h2 { font-size: 20px;}
@@ -61,17 +62,20 @@ footer {
 
 /* Carousel base class */
 .carousel {
-  height: 540px;
+  /*height: 540px;*/
+  height: 682px;
   margin-bottom: 60px;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   z-index: 10;
+  text-shadow: none;
 }
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  height: 540px;
+  /*height: 540px;*/
+  height: 682px;
   background-color: #777;
 }
 .carousel-inner > .item > img {
@@ -153,7 +157,7 @@ footer {
   .carousel-caption p {
     margin-bottom: 20px;
     font-size: 21px;
-    line-height: 1.4;
+    /*line-height: 1.4;*/
   }
 
   /* Carousel base class */
