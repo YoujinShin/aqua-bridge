@@ -101,25 +101,30 @@ exports.createWater = function(req, res) {
 	});
 
 	// save the new quality to the database
-	newQuality.save(function(err){
-		if (err) {
-			console.error("Error on saving new water quality data");
-			console.error(err); // log out to Terminal all errors
+	if(req.body.password == "aquabridge") {
+		newQuality.save(function(err){
+			if (err) {
+				console.error("Error on saving new water quality data");
+				console.error(err); // log out to Terminal all errors
 
-			var templateData = {
-				page_title : 'Enlist a new quality',
-				errors : err.errors, 
-				quality : req.body
-			};
-			res.render('water_form.html', templateData);
-			// return res.send("There was an error when creating a new astronaut");
-
-		} else {
-			console.log("Created a new quality!");
-			console.log(newQuality);
-			res.redirect('/quality/'+ newQuality.slug);
-		}
-	});
+				var templateData = {
+					page_title : 'Enlist a new quality',
+					errors : err.errors, 
+					quality : req.body
+				};
+				res.render('water_form.html', templateData);
+				// return res.send("There was an error when creating a new astronaut");
+			} else {
+				console.log("Created a new quality!");
+				console.log(newQuality);
+				res.redirect('/quality/'+ newQuality.slug);
+			}
+		});
+	}  else {
+				console.log("Created a new quality!");
+				console.log(newQuality);
+				res.redirect('/quality/'+ newQuality.slug);
+	};
 }
 
 exports.oneWater = function(req, res) {
