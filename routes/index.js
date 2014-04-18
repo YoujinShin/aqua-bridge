@@ -285,7 +285,8 @@ exports.deleteallsms = function(req, res) {
 
 exports.dataviz = function(req, res) {
 	console.log("data viz page requested");
-	res.render("dataviz.html");
+	// res.render("dataviz.html");
+	res.render("cloud.html");
 }
 
 exports.datamapping = function(req, res) {
