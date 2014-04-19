@@ -78,6 +78,11 @@ exports.water = function(req, res) {
 	res.render('water_form.html');
 }
 
+exports.watertest = function(req, res) {
+	console.log("water quality test quid page requested");
+	res.render('watertest.html');
+}
+
 exports.createWater = function(req, res) {
 	console.log("received water data form submission");
 	console.log(req.body);

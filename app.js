@@ -119,6 +119,8 @@ app.get('/allsms', routes.allsms); // json - retreive all sms from database
 app.get('/dataviz', routes.dataviz); // data visualization
 app.get('/datamapping', routes.datamapping); // data mapping
 
+app.get('/watertest', routes.watertest);
+
 // visualize world water quality map
 app.get('/worldmap', routes.worldmap);
 
