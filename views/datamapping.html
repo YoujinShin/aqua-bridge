@@ -35,7 +35,9 @@
 			var data = temp_data.quality;
 
 			function onEachFeature(feature, layer) {
-				var popupContent = "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
+				var popupContent = 
+						"<p>Type of source: "+feature.properties.sourcetype+"</p>"
+						+ "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
 						+ "<p>petrifilm (red):  "+feature.properties.petrifilm_red+"</p>"
 						+ "<p>colilert (color): "+feature.properties.colilert+"</p>";
 				layer.bindPopup(popupContent);

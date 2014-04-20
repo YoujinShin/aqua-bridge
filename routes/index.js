@@ -122,13 +122,15 @@ exports.createWater = function(req, res) {
 			} else {
 				console.log("Created a new quality!");
 				console.log(newQuality);
-				res.redirect('/quality/'+ newQuality.slug);
+				res.redirect('/datamapping');
+				// res.redirect('/quality/'+ newQuality.slug);
 			}
 		});
 	}  else {
 				console.log("Created a new quality!");
 				console.log(newQuality);
-				res.redirect('/quality/'+ newQuality.slug);
+				res.redirect('/datamapping');
+				// res.redirect('/quality/'+ newQuality.slug);
 	};
 }
 
