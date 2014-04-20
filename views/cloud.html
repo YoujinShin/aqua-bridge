@@ -2,12 +2,12 @@
 <script type="text/javascript" src="js/d3.js"></script>
 <script type="text/javascript" src="js/d3.geom.js"></script>
 <script type="text/javascript" src="js/d3.layout.js"></script>
-<link type="text/css" rel="stylesheet" href="style.css"/>
+<!-- <link type="text/css" rel="stylesheet" href="style.css"/> -->
 
 <style type="text/css">
 circle {
   stroke: #fff;
-  stroke-opacity: .9;
+  stroke-opacity: .0;
 }
 </style>
 
@@ -18,8 +18,9 @@ circle {
 var w = 1200,
     h = 700;
 
-var nodes = d3.range(200).map(function() { return {radius: Math.random() * 12 + 4}; }),
+var nodes = d3.range(50).map(function() { return {radius: Math.random() * 12 + 4}; }),
     color = d3.scale.category10();
+// console.log(color);
 
 var force = d3.layout.force()
     .gravity(0.05)
@@ -41,7 +42,10 @@ svg.selectAll("circle")
     .data(nodes.slice(1))
   .enter().append("svg:circle")
     .attr("r", function(d) { return d.radius - 2; })
-    .style("fill", function(d, i) { return color(i % 3); });
+    .style("fill", function(d, i) { 
+      return color(i % 3); 
+      console.log(color(i % 3));
+    });
 
 force.on("tick", function(e) {
   var q = d3.geom.quadtree(nodes),
@@ -65,7 +69,7 @@ svg.on("mousemove", function() {
 });
 
 function collide(node) {
-  var r = node.radius + 16, //16
+  var r = node.radius + 2, //16
       nx1 = node.x - r,
       nx2 = node.x + r,
       ny1 = node.y - r,

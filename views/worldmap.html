@@ -1,29 +1,34 @@
-<link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
-<script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
+<!-- <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+<script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script> -->
 
-<style>
-  /*html {padding: 20px;}*/
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/d3.geom.js"></script>
+<script type="text/javascript" src="js/d3.layout.js"></script>
+<script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+
+<style type="text/css">
+  circle {
+    stroke: #fff;
+    stroke-opacity: .0;
+  }
   html, body, #cartodb-map {
-      height: 450px;
+   /*   height: 450px;
       width: 100%;
-      margin: 0px;
+      margin: 0px;*/
       padding: 20px;
-      top: 100px;
+      /*top: 100px;*/
     }
   h2 {
-    /*font-family: sans-serif;*/
-    font-size: 18px; padding: 12px;
+    font-size: 17px; padding: 0px;
     color: rgba(100,100,100,0.9); 
     /*color: rgba(111,206,238,1); */
   }
-/*  .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-    width: 100%;
-  }*/
   .container{
     width: 100%;
   }
-  .cartodb-popup-content-wrapper { width: 250px !important; max-width: 250px !important;}
-  .leaflet-top { top: 45px !important; }
+  /*.cartodb-popup-content-wrapper { width: 250px !important; max-width: 250px !important;}*/
+  /*.leaflet-top { top: 45px !important; }*/
   p {font-size: 18px; text-align: center; position: relative; color: rgba(168,168,168,1);}
 </style>
 
@@ -31,35 +36,46 @@
   A CROWD-SOURCED WORLD WATER QUALITY MAP
 </h1>
 
-<!-- <img class="img-rounded" src="/img/peter.png" width="160px" alt="Generic placeholder image" style="padding: 14px"> -->
 
-<div class="container marketing" style="position:relative; top: 110px; background-color: white; margin: 0; padding-top: 45px; padding-left: 5%; padding-right: 5%; border: 1px solid rgba(200,200,200,0.4); border-left: none; border-right: none;">
+
+<!-- <div id="body"></div> -->
+
+
+
+<div class="container marketing" style="position:relative; top: 100px; background-color: white; margin: 0px; padding-top: 25px; padding-left: 5%; padding-right: 5%; padding-bottom: 0px;border: 1px solid rgba(200,200,200,0.4); border-left: none; border-right: none; top: 100px;">
     <div class="col-lg-4" >
       <a href="/watertest">
-        <img class="img-rounded" src="/img/test2.png" width="260px" alt="Generic placeholder image" style="opacity: 0.9;" >
+        <img class="img-rounded" src="/img/test2.png" width="140px" alt="Generic placeholder image" style="opacity: 0.9;" >
       </a>
       <h2>TEST WATER QUALITY</h2>
     </div>
 
     <div class="col-lg-4">
       <a href="/water">
-        <img class="img-rounded" src="/img/adddata2.png" width="260px" alt="Generic placeholder image" >
+        <img class="img-rounded" src="/img/adddata2.png" width="140px" alt="Generic placeholder image" >
       </a>
       <h2>
         ADD A DATA 
         <a href="/allwater">
-          <button type="button" class="btn btn-info" style="margin-left:18px; font-size: 11px; letter-spacing:2px;">API</button> 
+          <button type="button" class="btn btn-info" style="margin-left:18px; font-size: 9px; letter-spacing:2px;">API</button> 
         </a>
       </h2>
     </div>
 
     <div class="col-lg-4" >
       <a href="/datamapping">
-        <img class="img-rounded" src="/img/qualitymap3.png" width="260px" alt="Generic placeholder image" >
+        <img class="img-rounded" src="/img/qualitymap3.png" width="140px" alt="Generic placeholder image" >
       </a>
       <h2>WATER QUALITY MAP</h2>
     </div>
  </div>
+ 
+
+
+ <div id="body"></div>
+
+
+
 
 <!-- 
 <script>
@@ -87,3 +103,122 @@
 <body onload="init()">
 <div id='cartodb-map'></div>
 </body> -->
+
+
+<script type="text/javascript">
+
+var getData = function () {
+
+  var url = '/allwater';
+  $.getJSON(url, function(temp_data) {
+
+    var w = 1300,
+        h = 400;
+
+    var data = temp_data.quality;
+    var nodes = data.map(function(data) { 
+       var so;
+       var pet_b = data.properties["petrifilm_blue"];
+       var pet_r = data.properties["petrifilm_red"];
+       var col = data.properties["colilert"];
+
+       if (pet_b > 0 || col == "fluorescence") {
+         so = '#ff7800';
+       } else if (pet_r > 0 || col == "yellow") {
+         so = '#ffff33';
+       } else {
+         so = '#3399ff';
+       }
+
+      return {
+        radius: 16,
+        color: so
+      }; 
+    }); // array
+
+    var force = d3.layout.force()
+        .gravity(0.09)
+        .charge(function(d, i) { return i ? 0 : -300; })
+        .nodes(nodes)
+        .size([w, h]);
+
+    var root = nodes[0];
+    root.radius = 16;
+    root.fixed = true;
+
+    force.start();
+
+    var svg = d3.select("#body").append("svg:svg")
+        .attr("width", w)
+        .attr("height", h);
+
+    svg.append("rect")
+    .attr("width", w)
+    .attr("height", h)
+    .attr("fill", "black");
+
+    svg.selectAll("circle")
+        .data(nodes.slice(0))
+      .enter().append("svg:circle")
+        .attr("r", function(d) { return d.radius; })
+        .style("fill", function(d) { 
+          return d.color; 
+        });
+
+    force.on("tick", function(e) {
+      var q = d3.geom.quadtree(nodes),
+          i = 0,
+          n = nodes.length;
+
+      while (++i < n) {
+        q.visit(collide(nodes[i]));
+      }
+
+      svg.selectAll("circle")
+          .attr("cx", function(d) { return d.x; })
+          .attr("cy", function(d) { return d.y; });
+    });
+
+    svg.on("mousemove", function() {
+      var p1 = d3.svg.mouse(this);
+      root.px = p1[0];
+      root.py = p1[1];
+      force.resume();
+    });
+
+    function collide(node) {
+      var r = node.radius + 2, //16
+          nx1 = node.x - r,
+          nx2 = node.x + r,
+          ny1 = node.y - r,
+          ny2 = node.y + r;
+
+      return function(quad, x1, y1, x2, y2) {
+
+        if (quad.point && (quad.point !== node)) {
+          var x = node.x - quad.point.x,
+              y = node.y - quad.point.y,
+              l = Math.sqrt(x * x + y * y),
+              r = node.radius + quad.point.radius;
+
+          if (l < r) {
+            l = (l - r) / l * .5;
+            node.x -= x *= l;
+            node.y -= y *= l;
+            quad.point.x += x;
+            quad.point.y += y;
+          }
+        };
+        return x1 > nx2
+            || x2 < nx1
+            || y1 > ny2
+            || y2 < ny1;
+      };
+    };
+
+  }); // $getJSON
+}; // end of function
+
+getData();
+
+</script>
