@@ -6,6 +6,9 @@
 		padding-bottom: 40px;
 		font-size: 14px;
 	}
+	.form-group {
+		padding: 2px;
+	}
 	p {position: relative; font-size: 18px; text-align: center; color: rgb(160,160,160);}
 	hr {margin-left: 32%; margin-right: 32%;}
 </style>
@@ -16,8 +19,16 @@
 	<p>BASIC INFORMATION</p> <br>
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
+<!-- 		<div class="col-sm-4">
+			<p style="text-align: left; font-size: 14px;">you can feel free to name which represents your results </p>	
+		</div> -->
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 14px;">* you can feel free to name it to show on the map</p>	
 		</div>
 	</div>
 
@@ -120,6 +131,11 @@
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Password </label>
 		<div class="col-sm-4">
 			<input type="password" name="password" id="password" class="form-control" >	
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 14px;">* password is indicated in your instruction paper </p>	
 		</div>
 	</div>
 
