@@ -306,7 +306,7 @@ exports.datamapping = function(req, res) {
 			status : 'OK',
 			quality : allQuality
 		}
-		res.render('datamapping.html', templateData);
+		res.render('datamapping_cluster.html', templateData);
 	});
 
 	// smsQuery = smsModel.find({}); // query for all sms
