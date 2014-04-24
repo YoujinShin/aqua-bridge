@@ -86,6 +86,14 @@
 					    })
 
 					});
+
+					// return L.circleMarker(latlng, {
+					// 	radius: 12,
+					// 	color: color,
+					// 	weight: 1,
+					// 	opacity: 1,
+					// 	fillOpacity: 0.9
+					// });
 				},
 			});
 			// .addTo(map);
@@ -100,10 +108,11 @@
 	    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
 	});
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'; // basic open street map
+
 	// var osmUrl='http://{s}.tile.cloudmade.com/d4fc77ea4a63471cab2423e66626cbb6/22677/256/{z}/{x}/{y}.png'; // black & white
-	// var osmUrl='http://a.tiles.mapbox.com/v3/brianhouse.map-oxn5wd2a/{z}/{x}/{y}.png'; // satellite
+	// var osmUrl='http://a.tiles.mapbox.com/v3/brianhouse.map-oxn5wd2a/{z}/{x}/{y}.png'; // satellite (not for zoom in 19)
 	var osmAttrib='Map data OpenStreetMap contributors';
-	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 19, attribution: osmAttrib});
+	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
 
 	var map = L.map('map', {
 		center: [34, 2], // lat, lon

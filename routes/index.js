@@ -93,7 +93,7 @@ exports.createWater = function(req, res) {
 		type : "Feature",
 		properties : {
 			reference : req.body.reference,
-			sourcetype : req.body.sourcetype,
+			// sourcetype : req.body.sourcetype,
 			colilert : req.body.colilert,
 			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
 			petrifilm_red : parseFloat(req.body.petrifilm_red),
@@ -102,8 +102,15 @@ exports.createWater = function(req, res) {
 		geometry : {
 			type : "Point",
 			coordinates : [parseFloat(req.body.lon), parseFloat(req.body.lat)]
-		}
+		} 
 	});
+
+	if(req.body.sourcetype == "other") {
+		newQuality.properties.sourcetype = req.body.sourcetype_other;
+		// console.log(req.body.sourcetype_other);
+	} else {
+		newQuality.properties.sourcetype = req.body.sourcetype;
+	}
 
 	// save the new quality to the database
 	if(req.body.password == "aquabridge") {
@@ -306,6 +313,7 @@ exports.datamapping = function(req, res) {
 			status : 'OK',
 			quality : allQuality
 		}
+		// res.render('datamapping.html', templateData);
 		res.render('datamapping_cluster.html', templateData);
 	});
 

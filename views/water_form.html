@@ -6,8 +6,11 @@
 		padding-bottom: 40px;
 		font-size: 14px;
 	}
-	.form-group {
-		padding: 2px;
+	/*.form-group {
+		padding: 4px;
+	}*/
+	.radio {
+		margin-left: 30px; 
 	}
 	p {position: relative; font-size: 18px; text-align: center; color: rgb(160,160,160);}
 	hr {margin-left: 32%; margin-right: 32%;}
@@ -19,9 +22,6 @@
 	<p>BASIC INFORMATION</p> <br>
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
-<!-- 		<div class="col-sm-4">
-			<p style="text-align: left; font-size: 14px;">you can feel free to name which represents your results </p>	
-		</div> -->
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
 		</div>
@@ -64,7 +64,7 @@
 	</div>
 
 
-	<div class="form-group">
+<!-- 	<div class="form-group">
 		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
 		<div class="col-sm-4">
 			<select class="form-control" name="sourcetype">
@@ -77,10 +77,57 @@
 			  <option id="sourcetype" value="others">Others</option>
 			</select>
 		</div>
+	</div> -->
+	<div class="form-group">
+		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
+
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="tapwater">
+		    Tap water
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="well" >
+		    Well
+		  </label>
+		</div>		
 	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-2 ">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="rainwater" >
+		    Rainwater
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="river" >
+		    River
+		  </label>
+		</div>	
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4 ">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="other">
+		    Other
+		  </label>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+		    <input type="text" class="form-control"  name="sourcetype_other" id="sourcetype_other" style="display:none;">
+		</div>	
+	</div>
+
+
+
 	<br>
 	<hr>
-	<!-- <br> -->
 	<p>WATER QUALITY TEST RESULTS</p>
 	
 	<div class="form-group">
@@ -95,13 +142,13 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label"> blue dots</label>
+		<label for="petrifilm" class="col-sm-4 control-label">blue dots</label>
 		<div class="col-sm-4">
 			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label"> red dots</label>
+		<label for="petrifilm" class="col-sm-4 control-label">red dots</label>
 		<div class="col-sm-4">
 			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red"> 
 		</div>
@@ -193,6 +240,61 @@
 
     $(function() {
         $('.date_select').datepicker();
-    });    
+    });  
+
+ //    $(function() {
+ //    	// var radios = $('input:radio[name=sourcetype]');
+ //    	var value = document.getElementById("sourcetype").value;
+ //    	console.log(value);
+
+ //    	// if($radios.is(':checked') && $radios.val() == 'other') {
+ //     //    	// $("#sourcetype_other").style.display('initial');
+       
+ //     //    	// box.style.display('initial');
+ //     //    	$("#sourcetype_other").css('display','initial');
+ //    	// } else {
+ //    	// 	// $("#sourcetype_other").style.display('none');
+ //    	// 	// box.style.display('none');
+ //    	// 	$("#sourcetype_other").css('display',null);
+ //    	// }
+ //    	// if($radios.is(':checked') === false) {
+ //     //    	$radios.filter('[value=Male]').prop('checked', true);
+ //    	// }
+	// });
+ //    $('#sourcetype').keyup(function () {
+	//   $('#display').text($(this).val());
+	// });  
+
+	// function showBox() {
+	// // $(function() {
+	// 	// var val = document.getElementById("sourcetype").value;
+	// 	// if (val == "other")
+	// 	// {
+	// 		$("#sourcetype_other").style.display('initial');
+	// 	// }
+	// }
+// 	$("input[type=radio][checked]").each(
+// 2
+//     function() {
+// 3
+//        // Your code goes here...
+// 4
+//     }
+// 5
+// );
+
+	jQuery(document).ready(function(){
+
+		$('input:radio[name="sourcetype"]').change(function(){
+		    if($(this).val() == 'other'){
+		    	$("#sourcetype_other").css('display','initial');
+		       // alert("test");
+		    } else {
+		    	$("#sourcetype_other").css('display', 'none');
+		    }
+		});
+	});
+
+	
 </script>
 
