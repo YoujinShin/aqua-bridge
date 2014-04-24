@@ -23,7 +23,7 @@
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
 		<div class="col-sm-4">
-			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}">	
+			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}" required>	
 		</div>
 	</div>
 	<div class="form-group">
@@ -36,7 +36,7 @@
 	<div class="form-group" style="z-index: 50;">
 		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
 		<div class="col-sm-4">
-	        <input type="text" name="testdate" id="testdate" class="form-control date_select" />
+	        <input type="text" name="testdate" id="testdate" class="form-control date_select" required/>
 	    </div>
     </div>
 
@@ -52,13 +52,13 @@
 	<div class="form-group">
 		<label for="lat" class="col-sm-4 control-label"> latitude </label>
 		<div class="col-sm-4">
-			<input type="text" name="lat" class="form-control" id="lat">	
+			<input type="text" name="lat" class="form-control" id="lat" required>	
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="long" class="col-sm-4 control-label"> longitude </label>
 		<div class="col-sm-4">
-			<input type="text" name="lon" class="form-control" id="lon">
+			<input type="text" name="lon" class="form-control" id="lon" required>
 		</div>
 	</div>
 
@@ -82,7 +82,7 @@
 
 		<div class="col-sm-2">
 		  <label>
-		    <input type="radio" name="sourcetype" id="sourcetype" value="tapwater">
+		    <input type="radio" name="sourcetype" id="sourcetype" value="tapwater" checked>
 		    Tap water
 		  </label>
 		</div>
