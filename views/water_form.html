@@ -59,7 +59,6 @@
 		<label for="long" class="col-sm-4 control-label"> longitude </label>
 		<div class="col-sm-4">
 			<input type="text" name="lon" class="form-control" id="lon">
-			<!-- <input type="text" name="lon" class="form-control" id="lon" value="longitude" onfocus="if (this.value=='longitude') this.value='';"> -->
 		</div>
 	</div>
 
@@ -125,8 +124,26 @@
 	</div>
 
 
+<!-- 	<div class="form-group">
+		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test type </label>
 
-	<br>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="testtype" id="testtype" value="petrifilm_test">
+		    Petrifilm
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="testtype" id="testtype" value="colilert_test" >
+		    Colilert
+		  </label>
+		</div>		
+	</div> -->
+
+
+
+	<!-- <br> -->
 	<hr>
 	<p>WATER QUALITY TEST RESULTS</p>
 	
@@ -144,13 +161,13 @@
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label">blue dots</label>
 		<div class="col-sm-4">
-			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="1000">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label">red dots</label>
 		<div class="col-sm-4">
-			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red"> 
+			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" data-min="-1" data-max="1000"> 
 		</div>
 	</div>
 
@@ -182,7 +199,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<p style="text-align: left; font-size: 14px;">* Password is indicated in your instruction paper </p>	
+			<p style="text-align: left; font-size: 14px;">* Password is indicated in your instruction paper. </p>	
 		</div>
 	</div>
 
