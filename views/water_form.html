@@ -242,49 +242,7 @@
         $('.date_select').datepicker();
     });  
 
- //    $(function() {
- //    	// var radios = $('input:radio[name=sourcetype]');
- //    	var value = document.getElementById("sourcetype").value;
- //    	console.log(value);
-
- //    	// if($radios.is(':checked') && $radios.val() == 'other') {
- //     //    	// $("#sourcetype_other").style.display('initial');
-       
- //     //    	// box.style.display('initial');
- //     //    	$("#sourcetype_other").css('display','initial');
- //    	// } else {
- //    	// 	// $("#sourcetype_other").style.display('none');
- //    	// 	// box.style.display('none');
- //    	// 	$("#sourcetype_other").css('display',null);
- //    	// }
- //    	// if($radios.is(':checked') === false) {
- //     //    	$radios.filter('[value=Male]').prop('checked', true);
- //    	// }
-	// });
- //    $('#sourcetype').keyup(function () {
-	//   $('#display').text($(this).val());
-	// });  
-
-	// function showBox() {
-	// // $(function() {
-	// 	// var val = document.getElementById("sourcetype").value;
-	// 	// if (val == "other")
-	// 	// {
-	// 		$("#sourcetype_other").style.display('initial');
-	// 	// }
-	// }
-// 	$("input[type=radio][checked]").each(
-// 2
-//     function() {
-// 3
-//        // Your code goes here...
-// 4
-//     }
-// 5
-// );
-
 	jQuery(document).ready(function(){
-
 		$('input:radio[name="sourcetype"]').change(function(){
 		    if($(this).val() == 'other'){
 		    	$("#sourcetype_other").css('display','initial');
@@ -294,7 +252,6 @@
 		    }
 		});
 	});
-
 	
 </script>
 
