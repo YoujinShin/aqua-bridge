@@ -36,7 +36,9 @@
 
 			function onEachFeature(feature, layer) {
 				var popupContent = 
-						"<p>Type of source: "+feature.properties.sourcetype+"</p>"
+						// "<p> " + feature.properties.reference+"</p>"
+						// "<p>Type of source: "+feature.properties.sourcetype+"</p>"
+						+ "<p>Type of source: "+feature.properties.sourcetype+"</p>"
 						+ "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
 						+ "<p>petrifilm (red):  "+feature.properties.petrifilm_red+"</p>"
 						+ "<p>colilert (color): "+feature.properties.colilert+"</p>";

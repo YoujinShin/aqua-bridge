@@ -93,7 +93,6 @@ exports.createWater = function(req, res) {
 		type : "Feature",
 		properties : {
 			reference : req.body.reference,
-			// sourcetype : req.body.sourcetype,
 			colilert : req.body.colilert,
 			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
 			petrifilm_red : parseFloat(req.body.petrifilm_red),
