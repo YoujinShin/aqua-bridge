@@ -127,6 +127,8 @@ app.get('/worldmap', routes.worldmap);
 // get JSON data
 app.get('/getjson', routes.getjson);
 
+app.get('/password_err', routes.password_err);
+
 /*
 //new astronaut routes
 app.get('/create',routes.astroForm); //display form

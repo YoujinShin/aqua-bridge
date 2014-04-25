@@ -128,16 +128,22 @@ exports.createWater = function(req, res) {
 			} else {
 				console.log("Created a new quality!");
 				console.log(newQuality);
-				res.redirect('/datamapping');
-				// res.redirect('/quality/'+ newQuality.slug);
+				// res.redirect('/datamapping');
+				res.redirect('/quality/'+ newQuality.slug);
+				// res.redirect('/password_err');
 			}
 		});
 	}  else {
 				console.log("Created a new quality!");
 				console.log(newQuality);
-				res.redirect('/datamapping');
-				// res.redirect('/quality/'+ newQuality.slug);
+				// res.redirect('/datamapping');
+				res.redirect('/quality/'+ newQuality.slug);
 	};
+}
+
+exports.password_err = function(req, res) {
+	console.log("wrong password warning page requested");
+	res.render('password_err.html');
 }
 
 exports.oneWater = function(req, res) {
