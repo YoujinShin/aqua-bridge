@@ -6,6 +6,9 @@
 <script type="text/javascript" src="js/d3.layout.js"></script>
 <script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
+<!-- css animation -->
+<link rel="stylesheet" href="css/animations.css">
+
 
 <style type="text/css">
   circle {
@@ -45,17 +48,17 @@
 <div class="container marketing" style="position:relative; top: 100px; background-color: white; margin: 0px; padding-top: 25px; padding-left: 5%; padding-right: 5%; padding-bottom: 0px;border: 1px solid rgba(200,200,200,0.4); border-left: none; border-right: none; top: 100px;">
     <div class="col-lg-4" >
       <a href="/watertest">
-        <img class="img-rounded" src="/img/test2.png" width="220px" alt="Generic placeholder image" style="opacity: 0.9;" >
+        <img class="img-rounded" id="test_img" src="/img/test2.png" width="220px" height="220px" alt="Generic placeholder image" style="opacity: 0.9;" >
       </a>
-      <h2>TEST WATER QUALITY</h2>
+      <h2>Learn how to test water quality</h2>
     </div>
 
     <div class="col-lg-4">
       <a href="/water">
-        <img class="img-rounded" src="/img/adddata2.png" width="220px" alt="Generic placeholder image" >
+        <img class="img-rounded" id="data_img" src="/img/adddata2.png" width="220px" height="220px" alt="Generic placeholder image" >
       </a>
       <h2>
-        ADD DATA 
+        Add data on the map
         <a href="/allwater">
           <button type="button" class="btn btn-info" style="margin-left:18px; font-size: 9px; letter-spacing:2px;">API</button> 
         </a>
@@ -64,9 +67,9 @@
 
     <div class="col-lg-4" >
       <a href="/datamapping">
-        <img class="img-rounded" src="/img/qualitymap3.png" width="220px" alt="Generic placeholder image" >
+        <img class="img-rounded" id="map_img" src="/img/qualitymap3.png" width="220px" height="220px" alt="Generic placeholder image" >
       </a>
-      <h2>WATER QUALITY MAP</h2>
+      <h2>A crowd-sourced world water qualiy map</h2>
     </div>
  </div>
  
@@ -217,5 +220,49 @@ var getData = function () {
 }; // end of function
 
 getData();
+
+
+
+  $('#test_img').hover(function() {
+    $(this).stop();
+    $(this).addClass("pulse");
+  }, function() {
+    $(this).stop();
+    $(this).removeClass("pulse");
+  });
+
+ $('#data_img').hover(function() {
+    $(this).stop();
+    $(this).addClass("pulse");
+  }, function() {
+    $(this).stop();
+    $(this).removeClass("pulse");
+  });
+
+  $('#map_img').hover(function() {
+    $(this).stop();
+    $(this).addClass("pulse");
+  }, function() {
+    $(this).stop();
+    $(this).removeClass("pulse");
+  });
+
+
+ // $('#test_img').mouseenter(function() {
+ //      $(this).animate({
+ //          height: '-=6px',
+ //          width: '-=6px',
+ //          opacity: '-=0.4'  
+ //      });
+ //  });
+ //  $('#test_img').mouseleave(function() {
+ //      $(this).animate({
+ //          height: '+=6px',
+ //          width: '+=6px',
+ //          opacity: '+=0.4'
+ //      });
+ //  });
+
+
 
 </script>
