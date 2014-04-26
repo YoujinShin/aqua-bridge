@@ -130,12 +130,14 @@
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_p" id="testtype_p" value="petrifilm_test">
+		    <img src="/img/petrifilm.png" style="width:54px; opacity:0.8; padding:4px;" class="img-rounded"/>
 		    Petrifilm
 		  </label>
 		</div>
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_c" id="testtype_c" value="colilert_test" >
+		    <img src="/img/colilert.jpg" style="width:58px; opacity:0.8; padding:4px;"/>
 		    Colilert
 		  </label>
 		</div>		
@@ -151,17 +153,11 @@
 	<!-- <br> -->
 	<hr>
 	<p>Water quality test result</p>
-	
+	<!-- petrifilm -->
 	<div class="form-group">
-		<label class="col-sm-4 control-label" style="font-family: sans-serif;"> 
+		<label class="col-sm-4 control-label" style="font-family: sans-serif; display: none" id="pet"> 
 			Petrifilm
 		</label>
-		<div class="col-sm-4">
-<!-- 			<button type="button" class="btn " style="font-size: 10px; background-color: #E0E0E0;">
-					<img src="/img/petrifilm.png" style="width: 40px;"/>
-			</button> -->
-			<img src="/img/petrifilm.png" style="width: 54px; opacity: 0.8;" class="img-rounded"/>
-		</div>
 	</div>
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label" style="display:none" >blue dots</label>
@@ -177,25 +173,28 @@
 	</div>
 	
 	<br>
+	<!-- colilert -->
 	<div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> 
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif; display: none" id="col"> 
 			Colilert
 		</label>
 		<div class="col-sm-4">
-			<img src="/img/colilert.jpg" style="width: 58px; opacity: 0.8;"/>
-		</div>
-	</div>
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-4">
 			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
-			  <!-- <option id="colilert" value="none"></option> -->
 			  <option id="colilert" value="transparent">transparent</option>
 			  <option id="colilert" value="yellow">yellow</option>
-			  <option id="colilert" value="fluorescence">fluorescence</option>
-			  
+			  <option id="colilert" value="fluorescence">fluorescence</option> 
 			</select>
 		</div>
 	</div>
+<!-- 	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
+			  <option id="colilert" value="transparent">transparent</option>
+			  <option id="colilert" value="yellow">yellow</option>
+			  <option id="colilert" value="fluorescence">fluorescence</option> 
+			</select>
+		</div>
+	</div> -->
 
 	<hr><br>
 	<div class="form-group">
@@ -279,9 +278,11 @@
 		$('input:checkbox[name="testtype_c"]').change(function(){
 		    if($(this).is(':checked')) {
 		    	$("#colilert_result").css('display','initial');
+		    	$("#col").css('display','initial');
 		       // alert("test");
 		    } else {
 		    	$("#colilert_result").css('display', 'none');
+		    	$("#col").css('display','none');
 		    }
 		});
 
@@ -291,6 +292,8 @@
 		    	$("#petrifilm_result2").css('display','initial');
 		    	$("#petrifilm_label").css('display','initial');
 		    	$("#petrifilm_label2").css('display','initial');
+		    	$("#pet").css('display','initial');
+		    	
 		    	// $("#petrifilm_blue").css('display','initial');
 		       // alert("test");
 		    } else {
@@ -298,6 +301,8 @@
 		    	$("#petrifilm_result2").css('display','none');
 		    	$("#petrifilm_label").css('display', 'none');
 		    	$("#petrifilm_label2").css('display','none');
+		    	$("#pet").css('display','none');
+		    	
 		    	// $("#petrifilm_blue").css('display','none');
 		    }
 		});
