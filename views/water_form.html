@@ -11,6 +11,14 @@
 	}
 	p {position: relative; font-size: 18px; text-align: center; color: rgb(142,142,142);}
 	hr {margin-left: 32%; margin-right: 32%;}
+
+	#map-canvas {
+	    height: 200px;
+	    width: 200px;
+	    margin: 0px;
+	    padding: 20px;
+	    top: 100px;
+	  }
 </style>
 
 
@@ -217,9 +225,55 @@
 </form>
 
 
+<!-- <div id="map-canvas"></div> -->
+
+
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
+
+	// var map;
+	// function initialize() {
+	//     var myLatlng = new google.maps.LatLng(<?=$decimalValueLon?>,<?=$decimalValueLat?>);
+	//     var myOptions = {
+	//       zoom: 17,
+	//       center: myLatlng,
+	//       mapTypeId: google.maps.MapTypeId.SATELLITE
+	//     };
+
+ //    	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+ //    	// marker STARTS    
+ //    	var marker = new google.maps.Marker({
+	//     	position: myLatlng, 
+	//     	title:"Click to view info!"
+	// 	});  
+ //    	marker.setMap(map);
+ //    	// marker ENDS
+
+	//     // info-window STARTS   
+	//     var infowindow = new google.maps.InfoWindow({ 
+	//     	content: "<div class='map_bg_logo'><span style='color:#1270a2;'><b><?=$row->bridge_name?></b> (<?=$row->bridge_no?>)</span><div style='border-top:1px dotted #ccc; height:1px;  margin:5px 0;'></div><span style='color:#555;font-size:11px;'><b>Length: </b><?=$row->bridge_length?> meters</span></div>" 
+	//     });
+
+	//     google.maps.event.addListener(marker, 'click', function() {
+	//         infowindow.open(map,marker);
+ //   		 });
+ //    // info-window ENDS 
+ // 	}
+
+ //    google.maps.event.addListener(map, "click", function (e) {
+
+	//     //lat and lng is available in e object
+	//     var latLng = e.latLng;
+
+	// });
+
+
+
+
+	// how to get current position
     var x=document.getElementById("demo");
     function getLocation()
     {
@@ -259,10 +313,12 @@
         }
     }
 
+    // date picker /////////////////////////////////////////////////////// 
     $(function() {
         $('.date_select').datepicker();
     });  
 
+    // form show and hide
 	jQuery(document).ready(function(){
 		$('input:radio[name="sourcetype"]').change(function(){
 		    if($(this).val() == 'other'){
