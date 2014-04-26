@@ -6,13 +6,10 @@
 		padding-bottom: 40px;
 		font-size: 14px;
 	}
-	/*.form-group {
-		padding: 4px;
-	}*/
 	.radio {
 		margin-left: 30px; 
 	}
-	p {position: relative; font-size: 18px; text-align: center; color: rgb(148,148,148);}
+	p {position: relative; font-size: 18px; text-align: center; color: rgb(142,142,142);}
 	hr {margin-left: 32%; margin-right: 32%;}
 </style>
 
@@ -180,7 +177,7 @@
 		</label>
 		<div class="col-sm-4">
 			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
-				<option id="colilert" value="none">not tested</option>
+				<option id="colilert" value="none"></option>
 			  <option id="colilert" value="transparent">transparent</option>
 			  <option id="colilert" value="yellow">yellow</option>
 			  <option id="colilert" value="fluorescence">fluorescence</option> 
@@ -214,7 +211,7 @@
 	<br>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">  
-			<input class="btn btn-warning btn-lg btn-block" type="submit" value="Add a new data">
+			<input class="btn btn-warning btn-lg btn-block" type="submit" value="Add a new data" >
 		</div>
 	</div>
 </form>
@@ -294,17 +291,12 @@
 		    	$("#petrifilm_label").css('display','initial');
 		    	$("#petrifilm_label2").css('display','initial');
 		    	$("#pet").css('display','initial');
-		    	
-		    	// $("#petrifilm_blue").css('display','initial');
-		       // alert("test");
 		    } else {
 		    	$("#petrifilm_result").css('display', 'none');
 		    	$("#petrifilm_result2").css('display','none');
 		    	$("#petrifilm_label").css('display', 'none');
 		    	$("#petrifilm_label2").css('display','none');
 		    	$("#pet").css('display','none');
-		    	
-		    	// $("#petrifilm_blue").css('display','none');
 		    }
 		});
 	});
