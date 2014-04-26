@@ -18,7 +18,7 @@
 <style type="text/css">
   html, body, #map {
     background-color:white;
-    top: 0px;
+    top: 40px;
     width: 100%; height: 100%;
     margin: 0; 
     padding: 0px;
@@ -27,11 +27,25 @@
   	margin-top: 60px;
   	margin-right: 20px;
   }
-  h2 {
-	font-size: 50px;
+  .reset_design {
+  	position:absolute; 
+  	z-index:20; 
+  	top:180px; 
+  	right:20px; 
+  	padding:2px;
   }
-  p {
-  	font-size: 10px;
+  h2 { font-size: 50px; }
+  p { font-size: 10px; }
+
+  @media (min-width: 200px) and (max-width: 768px) { 
+  	html, body, #map { top: 40px; }
+  	.reset_design { top:180px; }
+  }
+
+  /* for smart phone 768px */ /* 785 px */
+  @media (min-width: 768px) and (max-width: 992px) { 
+  	html, body, #map { top: 0px; }
+  	.reset_design { top:140px; }
   }
 </style>
 
@@ -39,7 +53,7 @@
 	<div id="map"></div>
 
 	<a href="/datamapping">
-		<button type="button" class="btn btn-default" style="position:fixed; z-index:20; top:140px; right:20px; padding:2px;">
+		<button type="button" class="btn btn-default reset_design" >
 				<img src="img/reset.png" style="width: 24px;"/>
 		</button>
 	</a>
@@ -68,13 +82,38 @@
 			// });
 
 			function onEachFeature(feature, layer) {
+
+				var blue;
+				if(feature.properties.petrifilm_blue == -1) {
+					blue = '-';
+				} else {
+					blue = feature.properties.petrifilm_blue;
+				}
+
+				var red;
+				if(feature.properties.petrifilm_red == -1) {
+					red = '-';
+				} else {
+					red = feature.properties.petrifilm_red;
+				}
+
+				var col;
+				if(feature.properties.colilert == 'none') {
+					col = '-';
+				} else {
+					col = feature.properties.colilert;
+				}
+ 
+
 				var popupContent = 
 						"<h2>"+feature.properties.reference +"</h2>"
 						+ "<p>"+feature.properties.sourcetype+"</p>"
-						// + "<p>Type of source: "+feature.properties.sourcetype+"</p>"
-						+ "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
-						+ "<p>petrifilm (red):  "+feature.properties.petrifilm_red+"</p>"
-						+ "<p>colilert (color): "+feature.properties.colilert+"</p>";
+						// + "<p>petrifilm (blue): "+feature.properties.petrifilm_blue+"</p>"
+						// + "<p>petrifilm (red):  "+feature.properties.petrifilm_red+"</p>"
+						// + "<p>colilert (color): "+feature.properties.colilert+"</p>";
+						+ "<p>petrifilm (blue): "+blue+"</p>"
+						+ "<p>petrifilm (red):  "+red+"</p>"
+						+ "<p>colilert (color): "+col+"</p>";
 				layer.bindPopup(popupContent);
 			}
 
@@ -130,7 +169,7 @@
 	var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 20, attribution: osmAttrib});
 
 	var map = L.map('map', {
-		center: [34, 0], // lat, lon
+		center: [26, -3], // lat, lon
 		zoom: 3,
 		zoomControl: false
 	});
