@@ -199,6 +199,13 @@
 			</select>
 		</div>
 	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4" >
+			<p style="text-align:left; font-size:14px; display:none;" id="col_description">
+				* Check the color of test tube.
+			</p>	
+		</div>
+	</div>
 <!-- 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
 			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
@@ -338,10 +345,12 @@
 		    if($(this).is(':checked')) {
 		    	$("#colilert_result").css('display','initial');
 		    	$("#col").css('display','initial');
+		    	$("#col_description").css('display','initial');
 		       // alert("test");
 		    } else {
 		    	$("#colilert_result").css('display', 'none');
 		    	$("#col").css('display','none');
+		    	$("#col_description").css('display','none');
 		    }
 		});
 
