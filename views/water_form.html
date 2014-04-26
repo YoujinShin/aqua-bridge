@@ -135,14 +135,14 @@
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_p" id="testtype_p" value="petrifilm_test">
-		    <img src="/img/petrifilm.png" style="width:54px; opacity:0.8; padding:4px;" class="img-rounded"/>
+		    <img src="/img/petrifilm.png" style="width:54px; opacity:0.9; padding:4px;" class="img-rounded"/>
 		    Petrifilm
 		  </label>
 		</div>
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_c" id="testtype_c" value="colilert_test" >
-		    <img src="/img/colilert.jpg" style="width:58px; opacity:0.8; padding:4px;"/>
+		    <img src="/img/colilert.jpg" style="width:58px; opacity:0.9; padding:4px;"/>
 		    Colilert
 		  </label>
 		</div>		
@@ -151,7 +151,7 @@
 		<div class="col-sm-offset-4 col-sm-4">
 			<p style="text-align: left; font-size: 14px;">* Check the test you have conducted to submit data. </p>	
 		</div>
-	</div>
+	</div><br>
 
 
 
@@ -167,13 +167,20 @@
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label" style="display:none" >blue dots</label>
 		<div class="col-sm-4"  id="petrifilm_result" style="display:none">
-			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="1000" >
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="11" >
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label2" style="display:none" >red dots</label>
 		<div class="col-sm-4" id="petrifilm_result2" style="display:none">
-			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" data-min="-1" data-max="1000"> 
+			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" data-min="-1" data-max="11"> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4" >
+			<p style="text-align:left; font-size:14px; display:none;" id="pet_description">
+				* Count number of dots. Please put 11 if you see more than 10 dots.
+			</p>	
 		</div>
 	</div>
 	
@@ -228,7 +235,6 @@
 <!-- <div id="map-canvas"></div> -->
 
 
-
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
@@ -269,7 +275,6 @@
 	//     var latLng = e.latLng;
 
 	// });
-
 
 
 
@@ -347,12 +352,14 @@
 		    	$("#petrifilm_label").css('display','initial');
 		    	$("#petrifilm_label2").css('display','initial');
 		    	$("#pet").css('display','initial');
+		    	$("#pet_description").css('display','initial');
 		    } else {
 		    	$("#petrifilm_result").css('display', 'none');
 		    	$("#petrifilm_result2").css('display','none');
 		    	$("#petrifilm_label").css('display', 'none');
 		    	$("#petrifilm_label2").css('display','none');
 		    	$("#pet").css('display','none');
+		    	$("#pet_description").css('display','none');
 		    }
 		});
 	});
