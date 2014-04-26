@@ -12,14 +12,14 @@
 	.radio {
 		margin-left: 30px; 
 	}
-	p {position: relative; font-size: 18px; text-align: center; color: rgb(160,160,160);}
+	p {position: relative; font-size: 18px; text-align: center; color: rgb(148,148,148);}
 	hr {margin-left: 32%; margin-right: 32%;}
 </style>
 
 
 <!-- <h1>WATER QUALITY RESULT</h1> -->
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
-	<p>BASIC INFORMATION</p> <br>
+	<p>Basic information</p> <br>
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
 		<div class="col-sm-4">
@@ -124,28 +124,33 @@
 	</div>
 
 
-<!-- 	<div class="form-group">
+	<div class="form-group">
 		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test type </label>
 
 		<div class="col-sm-2">
 		  <label>
-		    <input type="radio" name="testtype" id="testtype" value="petrifilm_test">
+		    <input type="checkbox" name="testtype_p" id="testtype_p" value="petrifilm_test">
 		    Petrifilm
 		  </label>
 		</div>
 		<div class="col-sm-2">
 		  <label>
-		    <input type="radio" name="testtype" id="testtype" value="colilert_test" >
+		    <input type="checkbox" name="testtype_c" id="testtype_c" value="colilert_test" >
 		    Colilert
 		  </label>
 		</div>		
-	</div> -->
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 14px;">* Check the test you have conducted to submit data. </p>	
+		</div>
+	</div>
 
 
 
 	<!-- <br> -->
 	<hr>
-	<p>WATER QUALITY TEST RESULTS</p>
+	<p>Water quality test result</p>
 	
 	<div class="form-group">
 		<label class="col-sm-4 control-label" style="font-family: sans-serif;"> 
@@ -159,18 +164,19 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label">blue dots</label>
-		<div class="col-sm-4">
-			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="1000">
+		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label" style="display:none" >blue dots</label>
+		<div class="col-sm-4"  id="petrifilm_result" style="display:none">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="1000" >
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="petrifilm" class="col-sm-4 control-label">red dots</label>
-		<div class="col-sm-4">
+		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label2" style="display:none" >red dots</label>
+		<div class="col-sm-4" id="petrifilm_result2" style="display:none">
 			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" data-min="-1" data-max="1000"> 
 		</div>
 	</div>
-
+	
+	<br>
 	<div class="form-group">
 		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif;"> 
 			Colilert
@@ -181,11 +187,12 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<select class="form-control" name="colilert">
-			  <option id="colilert" value="none">none</option>
-			  <option id="colilert" value="fluorescence">fluorescence</option>
-			  <option id="colilert" value="yellow">yellow</option>
+			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
+			  <!-- <option id="colilert" value="none"></option> -->
 			  <option id="colilert" value="transparent">transparent</option>
+			  <option id="colilert" value="yellow">yellow</option>
+			  <option id="colilert" value="fluorescence">fluorescence</option>
+			  
 			</select>
 		</div>
 	</div>
@@ -266,6 +273,32 @@
 		       // alert("test");
 		    } else {
 		    	$("#sourcetype_other").css('display', 'none');
+		    }
+		});
+
+		$('input:checkbox[name="testtype_c"]').change(function(){
+		    if($(this).is(':checked')) {
+		    	$("#colilert_result").css('display','initial');
+		       // alert("test");
+		    } else {
+		    	$("#colilert_result").css('display', 'none');
+		    }
+		});
+
+		$('input:checkbox[name="testtype_p"]').change(function(){
+		    if($(this).is(':checked')) {
+		    	$("#petrifilm_result").css('display','initial');
+		    	$("#petrifilm_result2").css('display','initial');
+		    	$("#petrifilm_label").css('display','initial');
+		    	$("#petrifilm_label2").css('display','initial');
+		    	// $("#petrifilm_blue").css('display','initial');
+		       // alert("test");
+		    } else {
+		    	$("#petrifilm_result").css('display', 'none');
+		    	$("#petrifilm_result2").css('display','none');
+		    	$("#petrifilm_label").css('display', 'none');
+		    	$("#petrifilm_label2").css('display','none');
+		    	// $("#petrifilm_blue").css('display','none');
 		    }
 		});
 	});
