@@ -9,23 +9,17 @@
 <!-- css animation -->
 <link rel="stylesheet" href="css/animations.css">
 
-
 <style type="text/css">
   circle {
     stroke: #fff;
     stroke-opacity: .0;
   }
-  html, body, #cartodb-map {
-   /*   height: 450px;
-      width: 100%;
-      margin: 0px;*/
-      padding: 20px;
-      /*top: 100px;*/
-    }
+  #cartodb-map {
+    padding: 20px;
+  }
   h2 {
     font-size: 17px; padding: 0px;
     color: rgba(100,100,100,0.9); 
-    /*color: rgba(111,206,238,1); */
   }
   .container{
     width: 100%;
@@ -33,19 +27,25 @@
   /*.cartodb-popup-content-wrapper { width: 250px !important; max-width: 250px !important;}*/
   /*.leaflet-top { top: 45px !important; }*/
   p {font-size: 18px; text-align: center; position: relative; color: rgba(148,148,148,1);}
+  h6 {
+      position: absolute;
+      left: 120px;
+      font-size: 13px; letter-spacing: 2px;
+      margin-bottom: 40px;
+  } 
 </style>
 
 <h1 style="letter-spacing:1px; padding-left:22%; padding-right:22%; font-size: 1.8em; line-height:140%;">
   Test your water quality and share it with the world
 </h1>
 <p style="top: 68px;">Choose one of the following options and join us !</p>
-
+<br>
 
 <!-- <div id="body"></div> -->
 
 
-
-<div class="container marketing" style="position:relative; top: 100px; background-color: white; margin: 0px; padding-top: 25px; padding-left: 5%; padding-right: 5%; padding-bottom: 0px;border: 1px solid rgba(200,200,200,0.4); border-left: none; border-right: none; top: 100px;">
+<!-- <div class="container marketing" style="position:relative; top: 100px; background-color: white; margin: 0px; padding-top: 25px; padding-left: 5%; padding-right: 5%; padding-bottom: 0px;border: 1px solid rgba(200,200,200,0.4); border-left: none; border-right: none; top: 100px;"> -->
+<div class="container marketing" style="position:relative; top: 100px; background-color: white; margin: 0px; padding-top: 25px; padding-left: 5%; padding-right: 5%; padding-bottom: 0px;">
     <div class="col-lg-4" >
       <a href="/watertest">
         <img class="img-rounded" id="test_img" src="/img/test2.png" width="220px" height="220px" alt="Generic placeholder image" style="opacity: 0.9;" >
@@ -73,7 +73,7 @@
     </div>
  </div>
  
-
+<br><br><br><br><br>
  <!-- <div id="body"></div> -->
 
 
@@ -108,7 +108,6 @@
 <script type="text/javascript">
 
 var getData = function () {
-
   var url = '/allwater';
   $.getJSON(url, function(temp_data) {
 
@@ -247,7 +246,6 @@ getData();
     $(this).removeClass("pulse");
   });
 
-
  // $('#test_img').mouseenter(function() {
  //      $(this).animate({
  //          height: '-=6px',
@@ -263,6 +261,11 @@ getData();
  //      });
  //  });
 
-
-
 </script>
+
+<br>
+<hr class="featurette-divider" style="margin:30px;">
+<footer style="margin:20px;">
+  <h6>&copy; 2014 AQUA-BRIDGE
+  </h6>
+</footer>
