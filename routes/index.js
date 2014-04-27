@@ -45,7 +45,8 @@ exports.team = function(req, res) {
 
 exports.contact = function(req, res) {
 	console.log("contact page requested");
-	res.render('contact.html');
+	// res.render('contact.html');
+	res.render('clickmap.html');
 }
 
 // CURRENT PROJECTS

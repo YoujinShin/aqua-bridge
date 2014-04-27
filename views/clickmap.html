@@ -1,0 +1,84 @@
+<style>
+	#map-canvas {
+    	width:820px;
+    	height: 480px; top: 30px;
+    }
+    p { padding: 30px}
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+<div id="map-canvas"></div> <br><br>
+
+<form onsubmit="showAddress(this.address.value); return false;">
+	<div style="margin:10px 0 5px 0;text-align:left;font-size:1.1em;padding:30px;padding-bottom:0px;">
+		<strong>Address:</strong> 
+		<input type="text" style="width:300px;font-size:1.1em;" name="address" value="123 Street, City State/Country" onfocus="if (this.value == '123 Street, City State/Country'){this.value='';} "> <input type="submit" style="font-size:100%" value=" GO ">
+	</div>
+</form>
+
+<p>Lat: <input size="15" type="text" id="latbox" name="lat" value="" >
+Lon:<input size="15" type="text" id="lonbox" name="lon" value="" ></p>
+
+
+ <script>
+
+var mapOptions = {
+    zoom: 3,
+    center: new google.maps.LatLng(20, -10)
+  };
+
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+function initialize() {
+  google.maps.event.addListener(map, 'click', function(e) {
+	placeMarker(e.latLng, map);
+
+    $("#latbox").val(e.latLng.lat());
+    $("#lonbox").val(e.latLng.lng());
+  });
+}
+
+function placeMarker(position, map) {
+  if (map.getZoom() < 8){
+  	map.setZoom(8);
+  }
+
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+
+  map.panTo(position);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+////////////////////////////////////////address///////////////////////////////
+function showAddress(address) {
+	var geocoder = new google.maps.Geocoder();
+
+	geocoder.geocode( { 'address': address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+		  	if (map.getZoom() < 16){
+		  		map.setZoom(16);
+		  	}
+
+		  	map.panTo(results[0].geometry.location);
+		  	var marker = new google.maps.Marker({
+			    position: results[0].geometry.location,
+			    map: map
+			});
+
+		  	$("#latbox").val( results[0].geometry.location.lat() );
+    		$("#lonbox").val( results[0].geometry.location.lng() );
+	 	} else {
+	  		alert("Geocode was not successful for the following reason: " + status);
+	 	}
+	});
+}
+
+</script>
+
+
