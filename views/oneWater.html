@@ -1,66 +1,63 @@
 <style>
-	h3 {font-size:16px; position:relative; top:0px; text-align:left;}
+	h3 {font-size:15px; position:relative; top:0px; text-align:left; padding-left: 0px;}
 	p {position:relative; text-align:left; top:20px;}
 	.form-group {
-		position: relative; top: 100px;
+		position: relative; top: 70px;
 	}
 	#map-canvas {
-    	width:450px;
-    	height: 300px;
-  	}
+    	width:420px;
+    	height: 380px; top: 30px;
+  }
+  .strong {
+    color: rgb(160,160,160);
+  }
 </style>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 
+
 <h1>{{quality.properties.reference}}</h1>
 
 
 <div class="form-group">
+
 	<div class="col-sm-offset-2 col-sm-4">
 		<div id="map-canvas"></div>
-
-		<!-- <img src="/img/petrifilm_test.png" width="100%" height="100%">  -->
 	</div>
-	<div class="col-sm-6">
-		<h3>Date: {{quality.properties.testdate}}</h3>
-		<h3>Source type: {{quality.properties.sourcetype}}</h3><br>
 
-		<h3>Colilert: {{quality.properties.colilert}}</h3>
-		<h3>Petrifilm (blue): {{quality.properties.petrifilm_blue}}</h3>
-		<h3>Petrifilm (red): {{quality.properties.petrifilm_red}}</h3>
+	<div class="col-sm-6" style="padding: 20px;">
+		<h3><span class="strong">Date: </span>{{quality.properties.testdate}}</h3>
+		<h3><span class="strong">Source type: </span>{{quality.properties.sourcetype}}</h3>
 
-<!-- 		<input type="text" name="current_lat" id="current_lat" value="{{quality.properties.lat}}" required>	
-		<input type="text" name="current_lon" id="current_lon" value="{{quality.properties.lon}}" required>	 -->
+		<h3 style="padding-top:18px;"><span class="strong">Colilert: </span>{{quality.properties.colilert}}</h3>
+		<h3><span class="strong">Petrifilm (blue): </span>{{quality.properties.petrifilm_blue}}</h3>
+		<h3><span class="strong">Petrifilm (red): </span>{{quality.properties.petrifilm_red}}</h3>
+
+    <h3 style="padding-top:18px;"><span class="strong">Latitude: </span>{{ quality.geometry.coordinates.0 }}</h3>
+    <h3><span class="strong">Longitude: </span>{{ quality.geometry.coordinates.1 }}</h3>
+
+    <br><br>
+    <input class="btn btn-default btn-md btn-block" type="submit" value="Go to world water quality map" style="width:60%;font-size:14px; margin-left:-10px; color: rgba(111,206,238,1);" >
+
+  </div>
 	</div>
+
 </div>
-
-<h2>{{quality.properties.lat}}</h2>
-<h4>{{quality.properties.lon}}</h4>
-
 
 
 
 <script>
 var map;
-
 function initialize() {
-  // var lat = -6.856555;
-  // var lon = 39.239570;
-  
 
-  var lat = $('#h2').html();
-  var lon = $('#h4').html();
-  // var lat = 0;
-  // var lon = 0;
-
-  // var lat = {{quality.properties.lat}};
-  // var lon = {{quality.properties.lon}};
+  var lat = {{ quality.geometry.coordinates.1 }};
+  var lon = {{ quality.geometry.coordinates.0 }};
 
   var tanzania = new google.maps.LatLng(lat, lon);
 
   var mapOptions = {
-    zoom: 18,
+    zoom: 12,
     center: new google.maps.LatLng(lat, lon),
     // mapTypeId: google.maps.MapTypeId.TERRAIN
     // mapTypeId: google.maps.MapTypeId.HYBRID
@@ -68,8 +65,7 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   var marker_tanzania = new google.maps.Marker({
     position: tanzania,
@@ -78,26 +74,6 @@ function initialize() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-// $(function() {
-//     lat = $("#current_lat").val();
-//     lon = $("#current_lon").val();
-//     console.log(lat);
-// }); 
-
-
-
-// jQuery(document).ready(function(){
-
-
-// 	$('input:text[name="current_lat"]').change(function(){
-// 		 lat = $(this).val();
-// 	});
-// 	$('input:text[name="current_lon"]').change(function(){
-// 		 lon = $(this).val();
-// 	});
-
-// });
 </script>
 
 
