@@ -11,6 +11,9 @@
   .strong {
     color: rgb(160,160,160);
   }
+  a:hover {
+    text-decoration:none;
+  }
 </style>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -38,8 +41,9 @@
     <h3><span class="strong">Longitude: </span>{{ quality.geometry.coordinates.1 }}</h3>
 
     <br><br>
-    <input class="btn btn-default btn-md btn-block" type="submit" value="Go to world water quality map" style="width:60%;font-size:14px; margin-left:-10px; color: rgba(111,206,238,1);" >
-
+    <a href="/datamapping">
+      <input class="btn btn-default btn-md btn-block" type="submit" value="Go to world water quality map" style="width:60%;font-size:14px; margin-left:-10px; color: rgba(111,206,238,1);" >
+    </a>
   </div>
 	</div>
 
