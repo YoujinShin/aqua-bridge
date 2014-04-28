@@ -288,7 +288,7 @@ exports.incoming = function(req, res) {
 	});
 
     // Sms back to the sender
-	Twilio.SMS.create({to: t_sender, from: '+16463621117', body: t_message + ': Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
+	Twilio.SMS.create({to: t_sender, from: '+16463621117', body: t_message + ' >> Thanks, AQUA-BRIDGE', accountSid: 'AC057a2d8192eae97fdafe9dbc6c688dc6', connect: true}, function(err,res) {
 		console.log('SMS Sent!');
 	});
 }
