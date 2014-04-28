@@ -1,13 +1,28 @@
 <style>
-	p { text-align: center;}
+    h1 {
+    	letter-spacing: 0px; 
+    	/*font-size: */
+    }
+	h2 { 
+		position: relative;
+		top : 60px;
+		letter-spacing: 2px; 
+		text-align: center;
+		color: rgba(111,206,238,1);
+		font-size: 22px;
+	}
+	p { 
+		text-align: left;
+		margin-left: 40%;
+	}
 </style>
 
 
-<h1>SMS data</h1>		
+<h1>Send a SMS to AQUA-BRIDGE </h1>		
 
+<h2>+16463621117</h2>
 
-
-<br><br><br><br>
+<br><br><br><br><br>
 {{#sms}}
 	<p>{{message}}</p>
 {{/sms}}
