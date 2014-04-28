@@ -3,82 +3,57 @@
 		position: relative;
 		top: 40px;
 		padding: 25px;
-		padding-bottom: 45px;
+		padding-bottom: 40px;
 		font-size: 14px;
-	}
-	body{
-		font-family: 'Open Sans', sans-serif;
 	}
 	.radio {
 		margin-left: 30px; 
 	}
-	p {position: relative; font-size: 18px; text-align: center; color: rgb(132,132,132);}
+	p {position: relative; font-size: 18px; text-align: center; color: rgb(142,142,142);}
 	hr {margin-left: 32%; margin-right: 32%;}
 
 	#map-canvas {
-    	/*width:380px; */
-    	width:100%;
-    	height: 260px; 
-    	/*top: 30px;*/
-    }
+	    height: 200px;
+	    width: 200px;
+	    margin: 0px;
+	    padding: 20px;
+	    top: 100px;
+	  }
 </style>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-
 
 
 <!-- <h1>WATER QUALITY RESULT</h1> -->
 <form class="form-horizontal" method="POST" action="/createWater" role="form">
 	<p>Basic information</p> <br>
-
-<!-- name -->
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
 		<div class="col-sm-4">
-			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}" required>
+			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}" required>	
 		</div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<p style="text-align: left; font-size: 15px;">* Name it as you want! It will be shown on the map. </p>	
+			<p style="text-align: left; font-size: 14px;">* Name it as you want! It will be shown on the map. </p>	
 		</div>
 	</div>
 
-<!-- date -->
+
 	<div class="form-group" style="z-index: 50;">
 		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
 		<div class="col-sm-4">
-	        <input type="text" name="testdate" id="testdate" class="form-control date_select" style="z-index: 10;" required/>
+	        <input type="text" name="testdate" id="testdate" class="form-control date_select" required/>
 	    </div>
     </div>
 
-<!-- location -->
+
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
-		<div class="col-sm-1">
-			<button onclick="getLocation()" type="button" class="btn btn-default" style="">
+		<div class="col-sm-4">
+			<button onclick="getLocation()" type="button" class="btn " style="font-size: 10px; background-color: #E0E0E0;">
 					<img src="location.png" style="width: 12px;"/>
 			</button>
 		</div>
-		<div class="col-sm-3">
-			<div class="input-group custom-search-form">
-				<input type="text" class="form-control" name="address" id="address" value="123 Street, City State/Country" onfocus="if (this.value == '123 Street, City State/Country'){this.value='';} " style="z-index: 0;">
-				<span class="input-group-btn">
-					<button onclick="showAddress()" class="btn btn-default" type="button">
-			  			<span class="glyphicon glyphicon-search"></span>
-			 		</button>
-			 	</span>
-			</div>
-		</div>
 	</div>
-
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-4">
-			<div id="map-canvas"></div>
-		</div>
-	</div> 
-
 	<div class="form-group">
 		<label for="lat" class="col-sm-4 control-label"> latitude </label>
 		<div class="col-sm-4">
@@ -91,9 +66,22 @@
 			<input type="text" name="lon" class="form-control" id="lon" required>
 		</div>
 	</div>
-	<br>
 
-<!-- source type -->
+
+<!-- 	<div class="form-group">
+		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
+		<div class="col-sm-4">
+			<select class="form-control" name="sourcetype">
+			  <option id="sourcetype" value="tapwater">Tap water</option>
+			  <option id="sourcetype" value="well">Well</option>
+			  <option id="sourcetype" value="rainwater">Rainwater</option>
+			  <option id="sourcetype" value="river">River</option>
+			  <option id="sourcetype" value="spring">Spring</option>
+			  <option id="sourcetype" value="dam">Dam</option>
+			  <option id="sourcetype" value="others">Others</option>
+			</select>
+		</div>
+	</div> -->
 	<div class="form-group">
 		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
 
@@ -140,33 +128,36 @@
 		</div>	
 	</div>
 
-<!-- test type -->
+
 	<div class="form-group">
 		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test type </label>
 
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_p" id="testtype_p" value="petrifilm_test">
-		    <img src="/img/petrifilm.png" style="width:76px; opacity:0.9; padding:4px;" class="img-rounded"/>
+		    <img src="/img/petrifilm.png" style="width:54px; opacity:0.9; padding:4px;" class="img-rounded"/>
 		    Petrifilm
 		  </label>
 		</div>
 		<div class="col-sm-2">
 		  <label>
 		    <input type="checkbox" name="testtype_c" id="testtype_c" value="colilert_test" >
-		    <img src="/img/colilert.jpg" style="width:78px; opacity:0.9; padding:4px;"/>
+		    <img src="/img/colilert.jpg" style="width:58px; opacity:0.9; padding:4px;"/>
 		    Colilert
 		  </label>
 		</div>		
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<p style="text-align: left; font-size: 15px;">* Check the test you have conducted to submit data. </p>	
+			<p style="text-align: left; font-size: 14px;">* Check the test you have conducted to submit data. </p>	
 		</div>
 	</div><br>
 
+
+
+	<!-- <br> -->
 	<hr>
-	<!-- <p>Water quality test result</p> -->
+	<p>Water quality test result</p>
 	<!-- petrifilm -->
 	<div class="form-group">
 		<label class="col-sm-4 control-label" style="font-family: sans-serif; display: none" id="pet"> 
@@ -187,7 +178,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4" >
-			<p style="text-align:left; font-size:15px; display:none;" id="pet_description">
+			<p style="text-align:left; font-size:14px; display:none;" id="pet_description">
 				* Count number of dots. Please put 11 if you see more than 10 dots.
 			</p>	
 		</div>
@@ -210,13 +201,22 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4" >
-			<p style="text-align:left; font-size:15px; display:none;" id="col_description">
+			<p style="text-align:left; font-size:14px; display:none;" id="col_description">
 				* Check the color of test tube.
 			</p>	
 		</div>
 	</div>
+<!-- 	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
+			  <option id="colilert" value="transparent">transparent</option>
+			  <option id="colilert" value="yellow">yellow</option>
+			  <option id="colilert" value="fluorescence">fluorescence</option> 
+			</select>
+		</div>
+	</div> -->
 
-	<br>
+	<hr><br>
 	<div class="form-group">
 		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Password </label>
 		<div class="col-sm-4">
@@ -225,22 +225,25 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">
-			<p style="text-align: left; font-size: 15px;">* Password is indicated in your instruction paper. </p>	
+			<p style="text-align: left; font-size: 14px;">* Password is indicated in your instruction paper. </p>	
 		</div>
 	</div>
 
-<!-- add a new data button -->
+
 	<br>
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-4">  
 			<input class="btn btn-warning btn-lg btn-block" type="submit" value="Add a new data" >
 		</div>
 	</div>
-</form><br><br><br><br><br>
+</form>
 
 
 <!-- <div id="map-canvas"></div> -->
 
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 
 	// how to get current position
@@ -254,22 +257,10 @@
     
     function showPosition(position) {
         var latlon=position.coords.latitude+","+position.coords.longitude;
-
         var tlat = position.coords.latitude;
         var tlng = position.coords.longitude;
             $("#lat").val (tlat);
             $("#lon").val (tlng);
-
-        var latLng= {lat:tlat, lng:tlng};
-        if (map.getZoom() < 16){
-		  		map.setZoom(16);
-		  	}
-
-	  	map.panTo(latLng);
-	  	var marker = new google.maps.Marker({
-		    position: latLng,
-		    map: map
-		});
     
         var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon
         +"&markers=icon:http://tinyurl.com/2ftvtt6|"+latlon+
@@ -342,69 +333,6 @@
 		    }
 		});
 	});
-
-
-// for the map
-///////////////////////////////////////////////////////////////////////////////
-var mapOptions = {
-    zoom: 3,
-    center: new google.maps.LatLng(20, -10)
-  };
-
-var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-function initialize() {
-  google.maps.event.addListener(map, 'click', function(e) {
-	placeMarker(e.latLng, map);
-
-    $("#lat").val(e.latLng.lat());
-    $("#lon").val(e.latLng.lng());
-    // $("#latbox").val(e.latLng.lat());
-    // $("#lonbox").val(e.latLng.lng());
-  });
-}
-
-function placeMarker(position, map) {
-  if (map.getZoom() < 8){
-  	map.setZoom(8);
-  }
-
-  var marker = new google.maps.Marker({
-    position: position,
-    map: map
-  });
-
-  map.panTo(position);
-}
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
-////////////////////////////////////////address///////////////////////////////
-function showAddress() {
-	var address = $("#address").val();
-	var geocoder = new google.maps.Geocoder();
-
-	geocoder.geocode( { 'address': address}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-		  	if (map.getZoom() < 16){
-		  		map.setZoom(16);
-		  	}
-
-		  	map.panTo(results[0].geometry.location);
-		  	var marker = new google.maps.Marker({
-			    position: results[0].geometry.location,
-			    map: map
-			});
-
-		  	$("#lat").val( results[0].geometry.location.lat() );
-    		$("#lon").val( results[0].geometry.location.lng() );
-		  	// $("#latbox").val( results[0].geometry.location.lat() );
-    	// 	$("#lonbox").val( results[0].geometry.location.lng() );
-	 	} else {
-	  		alert("Geocode was not successful for the following reason: " + status);
-	 	}
-	});
-}
 	
 </script>
 
