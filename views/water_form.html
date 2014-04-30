@@ -6,6 +6,9 @@
 		padding-bottom: 45px;
 		font-size: 14px;
 	}
+	.form-group {
+		padding-bottom: 10px;
+	}
 	body{
 		font-family: 'Open Sans', sans-serif;
 		color: rgb(10,10,10); letter-spacing: 0.5px;
@@ -17,10 +20,8 @@
 	hr {margin-left: 32%; margin-right: 32%; border-color: rgb(212,212,212);}
 
 	#map-canvas {
-    	/*width:380px; */
     	width:100%;
     	height: 260px; 
-    	/*top: 30px;*/
     }
 </style>
 
@@ -35,7 +36,7 @@
 
 <!-- name -->
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Name </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Name </label>
 		<div class="col-sm-4">
 			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}" required>
 		</div>
@@ -48,7 +49,7 @@
 
 <!-- date -->
 	<div class="form-group" style="z-index: 50;">
-		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;"> Date </label>
+		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Date </label>
 		<div class="col-sm-4">
 	        <input type="text" name="testdate" id="testdate" class="form-control date_select" style="z-index: 10;" required/>
 	    </div>
@@ -56,7 +57,7 @@
 
 <!-- location -->
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Location </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Location </label>
 		<div class="col-sm-1">
 			<button onclick="getLocation()" type="button" class="btn btn-default" style="">
 					<img src="location.png" style="width: 12px;"/>
@@ -96,7 +97,7 @@
 
 <!-- source type -->
 	<div class="form-group">
-		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Source type </label>
+		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Source type </label>
 
 		<div class="col-sm-2">
 		  <label>
@@ -143,7 +144,7 @@
 
 <!-- test type -->
 	<div class="form-group">
-		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;"> Test type </label>
+		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Test type </label>
 
 		<div class="col-sm-2">
 		  <label>
@@ -170,7 +171,7 @@
 	<!-- <p>Water quality test result</p> -->
 	<!-- petrifilm -->
 	<div class="form-group">
-		<label class="col-sm-4 control-label" style="font-family: sans-serif; display: none" id="pet"> 
+		<label class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px; display: none" id="pet"> 
 			Petrifilm
 		</label>
 	</div>
@@ -197,7 +198,7 @@
 	<!-- <br> -->
 	<!-- colilert -->
 	<div class="form-group">
-		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif; display: none" id="col"> 
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif; font-size:15px; display: none" id="col"> 
 			Colilert
 		</label>
 		<div class="col-sm-4">
@@ -219,7 +220,7 @@
 
 	<br>
 	<div class="form-group">
-		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;"> Password </label>
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Password </label>
 		<div class="col-sm-4">
 			<input type="password" name="password" id="password" class="form-control" >	
 		</div>
@@ -399,8 +400,6 @@ function showAddress() {
 
 		  	$("#lat").val( results[0].geometry.location.lat() );
     		$("#lon").val( results[0].geometry.location.lng() );
-		  	// $("#latbox").val( results[0].geometry.location.lat() );
-    	// 	$("#lonbox").val( results[0].geometry.location.lng() );
 	 	} else {
 	  		alert("Geocode was not successful for the following reason: " + status);
 	 	}
