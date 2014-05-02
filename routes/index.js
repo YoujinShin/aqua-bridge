@@ -305,7 +305,8 @@ exports.deleteallsms = function(req, res) {
 
 exports.dataviz = function(req, res) {
 	console.log("data viz page requested");
-	res.render("piechart2.html");
+	res.render("piechart.html");
+	// res.render("piechart2.html");
 	// res.render("cloud2.html");
 }
 

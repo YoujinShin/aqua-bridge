@@ -1,7 +1,5 @@
 <style>
 body {
-/*  margin-left: 4%;
-  margin-right: 4%;*/
   margin-top: 46px;
 }
 
@@ -11,7 +9,7 @@ body {
 <script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <h1 style="letter-spacing:1px; padding-left:15%; padding-right:15%; font-size: 2.0em; line-height:140%; top: 0px;">
-  Average on World Water Quality 
+  Average on World Water Quality Data
 </h1>
 <!-- 
 <h4>total inputs: </h4>
@@ -29,8 +27,6 @@ body {
 
 <br><br><br><br>
 
-<!-- <div class="form-group"> -->
-
   <div class="col-sm-6">
     <div id="pieChart">
       <svg id="pieChartSVG">
@@ -52,54 +48,6 @@ body {
     </div>
   </div>
 
-<!--   <div class="col-sm-6">
-    <div id="pieChart">
-      <svg id="pieChartSVG">
-        <defs>
-          
-          <filter id='pieChartInsetShadow2'>
-
-            <feGaussianBlur stdDeviation='3' result='offset-blur' />
-            <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
-
-            <feFlood flood-color='black' flood-opacity='1' result='color' />
-            <feComposite operator='in' in='color' in2='inverse' result='shadow' />
-            <feComposite operator='over' in='shadow' in2='SourceGraphic' />
-
-          </filter>
-
-        </defs>
-      </svg>
-    </div>
-  </div> -->
-
-<!-- </div> -->
-
-
-
-<!-- <div class="form-group"> -->
-
-<!--   <div class="col-sm-6">
-    <div id="pieChart">
-      <svg id="pieChartSVG">
-        <defs>
-          
-          <filter id='pieChartInsetShadow'>
-
-            <feGaussianBlur stdDeviation='3' result='offset-blur' />
-            <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
-
-            <feFlood flood-color='black' flood-opacity='1' result='color' />
-            <feComposite operator='in' in='color' in2='inverse' result='shadow' />
-            <feComposite operator='over' in='shadow' in2='SourceGraphic' />
-
-          </filter>
-
-        </defs>
-      </svg>
-    </div>
-  </div> -->
-
   <div class="col-sm-6">
     <div id="pieChart">
       <svg id="pieChartSVG">
@@ -120,9 +68,6 @@ body {
       </svg>
     </div>
   </div>
-
-<!-- </div> -->
-
 
 
 <script src='http://d3js.org/d3.v3.min.js'></script>
@@ -259,27 +204,45 @@ body {
               infoContainer,
               position;
           
-          if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
-            infoContainer = detailedInfo.append( 'g' )
-                                        .attr( 'width', infoWidth )
-                                        .attr(
-                                          'transform',
-                                          'translate(' + ( width - infoWidth -25 ) + ',' + ( bBox.height + bBox.y ) + ')'
-                                        );
-            anchor   = 'end';
-            position = 'right';
+          // if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
+          //   infoContainer = detailedInfo.append( 'g' )
+          //                               .attr( 'width', infoWidth )
+          //                               .attr(
+          //                                 'transform',
+          //                                 'translate(' + ( width - infoWidth -25 ) + ',' + ( bBox.height + bBox.y ) + ')'
+          //                               );
+          //   anchor   = 'end';
+          //   position = 'right';
 
-          } else {
+          // } else {
 
-            infoContainer = detailedInfo.append( 'g' )
-                                        .attr( 'width', infoWidth )
-                                        .attr(
-                                          'transform',
-                                          'translate(' + 25 + ',' + ( bBox.height + bBox.y ) + ')'
-                                        );
-            anchor   = 'start';
-            position = 'left';
+          //   infoContainer = detailedInfo.append( 'g' )
+          //                               .attr( 'width', infoWidth )
+          //                               .attr(
+          //                                 'transform',
+          //                                 'translate(' + 25 + ',' + ( bBox.height + bBox.y ) + ')'
+          //                               );
+          //   anchor   = 'start';
+          //   position = 'left';
+          // }
+          var ty = 0;
+          if(data.color == 'red') {
+            ty = 0;
+          } else if(data.color == 'yellow') {
+            ty = 100;
+          } else if(data.color == 'blue') {
+            ty = 200;
           }
+
+          infoContainer = detailedInfo.append( 'g' )
+                                      .attr( 'width', infoWidth )
+                                      .attr(
+                                        'transform',
+                                        'translate(' + 25 + ',' + (ty) + ')'
+                                      );
+
+          anchor = 'start';
+          position = 'left';
 
           infoContainer.data( [ data.value * 100 ] )
                         .append( 'text' )
@@ -308,6 +271,7 @@ body {
                         .attr( 'x2', 0 )
                         .attr( 'y1', 0 )
                         .attr( 'y2', 0 )
+                        .attr( 'stroke', '#000')
                         .transition()
                         .duration( DURATION )
                         .attr( 'x2', infoWidth );
@@ -347,23 +311,22 @@ body {
           {
             color       : 'red',
             title       : 'dangerous',
-            value       : 0.25
+            value       : 0.8
           },
           {
             color       : 'yellow',
             title       : 'maybe',
-            value       : 0.25
+            value       : 0.1
           },
           {
             color       : 'blue',
             title       : 'safe',
-            value       :0.5
+            value       :0.1
           }
         ]
       };
 
       function drawPieChart( elementId, data ) {
-        // var tx = width;
 
         var containerEl = document.getElementById( elementId ),
             width       = containerEl.clientWidth,
@@ -401,7 +364,7 @@ body {
                                 .attr( 'class', function( d ) {
                                   return 'pieChart__' + d.data.color;
                                 } )
-                                .attr( 'filter', 'url(#pieChartInsetShadow)' )
+                                .attr( 'filter', 'url(#pieChartInsetShadow2)' )
                                 .attr( 'd', arc )
                                 .each( function() {
                                   this._current = { startAngle: 0, endAngle: 0 }; 
@@ -428,27 +391,46 @@ body {
               infoContainer,
               position;
           
-          if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
-            infoContainer = detailedInfo.append( 'g' )
-                                        .attr( 'width', infoWidth )
-                                        .attr(
-                                          'transform',
-                                          'translate(' + ( width - infoWidth + tx - 25) + ',' + ( bBox.height + bBox.y ) + ')'
-                                        );
-            anchor   = 'end';
-            position = 'right';
+          // if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
+          //   infoContainer = detailedInfo.append( 'g' )
+          //                               .attr( 'width', infoWidth )
+          //                               .attr(
+          //                                 'transform',
+          //                                 'translate(' + ( width - infoWidth + tx - 25) + ',' + ( bBox.height + bBox.y ) + ')'
+          //                               );
+          //   anchor   = 'end';
+          //   position = 'right';
 
-          } else {
+          // } else {
 
-            infoContainer = detailedInfo.append( 'g' )
-                                        .attr( 'width', infoWidth )
-                                        .attr(
-                                          'transform',
-                                          'translate(' + ( tx + 25 ) + ',' + ( bBox.height + bBox.y ) + ')'
-                                        );
-            anchor   = 'start';
-            position = 'left';
+          //   infoContainer = detailedInfo.append( 'g' )
+          //                               .attr( 'width', infoWidth )
+          //                               .attr(
+          //                                 'transform',
+          //                                 'translate(' + ( tx + 25 ) + ',' + ( bBox.height + bBox.y ) + ')'
+          //                               );
+          //   anchor   = 'start';
+          //   position = 'left';
+          // }
+
+          var ty = 0;
+          if(data.color == 'red') {
+            ty = 0;
+          } else if(data.color == 'yellow') {
+            ty = 100;
+          } else if(data.color == 'blue') {
+            ty = 200;
           }
+
+          infoContainer = detailedInfo.append( 'g' )
+                                      .attr( 'width', infoWidth )
+                                      .attr(
+                                        'transform',
+                                        'translate(' + ( tx + 25 ) + ',' + (ty) + ')'
+                                      );
+
+          anchor = 'start';
+          position = 'left';
 
           infoContainer.data( [ data.value * 100 ] )
                         .append( 'text' )
@@ -490,6 +472,7 @@ body {
                           'class',
                           'pieChart--detail--textContainer ' + 'pieChart--detail__' + position
                         )
+                        // .attr( 'stroke', 'red')
                         .html( data.title );
         }
       }
@@ -504,6 +487,7 @@ body {
   }; // end of function
 
   getData2();
+
 })();
 
 </script>

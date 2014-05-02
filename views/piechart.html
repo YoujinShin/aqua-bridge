@@ -2,7 +2,7 @@
 body {
   margin-left: 8%;
   margin-right: 8%;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 </style>
 
@@ -12,7 +12,7 @@ body {
 <script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <h1 style="letter-spacing:1px; padding-left:15%; padding-right:15%; font-size: 2.0em; line-height:140%; top: 0px;">
-  Average on World Water Quality 
+  Average on World Water Quality Data
 </h1>
 <!-- 
 <h4>total inputs: </h4>
@@ -134,8 +134,8 @@ body {
       function drawPieChart( elementId, data ) {
 
         var containerEl = document.getElementById( elementId ),
-            width       = containerEl.clientWidth/2,
-            height      = width * 0.5,
+            width       = containerEl.clientWidth,
+            height      = width * 0.35,
             radius      = Math.min( width, height ) / 2,
             container   = d3.select( containerEl ),
             svg         = container.select( 'svg' )
