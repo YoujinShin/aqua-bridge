@@ -91,6 +91,7 @@ body {
       $("#total").val(total);
 
       var nodes = data.map(function(data) { 
+         
          var so;
          var pet_b = data.properties["petrifilm_blue"];
          var pet_r = data.properties["petrifilm_red"];
@@ -249,7 +250,6 @@ body {
                         .text ( '0 %' )
                         .attr( 'class', 'pieChart--detail--percentage' )
                         .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
-                        // .attr( 'y', -10 )
                         .attr( 'y', 70 )
                         .attr( 'text-anchor', anchor )
                         .transition()
@@ -437,7 +437,6 @@ body {
                         .text ( '0 %' )
                         .attr( 'class', 'pieChart--detail--percentage' )
                         .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
-                        // .attr( 'y', -10 )
                         .attr( 'y', 70 )
                         .attr( 'text-anchor', anchor )
                         .transition()

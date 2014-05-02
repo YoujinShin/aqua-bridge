@@ -70,8 +70,8 @@ body {
     $.getJSON('/allwater', function(temp_data) {
 
       var data = temp_data.quality;
-      total = data.length;
-      $("#total").val(total);
+      // total = data.length;
+      // $("#total").val(total);
 
       var nodes = data.map(function(data) { 
          var so;
@@ -79,21 +79,25 @@ body {
          var pet_r = data.properties["petrifilm_red"];
          var col = data.properties["colilert"];
 
-         if (pet_b > 0 || col == "fluorescence") {  // dangerous
-           so = '#ff7800';
-           total_red += 1;
-         } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
-           so = '#ffff33';
-           total_yellow += 1;
-         } else {
-           so = '#3399ff'; // safe
-           total_blue += 1;
-         }
 
-        return {
-          radius: 20,
-          color: so
-        }; 
+         if(data.geometry.coordinates[0] > 0) {
+           if (pet_b > 0 || col == "fluorescence") {  // dangerous
+             // so = '#ff7800';
+             total_red += 1;
+           } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
+             // so = '#ffff33';
+             total_yellow += 1;
+           } else {
+             // so = '#3399ff'; // safe
+             total_blue += 1;
+           }
+
+           total += 1;
+         }
+        // return {
+        //   radius: 20,
+        //   color: so
+        // }; 
       }); // array
 
       $("#total_red").val(total_red);
