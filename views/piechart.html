@@ -1,18 +1,33 @@
-  <style>
-  body {
-    margin-left: 8%;
-    margin-right: 8%;
-    margin-top: 60px;
-  }
-  </style>
+<style>
+body {
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top: 60px;
+}
+</style>
 
-  <!-- <meta charset="UTF-8"> -->
-  <!-- <title>Charts info graphic - CodePen</title> -->
-  <link rel="stylesheet" href="css/chart_style.css" media="screen" type="text/css"/>
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Charts info graphic - CodePen</title> -->
+<link rel="stylesheet" href="css/chart_style.css" media="screen" type="text/css"/>
+<script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <h1 style="letter-spacing:1px; padding-left:15%; padding-right:15%; font-size: 2.0em; line-height:140%; top: 0px;">
   Average on World Water Quality 
 </h1>
+<!-- 
+<h4>total inputs: </h4>
+<input type="text" id="total">
+
+<h4>red: </h4>
+<input type="text" id="total_red">
+
+<h4>yellow: </h4>
+<input type="text" id="total_yellow">
+
+<h4>blue: </h4>
+<input type="text" id="total_blue">
+ -->
+
 <br><br><br>
 
 <!-- <div class="charts--container"> -->
@@ -46,202 +61,424 @@
 
 <script>
 ;( function() {
-
-  var data = {
-    pieChart  : [
-      {
-        color       : 'red',
-        title       : 'dangerous',
-        value       : 0.20
-      },
-      {
-        color       : 'yellow',
-        title       : 'maybe',
-        value       : 0.30
-      },
-      {
-        color       : 'blue',
-        title       : 'safe',
-        value       : 0.50
-      }
-    ]
-  };
+  var total = 0;
+  var total_red = 0;
+  var total_yellow = 0;
+  var total_blue = 0;
   
-  var DURATION = 800;
-  var DELAY    = 500;
-  // var DURATION = 1500;
+  var getData = function () {
+    $.getJSON('/allwater', function(temp_data) {
+
+      var data = temp_data.quality;
+      total = data.length;
+      $("#total").val(total);
+
+      var nodes = data.map(function(data) { 
+         var so;
+         var pet_b = data.properties["petrifilm_blue"];
+         var pet_r = data.properties["petrifilm_red"];
+         var col = data.properties["colilert"];
+
+         if (pet_b > 0 || col == "fluorescence") {  // dangerous
+           so = '#ff7800';
+           total_red += 1;
+         } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
+           so = '#ffff33';
+           total_yellow += 1;
+         } else {
+           so = '#3399ff'; // safe
+           total_blue += 1;
+         }
+
+        return {
+          radius: 20,
+          color: so
+        }; 
+      }); // array
+
+      $("#total_red").val(total_red);
+      $('#total_yellow').val(total_yellow);
+      $("#total_blue").val(total_blue);
+
+      //////////////////////////////////////////////////////////////////////////////
+  
+      var DURATION = 800;
+      var DELAY    = 500;
+
+      var r_red = total_red/total;
+      var r_yellow = total_yellow/total;
+      var r_blue = total_blue/total;
+
+      // console.log(total_red);
+
+      var data = {
+        pieChart  : [
+          {
+            color       : 'red',
+            title       : 'dangerous',
+            value       : r_red
+          },
+          {
+            color       : 'yellow',
+            title       : 'maybe',
+            value       : r_yellow
+          },
+          {
+            color       : 'blue',
+            title       : 'safe',
+            value       : r_blue
+          }
+        ]
+      };
+
+      function drawPieChart( elementId, data ) {
+
+        var containerEl = document.getElementById( elementId ),
+            width       = containerEl.clientWidth/2,
+            height      = width * 0.5,
+            radius      = Math.min( width, height ) / 2,
+            container   = d3.select( containerEl ),
+            svg         = container.select( 'svg' )
+                                  .attr( 'width', width )
+                                  .attr( 'height', height );
+
+        var pie = svg.append( 'g' )
+                    .attr(
+                      'transform',
+                      'translate(' + width / 2 + ',' + height / 2 + ')'
+                    );
+        
+        var detailedInfo = svg.append( 'g' )
+                              .attr( 'class', 'pieChart--detailedInformation' );
+
+        var twoPi   = 2 * Math.PI;
+
+        var pieData = d3.layout.pie()
+                        .value( function( d ) { return d.value; } );
+
+        var arc = d3.svg.arc()
+                        .outerRadius( radius - 20)
+                        .innerRadius( 0 );
+        
+        var pieChartPieces = pie.datum( data )
+                                .selectAll( 'path' )
+                                .data( pieData )
+                                .enter()
+                                .append( 'path' )
+                                .attr( 'class', function( d ) {
+                                  return 'pieChart__' + d.data.color;
+                                } )
+                                .attr( 'filter', 'url(#pieChartInsetShadow)' )
+                                .attr( 'd', arc )
+                                .each( function() {
+                                  this._current = { startAngle: 0, endAngle: 0 }; 
+                                } )
+                                .transition()
+                                .duration( DURATION )
+                                .attrTween( 'd', function( d ) {
+                                  var interpolate = d3.interpolate( this._current, d );
+                                  this._current = interpolate( 0 );
+                        
+                                  return function( t ) {
+                                    return arc( interpolate( t ) );
+                                  };
+
+                                } )
+                                .each( 'end', function handleAnimationEnd( d ) {
+                                  drawDetailedInformation( d.data, this ); 
+                                } );
+        
+        function drawDetailedInformation ( data, element ) {
+          var bBox      = element.getBBox(),
+              infoWidth = width * 0.2,
+              anchor,
+              infoContainer,
+              position;
+          
+          if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
+            infoContainer = detailedInfo.append( 'g' )
+                                        .attr( 'width', infoWidth )
+                                        .attr(
+                                          'transform',
+                                          'translate(' + ( width - infoWidth ) + ',' + ( bBox.height + bBox.y ) + ')'
+                                        );
+            anchor   = 'end';
+            position = 'right';
+
+          } else {
+
+            infoContainer = detailedInfo.append( 'g' )
+                                        .attr( 'width', infoWidth )
+                                        .attr(
+                                          'transform',
+                                          'translate(' + 0 + ',' + ( bBox.height + bBox.y ) + ')'
+                                        );
+            anchor   = 'start';
+            position = 'left';
+          }
+
+          infoContainer.data( [ data.value * 100 ] )
+                        .append( 'text' )
+                        .text ( '0 %' )
+                        .attr( 'class', 'pieChart--detail--percentage' )
+                        .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
+                        // .attr( 'y', -10 )
+                        .attr( 'y', 70 )
+                        .attr( 'text-anchor', anchor )
+                        .transition()
+                        .duration( DURATION )
+                        .tween( 'text', function( d ) {
+                          var i = d3.interpolateRound(
+                            +this.textContent.replace( /\s%/ig, '' ),
+                            d
+                          );
+
+                          return function( t ) {
+                            this.textContent = i( t ) + ' %';
+                          };
+                        } );
+          
+          infoContainer.append( 'line' )
+                        .attr( 'class', 'pieChart--detail--divider' )
+                        .attr( 'x1', 0 )
+                        .attr( 'x2', 0 )
+                        .attr( 'y1', 0 )
+                        .attr( 'y2', 0 )
+                        .transition()
+                        .duration( DURATION )
+                        .attr( 'x2', infoWidth );
+          
+          infoContainer.data( [ data.description ] ) 
+                        .append( 'foreignObject' )
+                        .attr( 'width', infoWidth ) 
+                        .attr( 'height', 400 )
+                        .append( 'xhtml:body' )
+                        .attr(
+                          'class',
+                          'pieChart--detail--textContainer ' + 'pieChart--detail__' + position
+                        )
+                        .html( data.title );
+        }
+      }
+      
+      function ಠ_ಠ() {
+        drawPieChart(     'pieChart',     data.pieChart );
+      }
+      
+      ಠ_ಠ();
+      //////////////////////////////////////////////////////////////////////////////
+
+    }); // $getJSON
+  }; // end of function
+
+  getData();
+  
+  // var temp_total = 25;
+
+  // temp_total.transition().tween("text", function(temp_total) {
+  //   var i = d3.interpolateRound(0, 100);
+  //   return function(t) {
+  //     this.textContent = i(t);
+  //   };
+  // });
+// 
+
+  // var DURATION = 800;
   // var DELAY    = 500;
 
-  /**
-   * draw the fancy pie chart
-   *
-   * @param {String} elementId elementId
-   * @param {Array}  data      data
-   */
-  function drawPieChart( elementId, data ) {
+  // var r_red = total_red/total;
+  // var r_yellow = total_yellow/total;
+  // var r_blue = total_blue/total;
 
-    var containerEl = document.getElementById( elementId ),
-        width       = containerEl.clientWidth,
-        height      = width * 0.3,
-        radius      = Math.min( width, height ) / 2,
-        container   = d3.select( containerEl ),
-        svg         = container.select( 'svg' )
-                              .attr( 'width', width )
-                              .attr( 'height', height );
+  // console.log(total_red);
 
-    var pie = svg.append( 'g' )
-                .attr(
-                  'transform',
-                  'translate(' + width / 2 + ',' + height / 2 + ')'
-                );
+  // var data = {
+  //   pieChart  : [
+  //     {
+  //       color       : 'red',
+  //       title       : 'dangerous',
+  //       value       : r_red
+  //     },
+  //     {
+  //       color       : 'yellow',
+  //       title       : 'maybe',
+  //       value       : r_yellow
+  //     },
+  //     {
+  //       color       : 'blue',
+  //       title       : 'safe',
+  //       value       : r_blue
+  //     }
+  //   ]
+  // };
+
+  // /**
+  //  * draw the fancy pie chart
+  //  * @param {String} elementId elementId
+  //  * @param {Array}  data      data
+  //  */
+  // function drawPieChart( elementId, data ) {
+
+  //   var containerEl = document.getElementById( elementId ),
+  //       width       = containerEl.clientWidth,
+  //       height      = width * 0.3,
+  //       radius      = Math.min( width, height ) / 2,
+  //       container   = d3.select( containerEl ),
+  //       svg         = container.select( 'svg' )
+  //                             .attr( 'width', width )
+  //                             .attr( 'height', height );
+
+  //   var pie = svg.append( 'g' )
+  //               .attr(
+  //                 'transform',
+  //                 'translate(' + width / 2 + ',' + height / 2 + ')'
+  //               );
     
-    var detailedInfo = svg.append( 'g' )
-                          .attr( 'class', 'pieChart--detailedInformation' );
+  //   var detailedInfo = svg.append( 'g' )
+  //                         .attr( 'class', 'pieChart--detailedInformation' );
 
-    var twoPi   = 2 * Math.PI;
+  //   var twoPi   = 2 * Math.PI;
 
-    var pieData = d3.layout.pie()
-                    .value( function( d ) { return d.value; } );
+  //   var pieData = d3.layout.pie()
+  //                   .value( function( d ) { return d.value; } );
 
-    var arc = d3.svg.arc()
-                    .outerRadius( radius - 20)
-                    .innerRadius( 0 );
+  //   var arc = d3.svg.arc()
+  //                   .outerRadius( radius - 20)
+  //                   .innerRadius( 0 );
     
-    var pieChartPieces = pie.datum( data )
-                            .selectAll( 'path' )
-                            .data( pieData )
-                            .enter()
-                            .append( 'path' )
-                            .attr( 'class', function( d ) {
-                              return 'pieChart__' + d.data.color;
-                            } )
-                            .attr( 'filter', 'url(#pieChartInsetShadow)' )
-                            .attr( 'd', arc )
-                            .each( function() {
-                              this._current = { startAngle: 0, endAngle: 0 }; 
-                            } )
-                            .transition()
-                            .duration( DURATION )
-                            .attrTween( 'd', function( d ) {
-                              var interpolate = d3.interpolate( this._current, d );
-                              this._current = interpolate( 0 );
+  //   var pieChartPieces = pie.datum( data )
+  //                           .selectAll( 'path' )
+  //                           .data( pieData )
+  //                           .enter()
+  //                           .append( 'path' )
+  //                           .attr( 'class', function( d ) {
+  //                             return 'pieChart__' + d.data.color;
+  //                           } )
+  //                           .attr( 'filter', 'url(#pieChartInsetShadow)' )
+  //                           .attr( 'd', arc )
+  //                           .each( function() {
+  //                             this._current = { startAngle: 0, endAngle: 0 }; 
+  //                           } )
+  //                           .transition()
+  //                           .duration( DURATION )
+  //                           .attrTween( 'd', function( d ) {
+  //                             var interpolate = d3.interpolate( this._current, d );
+  //                             this._current = interpolate( 0 );
                     
-                              return function( t ) {
-                                return arc( interpolate( t ) );
-                              };
+  //                             return function( t ) {
+  //                               return arc( interpolate( t ) );
+  //                             };
 
-                            } )
-                            .each( 'end', function handleAnimationEnd( d ) {
-                              drawDetailedInformation( d.data, this ); 
-                            } );
+  //                           } )
+  //                           .each( 'end', function handleAnimationEnd( d ) {
+  //                             drawDetailedInformation( d.data, this ); 
+  //                           } );
 
-    // drawChartCenter(); 
+  //   // drawChartCenter(); 
     
-    // function drawChartCenter() {
-    //   var centerContainer = pie.append( 'g' )
-    //                             .attr( 'class', 'pieChart--center' );
+  //   // function drawChartCenter() {
+  //   //   var centerContainer = pie.append( 'g' )
+  //   //                             .attr( 'class', 'pieChart--center' );
       
-    //   centerContainer.append( 'circle' )
-    //                   .attr( 'class', 'pieChart--center--outerCircle' )
-    //                   .attr( 'r', 0 )
-    //                   .attr( 'filter', 'url(#pieChartDropShadow)' )
-    //                   .transition()
-    //                   .duration( DURATION )
-    //                   .delay( DELAY )
-    //                   .attr( 'r', radius - 50 );
+  //   //   centerContainer.append( 'circle' )
+  //   //                   .attr( 'class', 'pieChart--center--outerCircle' )
+  //   //                   .attr( 'r', 0 )
+  //   //                   .attr( 'filter', 'url(#pieChartDropShadow)' )
+  //   //                   .transition()
+  //   //                   .duration( DURATION )
+  //   //                   .delay( DELAY )
+  //   //                   .attr( 'r', radius - 50 );
       
-    //   centerContainer.append( 'circle' )
-    //                   .attr( 'id', 'pieChart-clippy' )
-    //                   .attr( 'class', 'pieChart--center--innerCircle' )
-    //                   .attr( 'r', 0 )
-    //                   .transition()
-    //                   .delay( DELAY )
-    //                   .duration( DURATION )
-    //                   .attr( 'r', radius - 55 )
-    //                   .attr( 'fill', '#fff' );
-    // }
+  //   //   centerContainer.append( 'circle' )
+  //   //                   .attr( 'id', 'pieChart-clippy' )
+  //   //                   .attr( 'class', 'pieChart--center--innerCircle' )
+  //   //                   .attr( 'r', 0 )
+  //   //                   .transition()
+  //   //                   .delay( DELAY )
+  //   //                   .duration( DURATION )
+  //   //                   .attr( 'r', radius - 55 )
+  //   //                   .attr( 'fill', '#fff' );
+  //   // }
     
-    function drawDetailedInformation ( data, element ) {
-      var bBox      = element.getBBox(),
-          infoWidth = width * 0.3,
-          anchor,
-          infoContainer,
-          position;
+  //   function drawDetailedInformation ( data, element ) {
+  //     var bBox      = element.getBBox(),
+  //         infoWidth = width * 0.3,
+  //         anchor,
+  //         infoContainer,
+  //         position;
       
-      if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
-        infoContainer = detailedInfo.append( 'g' )
-                                    .attr( 'width', infoWidth )
-                                    .attr(
-                                      'transform',
-                                      'translate(' + ( width - infoWidth ) + ',' + ( bBox.height + bBox.y ) + ')'
-                                    );
-        anchor   = 'end';
-        position = 'right';
+  //     if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
+  //       infoContainer = detailedInfo.append( 'g' )
+  //                                   .attr( 'width', infoWidth )
+  //                                   .attr(
+  //                                     'transform',
+  //                                     'translate(' + ( width - infoWidth ) + ',' + ( bBox.height + bBox.y ) + ')'
+  //                                   );
+  //       anchor   = 'end';
+  //       position = 'right';
 
-      } else {
+  //     } else {
 
-        infoContainer = detailedInfo.append( 'g' )
-                                    .attr( 'width', infoWidth )
-                                    .attr(
-                                      'transform',
-                                      'translate(' + 0 + ',' + ( bBox.height + bBox.y ) + ')'
-                                    );
-        anchor   = 'start';
-        position = 'left';
-      }
+  //       infoContainer = detailedInfo.append( 'g' )
+  //                                   .attr( 'width', infoWidth )
+  //                                   .attr(
+  //                                     'transform',
+  //                                     'translate(' + 0 + ',' + ( bBox.height + bBox.y ) + ')'
+  //                                   );
+  //       anchor   = 'start';
+  //       position = 'left';
+  //     }
 
-      infoContainer.data( [ data.value * 100 ] )
-                    .append( 'text' )
-                    .text ( '0 %' )
-                    .attr( 'class', 'pieChart--detail--percentage' )
-                    .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
-                    // .attr( 'y', -10 )
-                    .attr( 'y', 70 )
-                    .attr( 'text-anchor', anchor )
-                    .transition()
-                    .duration( DURATION )
-                    .tween( 'text', function( d ) {
-                      var i = d3.interpolateRound(
-                        +this.textContent.replace( /\s%/ig, '' ),
-                        d
-                      );
+  //     infoContainer.data( [ data.value * 100 ] )
+  //                   .append( 'text' )
+  //                   .text ( '0 %' )
+  //                   .attr( 'class', 'pieChart--detail--percentage' )
+  //                   .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
+  //                   // .attr( 'y', -10 )
+  //                   .attr( 'y', 70 )
+  //                   .attr( 'text-anchor', anchor )
+  //                   .transition()
+  //                   .duration( DURATION )
+  //                   .tween( 'text', function( d ) {
+  //                     var i = d3.interpolateRound(
+  //                       +this.textContent.replace( /\s%/ig, '' ),
+  //                       d
+  //                     );
 
-                      return function( t ) {
-                        this.textContent = i( t ) + ' %';
-                      };
-                    } );
+  //                     return function( t ) {
+  //                       this.textContent = i( t ) + ' %';
+  //                     };
+  //                   } );
       
-      infoContainer.append( 'line' )
-                    .attr( 'class', 'pieChart--detail--divider' )
-                    .attr( 'x1', 0 )
-                    .attr( 'x2', 0 )
-                    .attr( 'y1', 0 )
-                    .attr( 'y2', 0 )
-                    // .attr( 'x3', 0 )
-                    // .attr( 'y3', 0 )
-                    .transition()
-                    .duration( DURATION )
-                    .attr( 'x2', infoWidth );
+  //     infoContainer.append( 'line' )
+  //                   .attr( 'class', 'pieChart--detail--divider' )
+  //                   .attr( 'x1', 0 )
+  //                   .attr( 'x2', 0 )
+  //                   .attr( 'y1', 0 )
+  //                   .attr( 'y2', 0 )
+  //                   .transition()
+  //                   .duration( DURATION )
+  //                   .attr( 'x2', infoWidth );
       
-      infoContainer.data( [ data.description ] ) 
-                    .append( 'foreignObject' )
-                    .attr( 'width', infoWidth ) 
-                    .attr( 'height', 400 )
-                    .append( 'xhtml:body' )
-                    .attr(
-                      'class',
-                      'pieChart--detail--textContainer ' + 'pieChart--detail__' + position
-                    )
-                    .html( data.title );
-    }
+  //     infoContainer.data( [ data.description ] ) 
+  //                   .append( 'foreignObject' )
+  //                   .attr( 'width', infoWidth ) 
+  //                   .attr( 'height', 400 )
+  //                   .append( 'xhtml:body' )
+  //                   .attr(
+  //                     'class',
+  //                     'pieChart--detail--textContainer ' + 'pieChart--detail__' + position
+  //                   )
+  //                   .html( data.title );
+  //   }
 
-  }
+  // }
   
-  function ಠ_ಠ() {
-    drawPieChart(     'pieChart',     data.pieChart );
-  }
+  // function ಠ_ಠ() {
+  //   drawPieChart(     'pieChart',     data.pieChart );
+  // }
   
-  ಠ_ಠ();
+  // ಠ_ಠ();
 
 })();
 

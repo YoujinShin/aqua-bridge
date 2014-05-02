@@ -13,6 +13,23 @@ circle {
 </style>
 
 <h1>Data Visualization</h1>
+
+
+
+<h4>total inputs: </h4>
+<input type="text" id="total">
+
+<h4>red: </h4>
+<input type="text" id="total_red">
+
+<h4>yellow: </h4>
+<input type="text" id="total_yellow">
+
+<h4>blue: </h4>
+<input type="text" id="total_blue">
+
+
+
 <div id="body"></div>
 
 <script type="text/javascript">
@@ -25,19 +42,37 @@ var getData = function () {
     var w = 600,
         h = 600;
 
+    // $("#total").val (w);
+
     var data = temp_data.quality;
+    $("#total").val(data.length);
+
+    //////////////
+    // var totalInput = 0;
+    // $.each(data, function () {
+    //     totalInput += this.amount;
+    // });
+    //////////////
+
+    var total_red = 0;
+    var total_yellow = 0;
+    var total_blue = 0;
+
     var nodes = data.map(function(data) { 
        var so;
        var pet_b = data.properties["petrifilm_blue"];
        var pet_r = data.properties["petrifilm_red"];
        var col = data.properties["colilert"];
 
-       if (pet_b > 0 || col == "fluorescence") {
+       if (pet_b > 0 || col == "fluorescence") {  // dangerous
          so = '#ff7800';
-       } else if (pet_r > 0 || col == "yellow") {
+         total_red += 1;
+       } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
          so = '#ffff33';
+         total_yellow += 1;
        } else {
-         so = '#3399ff';
+         so = '#3399ff'; // safe
+         total_blue += 1;
        }
 
       return {
@@ -45,6 +80,10 @@ var getData = function () {
         color: so
       }; 
     }); // array
+
+    $("#total_red").val(total_red);
+    $('#total_yellow').val(total_yellow);
+    $("#total_blue").val(total_blue);
 
     var force = d3.layout.force()
         .gravity(0.05)
