@@ -1,6 +1,6 @@
 // ;( function() {
 
-  var getData = function () {
+  var getData_u = function () {
       var total_u = 0;
       var total_red_u = 0;
       var total_yellow_u = 0;
@@ -54,6 +54,7 @@
 
                  // console.log(count);
                  // console.log(result.countryName);
+                 console.log('us get init is implemented');
                  if(count == length) {
                     callback();
                  }
@@ -224,18 +225,18 @@
             }
           }
           drawPieChart(     'pieChart',     data.pieChart );
-          console.log('draw chart is implemented');
+          console.log('us draw chart is implemented');
 
         } // end of drawChart
         
         getInit(function(result) {
-          console.log("callback called");
+          console.log("us callback called");
           drawChart();   
         });
 
       }); // end of getJSON
   }; // end of getData
 
-  getData();
+  getData_u();
 
 // })();

@@ -1,10 +1,20 @@
 // ;( function() {
 
-  var getData_t = function () {
+  var getData = function () {
+      var total_u = 0;
+      var total_red_u = 0;
+      var total_yellow_u = 0;
+      var total_blue_u = 0;
+
       var total_t = 0;
       var total_red_t = 0;
       var total_yellow_t = 0;
       var total_blue_t = 0;
+
+      var total_g = 0;
+      var total_red_g = 0;
+      var total_yellow_g = 0;
+      var total_blue_g = 0;
 
       var count = 0;
       var length = 0;
@@ -27,6 +37,7 @@
              //http://ws.geonames.org/countryCode?lat=49.03&lng=10.2&username=hiyoujin
              var getCountryName = function(mycallback) {
                 $.getJSON('http://ws.geonames.org/countryCode', {
+
                     lat: clat,
                     lng: clon,
                     // username: 'meggonagul',
@@ -38,7 +49,18 @@
              getCountryName(function(result) {
                 var countryName = result.countryName;
 
-                if(countryName == 'Tanzania') {
+                if(countryName == 'United States') {
+                   if (pet_b > 0 || col == "fluorescence") {  // dangerous
+                     total_red_u += 1;
+                   } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
+                     total_yellow_u += 1;
+                   } else {
+                     total_blue_u += 1;
+                   }
+                   total_u += 1;
+                 }
+
+                 if(countryName == 'Tanzania') {
                    if (pet_b > 0 || col == "fluorescence") {  // dangerous
                      total_red_t += 1;
                    } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
@@ -49,10 +71,22 @@
                    total_t += 1;
                  }
 
-                 count += 1;
-                 // console.log('get init implemented');
-                 // console.log(count);
+                 if(countryName == 'Ghana') {
+                   if (pet_b > 0 || col == "fluorescence") {  // dangerous
+                     total_red_g += 1;
+                   } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
+                     total_yellow_g += 1;
+                   } else {
+                     total_blue_g += 1;
+                   }
+                   total_g += 1;
+                 }
 
+                 count += 1;
+
+                 // console.log(count);
+                 // console.log(result.countryName);
+                 console.log('word get init is implemented');
                  if(count == length) {
                     callback();
                  }
@@ -67,15 +101,45 @@
         ///////////////////////////////////////////////////////////////////
 
         ////// Second Function 
-        var drawChart = function () {
+        var drawChart = function (country) {
           var DURATION = 800;
           var DELAY    = 500;
+
+          var r_red_u = total_red_u/ total_u;
+          var r_yellow_u = total_yellow_u/ total_u;
+          var r_blue_u = total_blue_u/ total_u;
 
           var r_red_t = total_red_t/ total_t;
           var r_yellow_t = total_yellow_t/ total_t;
           var r_blue_t = total_blue_t/ total_t;
 
-          var data = {
+          var r_red_g = total_red_g/ total_g;
+          var r_yellow_g = total_yellow_g/ total_g;
+          var r_blue_g = total_blue_g/ total_g;
+
+          var data;
+
+          var data_u = {
+            pieChart  : [
+              {
+                color       : 'red',
+                title       : 'dangerous',
+                value       : r_red_u
+              },
+              {
+                color       : 'yellow',
+                title       : 'maybe',
+                value       : r_yellow_u
+              },
+              {
+                color       : 'blue',
+                title       : 'safe',
+                value       : r_blue_u
+              }
+            ]
+          };
+
+          var data_t = {
             pieChart  : [
               {
                 color       : 'red',
@@ -95,11 +159,44 @@
             ]
           };
 
+          var data_g = {
+            pieChart  : [
+              {
+                color       : 'red',
+                title       : 'dangerous',
+                value       : r_red_g
+              },
+              {
+                color       : 'yellow',
+                title       : 'maybe',
+                value       : r_yellow_g
+              },
+              {
+                color       : 'blue',
+                title       : 'safe',
+                value       : r_blue_g
+              }
+            ]
+          };
+
+          var multiply = 0;
+
+          if(country == 'United States') {
+            data = data_u;
+            multiply = 0;
+          } else if (country == 'Tanzania') {
+            data = data_t;
+            multiply = 1;
+          } else if (country == 'Ghana') {
+            data = data_g;
+            multiply = 2;
+          }
+
           function drawPieChart( elementId, data ) {
 
             var containerEl = document.getElementById( elementId ),
                 width       = containerEl.clientWidth,
-                tx = width * 1, 
+                tx = width * multiply, 
                 height      = width * 0.62,
                 radius      = Math.min( width, height ) / 2,
                 container   = d3.select( containerEl ),
@@ -124,6 +221,8 @@
             var arc = d3.svg.arc()
                             .outerRadius( radius - 20)
                             .innerRadius( 0 );
+
+
             
             var pieChartPieces = pie.datum( data )
                                     .selectAll( 'path' )
@@ -133,7 +232,7 @@
                                     .attr( 'class', function( d ) {
                                       return 'pieChart__' + d.data.color;
                                     } )
-                                    .attr( 'filter', 'url(#pieChartInsetShadow_t)' )
+                                    // .attr( 'filter', 'url(#pieChartInsetShadow_u)' )
                                     .attr( 'd', arc )
                                     .each( function() {
                                       this._current = { startAngle: 0, endAngle: 0 }; 
@@ -152,6 +251,14 @@
                                     .each( 'end', function handleAnimationEnd( d ) {
                                       drawDetailedInformation( d.data, this ); 
                                     } );
+
+            if(country == 'United States') {
+              pieChartPieces.attr( 'filter', 'url(#pieChartInsetShadow_u)' );
+            } else if (country == 'Tanzania') {
+              pieChartPieces.attr( 'filter', 'url(#pieChartInsetShadow_t)' );
+            } else if (country == 'Ghana') {
+              pieChartPieces.attr( 'filter', 'url(#pieChartInsetShadow_g)' );
+            }
             
             function drawDetailedInformation ( data, element ) {
               var bBox      = element.getBBox(),
@@ -160,7 +267,6 @@
                   infoContainer,
                   position;
               
-
               anchor = 'start';
               position = 'left';
 
@@ -172,6 +278,7 @@
               } else if(data.color == 'blue') {
                 ty = 170;
               }
+
 
               infoContainer = detailedInfo.append( 'g' )
                                       .attr( 'width', infoWidth )
@@ -223,18 +330,21 @@
             }
           }
           drawPieChart(     'pieChart',     data.pieChart );
-          console.log('draw chart is implemented');
+          console.log('us draw chart is implemented');
 
         } // end of drawChart
         
         getInit(function(result) {
           console.log("callback called");
-          drawChart();   
+
+          drawChart('United States'); 
+          drawChart('Tanzania'); 
+          drawChart('Ghana');   
         });
 
       }); // end of getJSON
   }; // end of getData
 
-  getData_t();
+  getData();
 
 // })();

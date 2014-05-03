@@ -1,6 +1,6 @@
 // ;( function() {
 
-  var getData = function () {
+  var getData_g = function () {
       var total_g = 0;
       var total_red_g = 0;
       var total_yellow_g = 0;
@@ -50,7 +50,7 @@
                  }
 
                  count += 1;
-                 // console.log('get init implemented');
+                 console.log('ghana get init implemented');
                  // console.log(count);
 
                  if(count == length) {
@@ -223,18 +223,18 @@
             }
           }
           drawPieChart(     'pieChart',     data.pieChart );
-          console.log('draw chart is implemented');
+          console.log('ghana draw chart is implemented');
 
         } // end of drawChart
         
         getInit(function(result) {
-          console.log("callback called");
+          console.log("ghana callback called");
           drawChart();   
         });
 
       }); // end of getJSON
   }; // end of getData
 
-  getData();
+  getData_g();
 
 // })();
