@@ -4,276 +4,109 @@ body {
   margin-right: 8%;
   margin-top: 40px;
 }
+.col-sm-4 {
+  padding: 0px;
+  /*padding-left: 20px;*/
+  margin: 0px;
+}
+h3 {
+  text-align: center; padding: 0px; margin: 0px;
+  font-size: 20px; color: grey; letter-spacing: 1px;
+}
 </style>
 
 <link rel="stylesheet" href="css/chart_style.css" media="screen" type="text/css"/>
 <script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src='http://d3js.org/d3.v3.min.js'></script>
 
 <h1 style="letter-spacing:1px; padding-left:15%; padding-right:15%; font-size: 2.0em; line-height:140%; top: 0px;">
-  Average on World Water Quality Data
+  Statistics on World Water Quality Data
 </h1>
 
-<br><br><br>
-<div id="pieChart">
-  <svg id="pieChartSVG">
-    <defs>
-      
-      <filter id='pieChartInsetShadow'>
+<br><br><br><br>
 
-        <feOffset dx='0' dy='0'/>
-        <feGaussianBlur stdDeviation='3' result='offset-blur' />
-        <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
+<div class="form-group">
+  
+  <div class="col-sm-4">
+    <h3>United States</h3>
+  </div>
+  <div class="col-sm-4">
+    <h3>Tanzania</h3>
+  </div>
+  <div class="col-sm-4">
+    <h3>Ghana</h3>
+  </div>
 
-        <feFlood flood-color='black' flood-opacity='1' result='color' />
-        <feComposite operator='in' in='color' in2='inverse' result='shadow' />
-        <feComposite operator='over' in='shadow' in2='SourceGraphic' />
-
-      </filter>
-
-    </defs>
-  </svg>
 </div>
 
-<script src='http://d3js.org/d3.v3.min.js'></script>
-<script>
-;( function() {
+<br><br><br>
+<div class="form-group">
 
-  var getData = function () {
-      var total = 0;
-      var total_red = 0;
-      var total_yellow = 0;
-      var total_blue = 0;
-      var count = 0;
-      var length = 0;
+  <div class="col-sm-4">
+    <div id="pieChart">
+      <svg id="pieChartSVG">
+        <defs>
+          
+          <filter id='pieChartInsetShadow_u'>
+            <feOffset dx='0' dy='0'/>
+            <feGaussianBlur stdDeviation='3' result='offset-blur' />
+            <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
+            <feFlood flood-color='black' flood-opacity='1' result='color' />
+            <feComposite operator='in' in='color' in2='inverse' result='shadow' />
+            <feComposite operator='over' in='shadow' in2='SourceGraphic' />
+          </filter>
 
-      $.getJSON('/allwater', function(temp_data) {
+        </defs>
+      </svg>
+    </div>
+  </div>
 
-        var data = temp_data.quality;
-        length = data.length;
+  <div class="col-sm-4">
+    <div id="pieChart">
+      <svg id="pieChartSVG">
+        <defs>
+          
+          <filter id='pieChartInsetShadow_t'>
+            <feOffset dx='0' dy='0'/>
+            <feGaussianBlur stdDeviation='3' result='offset-blur' />
+            <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
+            <feFlood flood-color='black' flood-opacity='1' result='color' />
+            <feComposite operator='in' in='color' in2='inverse' result='shadow' />
+            <feComposite operator='over' in='shadow' in2='SourceGraphic' />
+          </filter>
 
-        ////// First Function 
-        var getInit = function(callback) {
-          var nodes = data.map(function(data) { 
-             var pet_b = data.properties["petrifilm_blue"];
-             var pet_r = data.properties["petrifilm_red"];
-             var col = data.properties["colilert"];
+        </defs>
+      </svg>
+    </div>
+  </div>
 
-             var clon = data.geometry.coordinates[0];
-             var clat = data.geometry.coordinates[1];
+  <div class="col-sm-4">
+    <div id="pieChart">
+      <svg id="pieChartSVG">
+        <defs>
+          
+          <filter id='pieChartInsetShadow_g'>
+            <feOffset dx='0' dy='0'/>
+            <feGaussianBlur stdDeviation='3' result='offset-blur' />
+            <feComposite operator='out' in='SourceGraphic' in2='offset-blur' result='inverse' />
+            <feFlood flood-color='black' flood-opacity='1' result='color' />
+            <feComposite operator='in' in='color' in2='inverse' result='shadow' />
+            <feComposite operator='over' in='shadow' in2='SourceGraphic' />
+          </filter>
 
-             var getCountryName = function(mycallback) {
-                $.getJSON('http://ws.geonames.org/countryCode', {
-                    lat: clat,
-                    lng: clon,
-                    username: 'meggonagul',
-                    type: 'JSON'
-                }, mycallback);
-             }
+        </defs>
+      </svg>
+    </div>
+  </div>
 
-             getCountryName(function(result) {
-                var countryName = result.countryName;
-
-                if(countryName == 'Tanzania') {
-                   if (pet_b > 0 || col == "fluorescence") {  // dangerous
-                     total_red += 1;
-                   } else if (pet_r > 0 || col == "yellow") {  // maybe in danger
-                     total_yellow += 1;
-                   } else {
-                     total_blue += 1;
-                   }
-                   total += 1;
-                 }
-
-                 count += 1;
-                 console.log('get init implemented');
-                 console.log(count);
-
-                 if(count == length) {
-                    callback();
-                 }
-             });
-
-          }); 
-
-        } // end of getInit()
-
-        ///////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////
-
-        ////// Second Function 
-        var drawChart = function () {
-          var DURATION = 800;
-          var DELAY    = 500;
-
-          var r_red = total_red/total;
-          var r_yellow = total_yellow/total;
-          var r_blue = total_blue/total;
-
-          var data = {
-            pieChart  : [
-              {
-                color       : 'red',
-                title       : 'dangerous',
-                value       : r_red
-              },
-              {
-                color       : 'yellow',
-                title       : 'maybe',
-                value       : r_yellow
-              },
-              {
-                color       : 'blue',
-                title       : 'safe',
-                value       : r_blue
-              }
-            ]
-          };
-
-          function drawPieChart( elementId, data ) {
-
-            var containerEl = document.getElementById( elementId ),
-                width       = containerEl.clientWidth,
-                height      = width * 0.35,
-                radius      = Math.min( width, height ) / 2,
-                container   = d3.select( containerEl ),
-                svg         = container.select( 'svg' )
-                                      .attr( 'width', width )
-                                      .attr( 'height', height );
-
-            var pie = svg.append( 'g' )
-                        .attr(
-                          'transform',
-                          'translate(' + width / 2 + ',' + height / 2 + ')'
-                        );
-            
-            var detailedInfo = svg.append( 'g' )
-                                  .attr( 'class', 'pieChart--detailedInformation' );
-
-            var twoPi   = 2 * Math.PI;
-
-            var pieData = d3.layout.pie()
-                            .value( function( d ) { return d.value; } );
-
-            var arc = d3.svg.arc()
-                            .outerRadius( radius - 20)
-                            .innerRadius( 0 );
-            
-            var pieChartPieces = pie.datum( data )
-                                    .selectAll( 'path' )
-                                    .data( pieData )
-                                    .enter()
-                                    .append( 'path' )
-                                    .attr( 'class', function( d ) {
-                                      return 'pieChart__' + d.data.color;
-                                    } )
-                                    .attr( 'filter', 'url(#pieChartInsetShadow)' )
-                                    .attr( 'd', arc )
-                                    .each( function() {
-                                      this._current = { startAngle: 0, endAngle: 0 }; 
-                                    } )
-                                    .transition()
-                                    .duration( DURATION )
-                                    .attrTween( 'd', function( d ) {
-                                      var interpolate = d3.interpolate( this._current, d );
-                                      this._current = interpolate( 0 );
-                            
-                                      return function( t ) {
-                                        return arc( interpolate( t ) );
-                                      };
-
-                                    } )
-                                    .each( 'end', function handleAnimationEnd( d ) {
-                                      drawDetailedInformation( d.data, this ); 
-                                    } );
-            
-            function drawDetailedInformation ( data, element ) {
-              var bBox      = element.getBBox(),
-                  infoWidth = width * 0.2,
-                  anchor,
-                  infoContainer,
-                  position;
-              
-              if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
-                infoContainer = detailedInfo.append( 'g' )
-                                            .attr( 'width', infoWidth )
-                                            .attr(
-                                              'transform',
-                                              'translate(' + ( width - infoWidth ) + ',' + ( bBox.height + bBox.y ) + ')'
-                                            );
-                anchor   = 'end';
-                position = 'right';
-
-              } else {
-
-                infoContainer = detailedInfo.append( 'g' )
-                                            .attr( 'width', infoWidth )
-                                            .attr(
-                                              'transform',
-                                              'translate(' + 0 + ',' + ( bBox.height + bBox.y ) + ')'
-                                            );
-                anchor   = 'start';
-                position = 'left';
-              }
-
-              infoContainer.data( [ data.value * 100 ] )
-                            .append( 'text' )
-                            .text ( '0 %' )
-                            .attr( 'class', 'pieChart--detail--percentage' )
-                            .attr( 'x', ( position === 'left' ? 0 : infoWidth ) )
-                            .attr( 'y', 70 )
-                            .attr( 'text-anchor', anchor )
-                            .transition()
-                            .duration( DURATION )
-                            .tween( 'text', function( d ) {
-                              var i = d3.interpolateRound(
-                                +this.textContent.replace( /\s%/ig, '' ),
-                                d
-                              );
-
-                              return function( t ) {
-                                this.textContent = i( t ) + ' %';
-                              };
-                            } );
-              
-              infoContainer.append( 'line' )
-                            .attr( 'class', 'pieChart--detail--divider' )
-                            .attr( 'x1', 0 )
-                            .attr( 'x2', 0 )
-                            .attr( 'y1', 0 )
-                            .attr( 'y2', 0 )
-                            .transition()
-                            .duration( DURATION )
-                            .attr( 'x2', infoWidth );
-              
-              infoContainer.data( [ data.description ] ) 
-                            .append( 'foreignObject' )
-                            .attr( 'width', infoWidth ) 
-                            .attr( 'height', 400 )
-                            .append( 'xhtml:body' )
-                            .attr(
-                              'class',
-                              'pieChart--detail--textContainer ' + 'pieChart--detail__' + position
-                            )
-                            .html( data.title );
-            }
-          }
-          drawPieChart(     'pieChart',     data.pieChart );
-          console.log('draw chart is implemented');
-
-        } // end of drawChart
-
-       getInit(function(result) {
-          console.log("callback called");
-          drawChart();   
-       });
-
-      }); // end of getJSON
-  }; // end of getData
+</div>
 
 
-  getData();
 
-})();
 
-</script>
+<script language="javascript" type="text/javascript" src="us.js"></script>
+<script language="javascript" type="text/javascript" src="tanzania.js"></script>
+<script language="javascript" type="text/javascript" src="ghana.js"></script>
+
+
+

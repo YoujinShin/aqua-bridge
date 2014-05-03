@@ -11,19 +11,6 @@ body {
 <h1 style="letter-spacing:1px; padding-left:15%; padding-right:15%; font-size: 2.0em; line-height:140%; top: 0px;">
   Average on World Water Quality Data
 </h1>
-<!-- 
-<h4>total inputs: </h4>
-<input type="text" id="total">
-
-<h4>red: </h4>
-<input type="text" id="total_red">
-
-<h4>yellow: </h4>
-<input type="text" id="total_yellow">
-
-<h4>blue: </h4>
-<input type="text" id="total_blue">
- -->
 
 <br><br><br><br>
 
@@ -113,10 +100,6 @@ body {
           color: so
         }; 
       }); // array
-
-      // $("#total_red").val(total_red);
-      // $('#total_yellow').val(total_yellow);
-      // $("#total_blue").val(total_blue);
 
       var r_red = total_red/total;
       var r_yellow = total_yellow/total;
@@ -300,8 +283,7 @@ body {
 
   getData();
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   var getData2 = function () {
     $.getJSON('/allwater', function(temp_data) {
@@ -390,28 +372,6 @@ body {
               anchor,
               infoContainer,
               position;
-          
-          // if ( ( bBox.x + bBox.width / 2 ) > 0 ) {
-          //   infoContainer = detailedInfo.append( 'g' )
-          //                               .attr( 'width', infoWidth )
-          //                               .attr(
-          //                                 'transform',
-          //                                 'translate(' + ( width - infoWidth + tx - 25) + ',' + ( bBox.height + bBox.y ) + ')'
-          //                               );
-          //   anchor   = 'end';
-          //   position = 'right';
-
-          // } else {
-
-          //   infoContainer = detailedInfo.append( 'g' )
-          //                               .attr( 'width', infoWidth )
-          //                               .attr(
-          //                                 'transform',
-          //                                 'translate(' + ( tx + 25 ) + ',' + ( bBox.height + bBox.y ) + ')'
-          //                               );
-          //   anchor   = 'start';
-          //   position = 'left';
-          // }
 
           var ty = 0;
           if(data.color == 'red') {
