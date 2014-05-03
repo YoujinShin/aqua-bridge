@@ -37,9 +37,17 @@
   .data_design {
   	position:absolute; 
   	z-index:20; 
-  	bottom:5%;
+  	bottom:50px;
   	/*bottom:60px; */
-  	left:20px; 
+  	left:20px;  width: 160px;
+  	/*padding:2px;*/
+  }
+  .data_design2 {
+  	position:absolute; 
+  	z-index:20; 
+  	bottom:100px;
+  	/*bottom:60px; */
+  	left:20px; width: 160px;
   	/*padding:2px;*/
   }
 
@@ -73,10 +81,14 @@
 		</button>
 	</a>
 
+	<a href="/dataviz">
+		<button type="button" class="btn btn-info data_design2" > Find statistics
+				<!-- <img src="img/reset.png" style="width: 24px;"/> -->
+		</button>
+	</a>
 	
 
 	<script type="text/javascript">
-
 	loadQuality();
 
 	//DATA LOAD FUNCTIONS
