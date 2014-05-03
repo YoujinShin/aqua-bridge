@@ -1,0 +1,206 @@
+<style>
+  .roll { 
+      position: absolute; font-size: 24px; 
+      /*font-weight:bold;*/
+      color: black; padding: 15px;
+      padding-left: 26px; padding-right: 26px;
+      background-color: rgba(255,255,255,1);
+      top: -190px; letter-spacing:4px;
+      left: -100px; text-align: left;
+  }
+  .titledesign {
+    /*color:rgba(60, 60, 60, 1); */
+    color: rgba(111,206,238,1);
+
+    text-align:center; line-height:140%;
+    font-size: 36px; 
+    letter-spacing:2px; padding-left: 12%; padding-right: 12%;
+  }
+  h2 { letter-spacing: 1px; color: rgba(111,206,238,1);}
+  .captiondesign {
+      font-size: 16px; color: black; padding: 14px;
+      padding-left: 26px; padding-right: 26px;
+      background-color: rgba(255,255,255,1);
+      letter-spacing:3px; text-align: left;
+      position: absolute; top: -90px; left: -100px;
+  }
+  .featurette {
+    padding-left: 2%; padding-right:2%;
+  }
+  h3 {
+    text-align: center; font-size: 22px; padding-left: 10%; padding-right: 10%;
+  }
+  p { letter-spacing: 1px; color:grey; }
+  .footerdesign {
+      position: relative;
+      /*left: 100px; */
+      /*top: 120px;*/
+      font-size: 13px; letter-spacing: 2px;
+      margin-bottom: 40px;
+  }
+  @media (max-width: 992px) { 
+    .roll {
+      font-size: 20px; padding: 10px; left: -60px; top: -105px;
+    }
+    .captiondesign {
+      font-size: 12px; padding: 6px; left: -60px; top: -25px; font-weight:bold;
+    }
+  }
+  .carousel { margin-bottom: 0px; }
+
+</style>
+
+<script language="Javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- css animation -->
+<link rel="stylesheet" href="css/animations.css">
+
+
+
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="/img/IMG_3719.JPG" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption" >
+          <h1 class="roll" style="color:rgba(30, 30, 30, 1);"> A CROWD-SOURCED WORLD WATER QUALITY MAP </h1>
+          <h4 class="captiondesign"> <a href="/worldmap">Join us</a> to test your drinking water quality </h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="/img/IMG_3601.JPG" art="Second slide">
+      <div class="container">
+        <div class="carousel-caption" >
+          <h1 class="roll" style="color:rgba(30, 30, 30, 1);"> MONITORING FILTER PERFORMANCE </h1>
+          <h4 class="captiondesign"> Let's see what's going on in <a href="/tanzania">Kiwalani, Tanzania</a> </h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="/img/IMG_3560.JPG" alt="Third slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1 class="roll" style="color:rgba(30, 30, 30, 1);"> 
+          PEOPLE AND AQUA-BRIDGE </h1>
+          <h4 class="captiondesign"> Find more about <a href="/aboutus"> our stories  </a> </h4>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+  
+</div><!-- /.carousel -->
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<h1 class="titledesign">
+  AQUA-BRIDGE IS A NON-PROFIT COMMITED TO INCREASING THE ACCESS TO SAFE DRINKING WATER
+  <!-- AQUA-BRIDGE is a non-profit commited to increasing the access to safe drinking water -->
+  <!-- <span style="color:#6FCEEE">safe drinking water</span> -->
+</h1> 
+
+<div class="container marketing" style="position:relative; top: 80px; ">
+  
+    <div class="col-lg-6" >
+      <img  id="filter" class="img-rounded" src="/img/filter.png" width="90%" height="320px" alt="Generic placeholder image" style="padding:10px; text-align:center;">
+      <!-- <h2>Peter</h2> -->
+      <p style="padding:5px; text-align:center; font-size: 1.4em;">
+        Monitor filter performance
+      </p>
+    </div>
+
+    <div class="col-lg-6">
+      <img  id="map" class="img-rounded" src="/img/map.png" width="90%" height="320px" alt="Generic placeholder image" style="padding:10px; text-align:center;">
+      <!-- <h2>Pratik</h2> -->
+      <p style="padding:5px;text-align: center;font-size: 1.4em;">
+        Test your own water quality
+      </p>
+    </div>
+  
+ </div>
+<br><br>
+  <!-- START THE FEATURETTES -->
+<!--   <hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">We monitors filter performance 
+      </h2><br>
+      <p class="lead">AQUA-BRIDGE collaborates with local filter producers and distributors to better serve communities suffering from drinking water crisis. AQUA-BRIDGE enables filter producers to effectively test and track their filters’ performances. AQUA-BRIDGE has project sites in Tanzania, Ghana and Nigeria.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="/img/filter.png" alt="Generic placeholder image" width="400px" height="400px">
+    </div>
+  </div>
+  
+  <hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" src="/img/map.png" alt="Generic placeholder image" width="500px" height="500px">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">World water quality map 
+      </h2><br>
+      <p class="lead">Water crisis is not only limited to developing countries, and there is no easy or accessible way to test water quality at the household level in developed countries. Anyone can apply for simple water quality test kit and test their household’s water quality. The test result can be uploaded on our website.</p>
+    </div>
+  </div> -->
+
+<!--   <hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-7">
+      <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+    </div>
+  </div> -->
+
+
+
+  <br><br>
+
+    <hr class="featurette-divider" style="margin-bottom:30px; margin-top: 30px;" >
+    <footer class="footerdesign">
+      <h6>&copy; 2014 AQUA-BRIDGE
+      </h6>
+    </footer>
+
+</div><!-- /.container -->
+
+<script>
+  $('#filter').hover(function() {
+    $(this).stop();
+    $(this).addClass("pulse");
+  }, function() {
+    $(this).stop();
+    $(this).removeClass("pulse");
+  });
+
+  $('#map').hover(function() {
+    $(this).stop();
+    $(this).addClass("pulse");
+  }, function() {
+    $(this).stop();
+    $(this).removeClass("pulse");
+  });
+
+</script>
+
+

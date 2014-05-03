@@ -123,17 +123,17 @@
             pieChart  : [
               {
                 color       : 'red',
-                title       : 'dangerous',
+                title       : 'high',
                 value       : r_red_u
               },
               {
                 color       : 'yellow',
-                title       : 'maybe',
+                title       : 'intermediate',
                 value       : r_yellow_u
               },
               {
                 color       : 'blue',
-                title       : 'safe',
+                title       : 'low',
                 value       : r_blue_u
               }
             ]
@@ -143,17 +143,17 @@
             pieChart  : [
               {
                 color       : 'red',
-                title       : 'dangerous',
+                title       : 'high',
                 value       : r_red_t
               },
               {
                 color       : 'yellow',
-                title       : 'maybe',
+                title       : 'intermediate',
                 value       : r_yellow_t
               },
               {
                 color       : 'blue',
-                title       : 'safe',
+                title       : 'low',
                 value       : r_blue_t
               }
             ]
@@ -163,17 +163,17 @@
             pieChart  : [
               {
                 color       : 'red',
-                title       : 'dangerous',
+                title       : 'high',
                 value       : r_red_g
               },
               {
                 color       : 'yellow',
-                title       : 'maybe',
+                title       : 'intermediate',
                 value       : r_yellow_g
               },
               {
                 color       : 'blue',
-                title       : 'safe',
+                title       : 'low',
                 value       : r_blue_g
               }
             ]

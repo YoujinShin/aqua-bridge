@@ -15,7 +15,8 @@ Twilio.AuthToken  = '086057d5fc72ca6b195f967fce2ba375';
 
 exports.index = function(req, res) {
 	console.log("main page requested");
-	res.render('index.html');
+	res.render('index_new.html');
+	// res.render('index.html');
 }
 
 exports.aboutus = function(req, res) {

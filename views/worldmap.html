@@ -10,10 +10,13 @@
 <link rel="stylesheet" href="css/animations.css">
 
 <style type="text/css">
-  circle {
-    stroke: #fff;
-    stroke-opacity: .0;
+  body {
+    margin-top: 70px;
   }
+/*  .circle {
+    stroke: #fff;
+    stroke-opacity: .08
+  }*/
   #cartodb-map {
     padding: 20px;
   }
@@ -108,118 +111,118 @@
 
 <script type="text/javascript">
 
-var getData = function () {
-  var url = '/allwater';
-  $.getJSON(url, function(temp_data) {
+// var getData = function () {
+//   var url = '/allwater';
+//   $.getJSON(url, function(temp_data) {
 
-    var w = 1000,
-        h = 400;
+//     var w = 1000,
+//         h = 400;
 
-    var data = temp_data.quality;
-    var nodes = data.map(function(data) { 
-       var so;
-       var pet_b = data.properties["petrifilm_blue"];
-       var pet_r = data.properties["petrifilm_red"];
-       var col = data.properties["colilert"];
+//     var data = temp_data.quality;
+//     var nodes = data.map(function(data) { 
+//        var so;
+//        var pet_b = data.properties["petrifilm_blue"];
+//        var pet_r = data.properties["petrifilm_red"];
+//        var col = data.properties["colilert"];
 
-       if (pet_b > 0 || col == "fluorescence") {
-         so = '#ff7800';
-       } else if (pet_r > 0 || col == "yellow") {
-         so = '#ffff33';
-       } else {
-         so = '#3399ff';
-       }
+//        if (pet_b > 0 || col == "fluorescence") {
+//          so = '#ff7800';
+//        } else if (pet_r > 0 || col == "yellow") {
+//          so = '#ffff33';
+//        } else {
+//          so = '#3399ff';
+//        }
 
-      return {
-        radius: 10,
-        color: so
-      }; 
-    }); // array
+//       return {
+//         radius: 10,
+//         color: so
+//       }; 
+//     }); // array
 
-    var force = d3.layout.force()
-        .gravity(0.09)
-        .charge(function(d, i) { return i ? 0 : -300; })
-        .nodes(nodes)
-        .size([w, h]);
+//     var force = d3.layout.force()
+//         .gravity(0.09)
+//         .charge(function(d, i) { return i ? 0 : -300; })
+//         .nodes(nodes)
+//         .size([w, h]);
 
-    var root = nodes[0];
-    root.radius = 10;
-    root.fixed = true;
+//     var root = nodes[0];
+//     root.radius = 10;
+//     root.fixed = true;
 
-    force.start();
+//     force.start();
 
-    var svg = d3.select("#body").append("svg:svg")
-        .attr("width", w)
-        .attr("height", h);
+//     var svg = d3.select("#body").append("svg:svg")
+//         .attr("width", w)
+//         .attr("height", h);
 
-    svg.append("rect")
-    .attr("width", w)
-    .attr("height", h)
-    .attr("fill", "black");
+//     svg.append("rect")
+//     .attr("width", w)
+//     .attr("height", h)
+//     .attr("fill", "black");
 
-    svg.selectAll("circle")
-        .data(nodes.slice(0))
-      .enter().append("svg:circle")
-        .attr("r", function(d) { return d.radius; })
-        .style("fill", function(d) { 
-          return d.color; 
-        });
+//     svg.selectAll("circle")
+//         .data(nodes.slice(0))
+//       .enter().append("svg:circle")
+//         .attr("r", function(d) { return d.radius; })
+//         .style("fill", function(d) { 
+//           return d.color; 
+//         });
 
-    force.on("tick", function(e) {
-      var q = d3.geom.quadtree(nodes),
-          i = 0,
-          n = nodes.length;
+//     force.on("tick", function(e) {
+//       var q = d3.geom.quadtree(nodes),
+//           i = 0,
+//           n = nodes.length;
 
-      while (++i < n) {
-        q.visit(collide(nodes[i]));
-      }
+//       while (++i < n) {
+//         q.visit(collide(nodes[i]));
+//       }
 
-      svg.selectAll("circle")
-          .attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
-    });
+//       svg.selectAll("circle")
+//           .attr("cx", function(d) { return d.x; })
+//           .attr("cy", function(d) { return d.y; });
+//     });
 
-    svg.on("mousemove", function() {
-      var p1 = d3.svg.mouse(this);
-      root.px = p1[0];
-      root.py = p1[1];
-      force.resume();
-    });
+//     svg.on("mousemove", function() {
+//       var p1 = d3.svg.mouse(this);
+//       root.px = p1[0];
+//       root.py = p1[1];
+//       force.resume();
+//     });
 
-    function collide(node) {
-      var r = node.radius + 2, //16
-          nx1 = node.x - r,
-          nx2 = node.x + r,
-          ny1 = node.y - r,
-          ny2 = node.y + r;
+//     function collide(node) {
+//       var r = node.radius + 2, //16
+//           nx1 = node.x - r,
+//           nx2 = node.x + r,
+//           ny1 = node.y - r,
+//           ny2 = node.y + r;
 
-      return function(quad, x1, y1, x2, y2) {
+//       return function(quad, x1, y1, x2, y2) {
 
-        if (quad.point && (quad.point !== node)) {
-          var x = node.x - quad.point.x,
-              y = node.y - quad.point.y,
-              l = Math.sqrt(x * x + y * y),
-              r = node.radius + quad.point.radius;
+//         if (quad.point && (quad.point !== node)) {
+//           var x = node.x - quad.point.x,
+//               y = node.y - quad.point.y,
+//               l = Math.sqrt(x * x + y * y),
+//               r = node.radius + quad.point.radius;
 
-          if (l < r) {
-            l = (l - r) / l * .5;
-            node.x -= x *= l;
-            node.y -= y *= l;
-            quad.point.x += x;
-            quad.point.y += y;
-          }
-        };
-        return x1 > nx2
-            || x2 < nx1
-            || y1 > ny2
-            || y2 < ny1;
-      };
-    };
+//           if (l < r) {
+//             l = (l - r) / l * .5;
+//             node.x -= x *= l;
+//             node.y -= y *= l;
+//             quad.point.x += x;
+//             quad.point.y += y;
+//           }
+//         };
+//         return x1 > nx2
+//             || x2 < nx1
+//             || y1 > ny2
+//             || y2 < ny1;
+//       };
+//     };
 
-  }); // $getJSON
-}; // end of function
+//   }); // $getJSON
+// }; // end of function
 
-getData();
+// getData();
 
 
 

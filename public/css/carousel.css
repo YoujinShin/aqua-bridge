@@ -59,8 +59,8 @@ footer {
 
 /* Carousel base class */
 .carousel {
-  /*height: 540px;*/
-  height: 682px;
+  height: 600px;
+  /*height: 682px;*/
   margin-bottom: 60px;
 }
 /* Since positioning the image, we need to help out the caption */
@@ -71,8 +71,8 @@ footer {
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  /*height: 540px;*/
-  height: 682px;
+  height: 600px;
+  /*height: 682px;*/
   background-color: #777;
 }
 .carousel-inner > .item > img {
@@ -115,7 +115,8 @@ footer {
 }
 /* Thin out the marketing headings */
 .featurette-heading {
-  font-weight: 300;
+  /*font-weight: 300;*/
+  font-weight: 200;
   line-height: 1;
   letter-spacing: -1px;
 }
