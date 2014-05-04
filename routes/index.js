@@ -6,6 +6,7 @@
 var request = require('request'); // library to make requests to remote urls
 var moment = require("moment"); // date manipulation library
 var qualityModel = require("../models/quality.js"); //db model
+var filterModel = require("../models/quality_tanzania.js"); //db model
 var smsModel = require("../models/sms.js");
 //var astronautModel = require("../models/astronaut.js"); //db model
 
@@ -224,7 +225,110 @@ exports.deletewater = function(req,res) {
 	});
 };
 
-// JSON SMS DATA
+// Filter performance data ////////////////////////////////////////////////
+exports.filter_tanzania = function(req, res) {
+	console.log("filter tanzania requested");
+	res.render('filter_tanzania.html');
+}
+
+exports.createFilter = function(req, res) {
+	console.log("received filter data form submission");
+	console.log(req.body);
+	var date = moment(this.date), formatted = date.format('YY[-]MM[-]DD[_]HH[:]mm[:]ss[_]');
+	console.log(date);
+
+	var newFilter = new filterModel({
+		slug : formatted + req.body.reference.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'_'),
+		type : "Feature",
+		properties : {
+			reference : req.body.reference,
+			colilert : req.body.colilert,
+			petrifilm_blue : parseFloat(req.body.petrifilm_blue),
+			petrifilm_red : parseFloat(req.body.petrifilm_red),
+			testdate : req.body.testdate
+		},
+		geometry : {
+			type : "Point",
+			coordinates : [parseFloat(req.body.lon), parseFloat(req.body.lat)]
+		} 
+	});
+
+	if(req.body.sourcetype == "other") {
+		newFilter.properties.sourcetype = req.body.sourcetype_other;
+		// console.log(req.body.sourcetype_other);
+	} else {
+		newFilter.properties.sourcetype = req.body.sourcetype;
+	}
+
+	// save the new quality to the database
+	if(req.body.password == "tanzania") {
+		newFilter.save(function(err){
+			if (err) {
+				console.error("Error on saving new water filter data");
+				console.error(err); // log out to Terminal all errors
+
+				var templateData = {
+					page_title : 'Enlist a new filter',
+					errors : err.errors, 
+					filter : req.body
+				};
+				res.render('filter_tanzania.html', templateData);
+				// return res.send("There was an error when creating a new astronaut");
+			} else {
+				console.log("Created a new filter!");
+				// console.log(newQuality);
+				// res.redirect('/datamapping');
+				res.redirect('/filter/'+ newFilter.slug);
+				// res.redirect('/password_err');
+			}
+		});
+	}  else {
+				console.log("Created a new filter!");
+				// console.log(newQuality);
+				// res.redirect('/datamapping');
+				res.redirect('/filter/'+ newFilter.slug);
+	};
+}
+
+exports.oneFilter = function(req, res) {
+	console.log("one filter data page requested for " + req.params.filter_id);
+	var filter_id = req.params.filter_id; //get the requested astronaut by the param on the url :quality_id
+	var filterQuery = filterModel.findOne({slug:filter_id}); // query the database for astronaut
+	// console.log(qualityQuery);
+	
+	filterQuery.exec(function(err, currentFilter){
+		if (err) {
+			return res.status(500).send("There was an error on the filter query");
+		}
+		if (currentFilter == null) {
+			return res.status(404).render('404.html');
+		}
+		console.log("Found filter");
+		console.log(currentFilter.reference);
+
+		var templateData = {
+			filter : currentFilter,
+			pageTitle : currentFilter.reference
+		}
+		res.render('oneFilter.html', templateData);
+	}); 
+}
+
+exports.allfilter = function(req, res) { 
+	console.log("all filter data retrieved");
+	filterQuery = filterModel.find({}); // query for all quality
+
+	filterQuery.exec(function(err, allFilter){
+		// prepare data for JSON
+		var jsonData = {
+			status : 'OK',
+			filter : allFilter
+		}
+		res.json(jsonData);
+	});
+}
+
+// JSON SMS DATA ///////////////////////////////////////////////////////////
 exports.allsms = function(req, res) {
 	console.log("all sms data retrieved");
 	smsQuery = smsModel.find({}); // query for all sms

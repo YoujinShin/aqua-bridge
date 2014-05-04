@@ -1,0 +1,81 @@
+<style>
+	h3 {font-size:15px; position:relative; top:0px; text-align:left; padding-left: 0px;}
+	p {position:relative; text-align:left; top:20px;}
+	.form-group {
+		position: relative; top: 70px;
+	}
+	#map-canvas {
+    	width:100%;
+    	height: 380px; top: 30px;
+  }
+  .strong {
+    color: rgb(160,160,160);
+  }
+  a:hover {
+    text-decoration:none;
+  }
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+
+<h1>{{filter.properties.reference}}</h1>
+
+
+<div class="form-group">
+
+	<div class="col-sm-offset-2 col-sm-4">
+		<div id="map-canvas"></div>
+	</div>
+
+	<div class="col-sm-4" style="padding: 20px;">
+		<h3><span class="strong">Date: </span>{{filter.properties.testdate}}</h3>
+		<h3><span class="strong">Source type: </span>{{filter.properties.sourcetype}}</h3>
+
+		<h3 style="padding-top:18px;"><span class="strong">Colilert: </span>{{ filter.properties.colilert }}</h3>
+		<h3><span class="strong">Petrifilm (blue): </span>{{ filter.properties.petrifilm_blue }}</h3>
+		<h3><span class="strong">Petrifilm (red): </span>{{ filter.properties.petrifilm_red }}</h3>
+
+    <h3 style="padding-top:18px;"><span class="strong">Latitude: </span>{{ filter.geometry.coordinates.0 }}</h3>
+    <h3><span class="strong">Longitude: </span>{{ filter.geometry.coordinates.1 }}</h3>
+
+    <br><br>
+
+  </div>
+	</div>
+
+</div>
+
+
+
+<script>
+var map;
+function initialize() {
+
+  var lat = {{ filter.geometry.coordinates.1 }};
+  var lon = {{ filter.geometry.coordinates.0 }};
+
+  var tanzania = new google.maps.LatLng(lat, lon);
+
+  var mapOptions = {
+    zoom: 12,
+    center: new google.maps.LatLng(lat, lon),
+    // mapTypeId: google.maps.MapTypeId.TERRAIN
+    // mapTypeId: google.maps.MapTypeId.HYBRID
+    // mapTypeId: google.maps.MapTypeId.SATELLITE
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var marker_tanzania = new google.maps.Marker({
+    position: tanzania,
+    map: map
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+

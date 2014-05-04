@@ -1,0 +1,410 @@
+<style>
+	form {
+		position: relative;
+		top: 40px;
+		padding: 25px;
+		padding-bottom: 45px;
+		font-size: 14px;
+	}
+	.form-group {
+		padding-bottom: 10px;
+	}
+	body{
+		font-family: 'Open Sans', sans-serif; margin-top: 70px;
+		color: rgb(10,10,10); 
+	}
+	.radio {
+		margin-left: 30px; 
+	}
+	p {position: relative; font-size: 18px; text-align: center; color: rgb(132,132,132);}
+	hr {margin-left: 32%; margin-right: 32%; border-color: rgb(212,212,212);}
+
+	#map-canvas {
+    	width:100%;
+    	height: 260px; 
+    }
+</style>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+
+
+<!-- <h1>WATER QUALITY RESULT</h1> -->
+<form class="form-horizontal" method="POST" action="/createFilter" role="form">
+	<!-- <p>Basic information</p> <br> -->
+
+<!-- name -->
+	<div class="form-group">
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Name </label>
+		<div class="col-sm-4">
+			<input type="text" name="reference" class="form-control" id="reference" value="{{quality.reference}}" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 15px;">* Name it as you want! It will be shown on the map. </p>	
+		</div>
+	</div>
+
+<!-- date -->
+	<div class="form-group" style="z-index: 50;">
+		<label for="testdate" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Date </label>
+		<div class="col-sm-4">
+	        <input type="text" name="testdate" id="testdate" class="form-control date_select" style="z-index: 10;" required/>
+	    </div>
+    </div>
+
+<!-- location -->
+	<div class="form-group">
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Location </label>
+		<div class="col-sm-1">
+			<button onclick="getLocation()" type="button" class="btn btn-default" style="">
+					<img src="location.png" style="width: 12px;"/>
+			</button>
+		</div>
+		<div class="col-sm-3">
+			<div class="input-group custom-search-form">
+				<input type="text" class="form-control" name="address" id="address" value="123 Street, City State/Country" onfocus="if (this.value == '123 Street, City State/Country'){this.value='';} " style="z-index: 0;">
+				<span class="input-group-btn">
+					<button onclick="showAddress()" class="btn btn-default" type="button">
+			  			<span class="glyphicon glyphicon-search"></span>
+			 		</button>
+			 	</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<div id="map-canvas"></div>
+		</div>
+	</div> 
+
+	<div class="form-group">
+		<label for="lat" class="col-sm-4 control-label"> latitude </label>
+		<div class="col-sm-4">
+			<input type="text" name="lat" class="form-control" id="lat" required>	
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="long" class="col-sm-4 control-label"> longitude </label>
+		<div class="col-sm-4">
+			<input type="text" name="lon" class="form-control" id="lon" required>
+		</div>
+	</div>
+	<br>
+
+<!-- source type -->
+	<div class="form-group">
+		<label for="sourcetype" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Source type </label>
+
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="tapwater" checked>
+		    Tap water
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="well" >
+		    Well
+		  </label>
+		</div>		
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-2 ">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="rainwater" >
+		    Rainwater
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="river" >
+		    River
+		  </label>
+		</div>	
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4 ">
+		  <label>
+		    <input type="radio" name="sourcetype" id="sourcetype" value="other">
+		    Other
+		  </label>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+		    <input type="text" class="form-control"  name="sourcetype_other" id="sourcetype_other" style="display:none;">
+		</div>	
+	</div>
+
+<!-- test type -->
+	<div class="form-group">
+		<label for="testtype" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Test type </label>
+
+		<div class="col-sm-2">
+		  <label>
+		    <input type="checkbox" name="testtype_p" id="testtype_p" value="petrifilm_test">
+		    <img src="/img/petrifilm.png" style="width:76px; opacity:0.9; padding:4px;" class="img-rounded"/>
+		    Petrifilm
+		  </label>
+		</div>
+		<div class="col-sm-2">
+		  <label>
+		    <input type="checkbox" name="testtype_c" id="testtype_c" value="colilert_test" >
+		    <img src="/img/colilert.jpg" style="width:78px; opacity:0.9; padding:4px;"/>
+		    Colilert
+		  </label>
+		</div>		
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 15px;">* Check the test you have conducted to submit data. </p>	
+		</div>
+	</div><br>
+
+	<!-- <hr> -->
+	<!-- <p>Water quality test result</p> -->
+	<!-- petrifilm -->
+	<div class="form-group">
+		<label class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px; display: none" id="pet"> 
+			Petrifilm
+		</label>
+	</div>
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label" style="display:none" >blue dots</label>
+		<div class="col-sm-4"  id="petrifilm_result" style="display:none">
+			<input type="text" class="form-control bfh-number" name="petrifilm_blue" id="petrifilm_blue" data-min="-1" data-max="11" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="petrifilm" class="col-sm-4 control-label" id="petrifilm_label2" style="display:none" >red dots</label>
+		<div class="col-sm-4" id="petrifilm_result2" style="display:none">
+			<input type="text" name="petrifilm_red" class="form-control bfh-number"  id="petrifilm_red" data-min="-1" data-max="11"> 
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4" >
+			<p style="text-align:left; font-size:15px; display:none;" id="pet_description">
+				* Count number of dots. Please put 11 if you see more than 10 dots.
+			</p>	
+		</div>
+	</div>
+	
+	<!-- <br> -->
+	<!-- colilert -->
+	<div class="form-group">
+		<label for="colilert" class="col-sm-4 control-label" style="font-family: sans-serif; font-size:15px; display: none" id="col"> 
+			Colilert
+		</label>
+		<div class="col-sm-4">
+			<select class="form-control" name="colilert" id="colilert_result" style="display:none;">
+				<option id="colilert" value="none"></option>
+			  <option id="colilert" value="transparent">transparent</option>
+			  <option id="colilert" value="yellow">yellow</option>
+			  <option id="colilert" value="fluorescence">fluorescence</option> 
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4" >
+			<p style="text-align:left; font-size:15px; display:none;" id="col_description">
+				* Check the color of test tube.
+			</p>	
+		</div>
+	</div>
+
+	<br>
+	<div class="form-group">
+		<label for="reference" class="col-sm-4 control-label" style="font-family: sans-serif;font-size:15px;"> Password </label>
+		<div class="col-sm-4">
+			<input type="password" name="password" id="password" class="form-control" >	
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">
+			<p style="text-align: left; font-size: 15px;">* Password is indicated in your instruction paper. </p>	
+		</div>
+	</div>
+
+<!-- add a new data button -->
+	<br>
+	<div class="form-group">
+		<div class="col-sm-offset-4 col-sm-4">  
+			<input class="btn btn-info btn-lg btn-block" type="submit" value="Add a filter data" >
+		</div>
+	</div>
+</form><br><br><br><br><br>
+
+
+<!-- <div id="map-canvas"></div> -->
+
+<script>
+
+	// how to get current position
+    var x=document.getElementById("demo");
+    function getLocation()
+    {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        } else {x.innerHTML="Geolocation is not supported by this browser.";}
+    }
+    
+    function showPosition(position) {
+        var latlon=position.coords.latitude+","+position.coords.longitude;
+
+        var tlat = position.coords.latitude;
+        var tlng = position.coords.longitude;
+            $("#lat").val (tlat);
+            $("#lon").val (tlng);
+
+        var latLng= {lat:tlat, lng:tlng};
+        if (map.getZoom() < 16){
+		  		map.setZoom(16);
+		  	}
+
+	  	map.panTo(latLng);
+	  	var marker = new google.maps.Marker({
+		    position: latLng,
+		    map: map
+		});
+    
+        var img_url="http://maps.googleapis.com/maps/api/staticmap?center="+latlon
+        +"&markers=icon:http://tinyurl.com/2ftvtt6|"+latlon+
+        "&zoom=14&size=320x180&sensor=false";
+        document.getElementById("mapholder").innerHTML="<img src='"+img_url+"'>";
+    }
+      
+    function showError(error) {
+        switch(error.code) 
+        {
+            case error.PERMISSION_DENIED:
+              x.innerHTML="User denied the request for Geolocation."
+              break;
+            case error.POSITION_UNAVAILABLE:
+              x.innerHTML="Location information is unavailable."
+              break;
+            case error.TIMEOUT:
+              x.innerHTML="The request to get user location timed out."
+              break;
+            case error.UNKNOWN_ERROR:
+              x.innerHTML="An unknown error occurred."
+              break;
+        }
+    }
+
+    // date picker /////////////////////////////////////////////////////// 
+    $(function() {
+        $('.date_select').datepicker();
+    });  
+
+    // form show and hide
+	jQuery(document).ready(function(){
+		$('input:radio[name="sourcetype"]').change(function(){
+		    if($(this).val() == 'other'){
+		    	$("#sourcetype_other").css('display','initial');
+		       // alert("test");
+		    } else {
+		    	$("#sourcetype_other").css('display', 'none');
+		    }
+		});
+
+		$('input:checkbox[name="testtype_c"]').change(function(){
+		    if($(this).is(':checked')) {
+		    	$("#colilert_result").css('display','initial');
+		    	$("#col").css('display','initial');
+		    	$("#col_description").css('display','initial');
+		       // alert("test");
+		    } else {
+		    	$("#colilert_result").css('display', 'none');
+		    	$("#col").css('display','none');
+		    	$("#col_description").css('display','none');
+		    }
+		});
+
+		$('input:checkbox[name="testtype_p"]').change(function(){
+		    if($(this).is(':checked')) {
+		    	$("#petrifilm_result").css('display','initial');
+		    	$("#petrifilm_result2").css('display','initial');
+		    	$("#petrifilm_label").css('display','initial');
+		    	$("#petrifilm_label2").css('display','initial');
+		    	$("#pet").css('display','initial');
+		    	$("#pet_description").css('display','initial');
+		    } else {
+		    	$("#petrifilm_result").css('display', 'none');
+		    	$("#petrifilm_result2").css('display','none');
+		    	$("#petrifilm_label").css('display', 'none');
+		    	$("#petrifilm_label2").css('display','none');
+		    	$("#pet").css('display','none');
+		    	$("#pet_description").css('display','none');
+		    }
+		});
+	});
+
+
+// for the map
+///////////////////////////////////////////////////////////////////////////////
+var mapOptions = {
+    zoom: 3,
+    center: new google.maps.LatLng(20, -10)
+  };
+
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+function initialize() {
+  google.maps.event.addListener(map, 'click', function(e) {
+	placeMarker(e.latLng, map);
+
+    $("#lat").val(e.latLng.lat());
+    $("#lon").val(e.latLng.lng());
+    // $("#latbox").val(e.latLng.lat());
+    // $("#lonbox").val(e.latLng.lng());
+  });
+}
+
+function placeMarker(position, map) {
+  if (map.getZoom() < 8){
+  	map.setZoom(8);
+  }
+
+  var marker = new google.maps.Marker({
+    position: position,
+    map: map
+  });
+
+  map.panTo(position);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+////////////////////////////////////////address///////////////////////////////
+function showAddress() {
+	var address = $("#address").val();
+	var geocoder = new google.maps.Geocoder();
+
+	geocoder.geocode( { 'address': address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+		  	if (map.getZoom() < 16){
+		  		map.setZoom(16);
+		  	}
+
+		  	map.panTo(results[0].geometry.location);
+		  	var marker = new google.maps.Marker({
+			    position: results[0].geometry.location,
+			    map: map
+			});
+
+		  	$("#lat").val( results[0].geometry.location.lat() );
+    		$("#lon").val( results[0].geometry.location.lng() );
+	 	} else {
+	  		alert("Geocode was not successful for the following reason: " + status);
+	 	}
+	});
+}
+	
+</script>
+

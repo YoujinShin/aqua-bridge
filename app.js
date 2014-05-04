@@ -98,8 +98,14 @@ app.get('/water', routes.water); // display form
 app.post('/createWater', routes.createWater); //form POST submits here
 app.get('/allwater', routes.allwater); // json - retreive all quality data from database
 
+// filter performance data
+app.get('/filter_tanzania', routes.filter_tanzania);
+app.post('/createFilter', routes.createFilter);
+app.get('/allfilter', routes.allfilter); 
+
 // display a single quality data
 app.get('/quality/:quality_id', routes.oneWater);
+app.get('/filter/:filter_id', routes.oneFilter);
 
 
 // delete a single quality data
