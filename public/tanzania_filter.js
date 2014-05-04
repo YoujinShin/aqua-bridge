@@ -31,8 +31,8 @@
                 $.getJSON('http://ws.geonames.org/countryCode', {
                     lat: clat,
                     lng: clon,
-                    username: 'meggonagul',
-                    // username: 'hiyoujin',
+                    // username: 'meggonagul',
+                    username: 'hiyoujin',
                     type: 'JSON'
                 }, mycallback);
              }
