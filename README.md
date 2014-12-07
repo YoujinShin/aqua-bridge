@@ -1,1 +1,3 @@
+AQUA-BRIDGE is a web-based data management platform for monitoring water quality and creating a crowd-sourced map of it. AQUA-BRIDGE is a streamlined system for logging and sharing water quality information all around the world. AQUA-BRIDGE offers a simple water quality test kits so the general public can have an opportunity to test their own drinking water. The water quality test results data is aggregated through a simple web-based form and shared through data visualization in real-time with the public. The system is developed for improving the access to water quality information and raising the awareness around water issues.
 
+www.aqua-bridge.org
